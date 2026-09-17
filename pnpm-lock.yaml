@@ -26,7 +26,16 @@ importers:
       '@codemirror/view':
         specifier: ^6.43.12
         version: 6.43.12
+      '@shikijs/engine-javascript':
+        specifier: ^4.4.3
+        version: 4.4.3
+      '@shikijs/langs':
+        specifier: ^4.4.3
+        version: 4.4.3
       '@shikijs/rehype':
+        specifier: ^4.4.3
+        version: 4.4.3
+      '@shikijs/themes':
         specifier: ^4.4.3
         version: 4.4.3
       '@testing-library/dom':
