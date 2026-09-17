@@ -1,8 +1,8 @@
 import { vi } from 'vitest';
 vi.mock('../components/Markdown', () => ({ Markdown: ({ source }: { source: string }) => <div>{source}</div> }));
 
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { render, screen, cleanup } from '@testing-library/react';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { QuizStep } from './QuizStep';
 import { progressStore } from '../progress/useProgress';
@@ -18,9 +18,6 @@ const step: QuizStepData = {
 };
 
 beforeEach(() => progressStore.replace(emptyProgress()));
-// This project does not enable vitest's `globals`, so RTL's auto-cleanup (which hooks the
-// global `afterEach`) never registers. Any test file with more than one `render()` needs this.
-afterEach(cleanup);
 
 describe('QuizStep', () => {
   it('shows one question at a time, gives feedback, and completes when all are answered', async () => {

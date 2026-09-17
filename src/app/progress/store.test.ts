@@ -110,6 +110,21 @@ describe('progress store', () => {
     expect(store.getSnapshot().steps['l/q']).toBeUndefined();
   });
 
+  it('clearCode removes saved code for that key, and is a no-op when absent', async () => {
+    const { backend } = fakeBackend();
+    const store = createProgressStore(backend, { debounceMs: 10 });
+    await store.load();
+    store.saveCode('l/ex', { 'App.tsx': 'v1' });
+    expect(store.getSnapshot().code['l/ex']).toEqual({ 'App.tsx': 'v1' });
+    const before = store.getSnapshot();
+    store.clearCode('l/ex');
+    expect(store.getSnapshot().code['l/ex']).toBeUndefined();
+    expect(store.getSnapshot()).not.toBe(before);
+    const after = store.getSnapshot();
+    store.clearCode('l/ex');
+    expect(store.getSnapshot()).toBe(after);
+  });
+
   it('flush() saves immediately without waiting for the debounce', async () => {
     const { backend, saves } = fakeBackend();
     const store = createProgressStore(backend, { debounceMs: 1000 });
