@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { evaluate, ModuleNotFoundError, esm } from './modules';
 import { CompileError } from './compile';
+import { baseRegistry } from './registry';
 
 const registry = {
   'fake-lib': esm({ default: () => 'default!', named: 42 }),
@@ -69,5 +70,15 @@ describe('evaluate', () => {
 
   it('throws if the entry file does not exist', () => {
     expect(() => evaluate({ 'a.ts': 'export {}' }, 'App.tsx', registry)).toThrow(/entry/i);
+  });
+
+  it('runs real React through the registry (default and named imports)', () => {
+    const mod = evaluate(
+      { 'App.tsx': "import React, { useState } from 'react'; export default function App() { const [n] = useState(1); return <p>{n}</p>; } export const version = React.version;" },
+      'App.tsx',
+      baseRegistry,
+    );
+    expect(typeof mod.default).toBe('function');
+    expect(String(mod.version)).toMatch(/^19\./);
   });
 });
