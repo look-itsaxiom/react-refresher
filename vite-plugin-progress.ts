@@ -4,6 +4,7 @@ import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { Plugin } from 'vite';
 
 // Duplicated (not imported) from src/app/progress/types.ts so this file stays in the node tsconfig project.
+// Keep in sync with src/app/progress/types.ts (this file must not import from src/).
 type Progress = {
   version: 1;
   steps: Record<string, unknown>;
@@ -50,7 +51,11 @@ export function createProgressHandler(io: ProgressIo) {
         return { status: 400, body: 'Malformed JSON' };
       }
       if (!isProgress(parsed)) return { status: 400, body: 'Invalid progress shape' };
-      await io.write(`${JSON.stringify(parsed, null, 2)}\n`);
+      try {
+        await io.write(`${JSON.stringify(parsed, null, 2)}\n`);
+      } catch {
+        return { status: 500, body: 'Failed to write progress file' };
+      }
       return { status: 204, body: '' };
     }
     return { status: 405, body: 'Method not allowed' };
@@ -69,7 +74,7 @@ function fileIo(path: string): ProgressIo {
     },
     async write(text) {
       await mkdir(dirname(path), { recursive: true });
-      const tmp = `${path}.tmp`;
+      const tmp = `${path}.${process.pid}.${Date.now()}.${Math.random().toString(36).slice(2)}.tmp`;
       await writeFile(tmp, text, 'utf8');
       await rename(tmp, path); // atomic on the same volume
     },

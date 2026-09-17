@@ -33,6 +33,7 @@ export function createProgressStore(
   let saveState: SaveState = 'loading';
   let timer: ReturnType<typeof setTimeout> | null = null;
   let dirty = false;
+  let inFlight: Promise<void> | null = null;
   const listeners = new Set<() => void>();
 
   function emit() {
@@ -45,18 +46,26 @@ export function createProgressStore(
     emit();
   }
 
-  async function persist(): Promise<void> {
+  function persist(): Promise<void> {
     if (timer) { clearTimeout(timer); timer = null; }
-    if (!dirty) return;
-    dirty = false;
-    setSaveState('saving');
-    try {
-      await backend.save(progress);
-      if (!dirty) setSaveState('saved');
-    } catch {
-      dirty = true;
-      setSaveState('error');
-    }
+    if (inFlight) return inFlight;
+    if (!dirty) return Promise.resolve();
+    inFlight = (async () => {
+      while (dirty) {
+        dirty = false;
+        const snapshot = progress;
+        setSaveState('saving');
+        try {
+          await backend.save(snapshot);
+          if (!dirty) setSaveState('saved');
+        } catch {
+          dirty = true;
+          setSaveState('error');
+          break;
+        }
+      }
+    })().finally(() => { inFlight = null; });
+    return inFlight;
   }
 
   function schedule() {

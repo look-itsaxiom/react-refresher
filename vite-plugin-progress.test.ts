@@ -48,4 +48,14 @@ describe('progress handler', () => {
     const { io } = fakeIo(null);
     expect((await createProgressHandler(io)('DELETE', '')).status).toBe(405);
   });
+
+  it('PUT returns 500 when the write fails', async () => {
+    const io = {
+      read: async () => null,
+      write: async () => { throw new Error('disk full'); },
+    };
+    const body = JSON.stringify({ version: 1, steps: {}, code: {}, quiz: {} });
+    const res = await createProgressHandler(io)('PUT', body);
+    expect(res.status).toBe(500);
+  });
 });

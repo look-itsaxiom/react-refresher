@@ -9,6 +9,7 @@
     "isolatedModules": true,
     "skipLibCheck": true,
     "noEmit": true,
+    "allowImportingTsExtensions": true,
     "types": ["node"]
   },
   "include": ["vite.config.ts", "vite-plugin-progress.ts", "vite-plugin-progress.test.ts"]

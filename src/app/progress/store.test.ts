@@ -105,4 +105,44 @@ describe('progress store', () => {
     await store.flush();
     expect(saves.length).toBe(1);
   });
+
+  it('serializes saves: an edit + flush during an in-flight save does not start a concurrent save', async () => {
+    const { backend, saves } = fakeBackend();
+    let rejectFirst: (e: unknown) => void = () => {};
+    let resolveSecond: () => void = () => {};
+    let callCount = 0;
+    backend.save.mockImplementation((p: Progress) => {
+      callCount += 1;
+      if (callCount === 1) {
+        return new Promise<void>((_resolve, reject) => { rejectFirst = reject; });
+      }
+      return new Promise<void>((resolve) => {
+        resolveSecond = () => { saves.push(structuredClone(p)); resolve(); };
+      });
+    });
+    const store = createProgressStore(backend, { debounceMs: 10 });
+    await store.load();
+
+    store.completeStep('a/b');
+    await vi.advanceTimersByTimeAsync(10); // save #1 starts and is now in flight
+    expect(backend.save).toHaveBeenCalledTimes(1);
+
+    store.saveCode('a/b', { 'App.tsx': 'v2' }); // edit while save #1 is still pending
+    const flushed = store.flush(); // must not start a second, overlapping save
+    expect(backend.save).toHaveBeenCalledTimes(1);
+
+    rejectFirst(new Error('disk full'));
+    await flushed;
+    expect(store.getSaveState()).toBe('error');
+    expect(backend.save).toHaveBeenCalledTimes(1); // no concurrent save was ever started
+
+    store.retrySave();
+    expect(backend.save).toHaveBeenCalledTimes(2); // save #2 only starts once #1 has settled
+
+    resolveSecond();
+    await vi.advanceTimersByTimeAsync(0);
+    expect(store.getSaveState()).toBe('saved');
+    expect(saves.length).toBe(1);
+    expect(saves[0]?.code['a/b']).toEqual({ 'App.tsx': 'v2' });
+  });
 });
