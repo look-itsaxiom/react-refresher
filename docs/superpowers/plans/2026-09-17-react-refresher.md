@@ -4353,24 +4353,29 @@ import type { Check } from '../../../types';
 export const checks: Check[] = [
   {
     name: 'shows "Loading profile…" while the user is loading',
-    run: async ({ render, screen, expect, server, Component }) => {
-      server.setLatency(300);
+    // Take `ctx` whole: destructuring `Component` in the parameter list would evaluate the module
+    // (and create `userPromise`) before `setLatency` runs.
+    run: async (ctx) => {
+      ctx.server.setLatency(300);
+      const { render, screen, expect, Component } = ctx;
       render(<Component />);
       expect(screen.queryByText('Loading profile…'), 'fallback text').to.not.equal(null);
     },
   },
   {
     name: 'keeps the Profile heading visible during loading',
-    run: async ({ render, screen, expect, server, Component }) => {
-      server.setLatency(300);
+    run: async (ctx) => {
+      ctx.server.setLatency(300);
+      const { render, screen, expect, Component } = ctx;
       render(<Component />);
       expect(screen.queryByRole('heading', { level: 1, name: 'Profile' })).to.not.equal(null);
     },
   },
   {
     name: 'renders the user once loaded and removes the fallback',
-    run: async ({ render, screen, expect, server, Component }) => {
-      server.setLatency(50);
+    run: async (ctx) => {
+      ctx.server.setLatency(50);
+      const { render, screen, expect, Component } = ctx;
       render(<Component />);
       await screen.findByText('Ada Lovelace', undefined, { timeout: 2000 });
       expect(screen.queryByText('Loading profile…')).to.equal(null);
@@ -5229,7 +5234,7 @@ Checks receive a `CheckContext`:
 ```
 
 Rules:
-- Configure `server` **before** touching `mod`/`Component`; module top-level code (like a cached `fetchUser(1)`) runs on first access.
+- Configure `server` **before** touching `mod`/`Component`; module top-level code (like a cached `fetchUser(1)`) runs on first access. Destructuring `Component` in the check's parameter list counts as touching it, so for such exercises write `run: async (ctx) => { ctx.server.setLatency(300); const { render, Component } = ctx; ... }`.
 - Each check gets a fresh module evaluation, fresh server state, latency 0, and a clean DOM.
 - Assert on behavior visible in the DOM, never on source text. A user who solves it differently should still pass.
 - Keep total check time under ~3s per exercise; default timeout per check is 5s.
