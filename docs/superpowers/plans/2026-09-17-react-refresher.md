@@ -469,6 +469,7 @@ export const curriculum: PlannedLesson[] = [
   { id: '10-use-and-ref-changes', track: 'react19', title: 'use(), ref as a prop, ref cleanup', summary: 'Reading promises and context with use(); forwardRef is over.' },
   { id: '11-metadata-and-resources', track: 'react19', title: 'Document metadata and resource hints', summary: 'title/meta/link in components, stylesheet precedence, preload APIs.' },
   { id: '12-react-19-removals', track: 'react19', title: 'What React 19 removed', summary: 'propTypes, string refs, legacy context, ReactDOM.render, and how to migrate.' },
+  { id: '24-activity-effect-events-view-transitions', track: 'react19', title: 'Activity, useEffectEvent, ViewTransition', summary: 'The 19.2 and 19.3 primitives: hide-but-keep-state, non-reactive effect logic, animated transitions.' },
   { id: '13-what-the-compiler-does', track: 'compiler', title: 'What the React Compiler does', summary: 'Automatic memoization, the rules it relies on, and reading its output.' },
   { id: '14-compiler-friendly-code', track: 'compiler', title: 'Writing compiler-friendly code', summary: 'Purity, mutation, and when useMemo/useCallback still matter.' },
   { id: '15-server-state-tanstack-query', track: 'ecosystem', title: 'Server state with TanStack Query', summary: 'Queries, mutations, invalidation, and why useEffect fetching is gone.' },
