@@ -10,6 +10,11 @@ const variants = {
 };
 const sizes = { sm: 'px-2.5 py-1 text-xs', md: 'px-3.5 py-2 text-sm' };
 
+/** The classes a `Button` renders with, for non-`<button>` elements (e.g. a `Link`) styled to match. */
+export function buttonClassName(variant: NonNullable<Props['variant']> = 'primary', size: NonNullable<Props['size']> = 'md', className = ''): string {
+  return `${base} ${variants[variant]} ${sizes[size]} ${className}`;
+}
+
 export function Button({ variant = 'primary', size = 'md', className = '', type = 'button', ...rest }: Props) {
-  return <button type={type} className={`${base} ${variants[variant]} ${sizes[size]} ${className}`} {...rest} />;
+  return <button type={type} className={buttonClassName(variant, size, className)} {...rest} />;
 }

@@ -9,7 +9,7 @@ const [optimisticTodos, addOptimisticTodo] = useOptimistic(
   state.todos,                                   // the "real" value
   (current, title: string) => [                  // how to apply one optimistic update
     ...current,
-    { id: -1, title, done: false, pending: true },
+    { id: -Date.now(), title, done: false, pending: true },
   ],
 );
 ```
@@ -44,7 +44,7 @@ Because the optimistic item carries a flag, you can render it differently:
 </li>
 ```
 
-Use a stable temporary key (like `` `tmp-${title}` ``) for optimistic items; they are replaced by the server's item, which has a real id.
+Give optimistic items a temporary id that cannot collide with a server id (the solution uses a negative timestamp) and use it as the `key`; the server's item, with its real id, replaces it when the action settles.
 
 ## Failure is the interesting case
 
