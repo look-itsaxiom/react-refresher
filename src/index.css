@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@theme {
+  --color-surface: #0f1115;
+  --color-surface-2: #171a21;
+  --color-surface-3: #1f2430;
+  --color-border: #2a3040;
+  --color-ink: #e7e9ee;
+  --color-ink-muted: #9aa3b2;
+  --color-accent: #61dafb;
+  --color-accent-strong: #22b8e6;
+  --color-success: #4ade80;
+  --color-danger: #f87171;
+  --color-warning: #fbbf24;
+}
+
+:root[data-theme="light"] {
+  --color-surface: #ffffff;
+  --color-surface-2: #f5f6f8;
+  --color-surface-3: #e9ebf0;
+  --color-border: #d6dae3;
+  --color-ink: #14171e;
+  --color-ink-muted: #5b6474;
+  --color-accent: #0a7ea4;
+  --color-accent-strong: #086482;
+}
+
+html, body, #root { height: 100%; }
+body { @apply bg-surface text-ink antialiased; }
+
+/* shiki dual themes: light values are default, dark variables under data-theme=dark */
+:root[data-theme="dark"] .shiki,
+:root[data-theme="dark"] .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+.shiki { @apply rounded-md p-3 text-[13px] leading-relaxed overflow-x-auto; }
