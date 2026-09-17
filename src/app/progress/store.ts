@@ -16,6 +16,7 @@ export type ProgressStore = {
   uncompleteStep(key: string): void;
   saveCode(key: string, files: Record<string, string>): void;
   answerQuiz(key: string, questionId: string, choiceId: string): void;
+  clearQuiz(key: string): void;
   setLastVisited(path: string): void;
   replace(progress: Progress): void;
   retrySave(): void;
@@ -114,6 +115,11 @@ export function createProgressStore(
       const existing = progress.quiz[key] ?? {};
       if (existing[questionId] === choiceId) return;
       update({ ...progress, quiz: { ...progress.quiz, [key]: { ...existing, [questionId]: choiceId } } });
+    },
+    clearQuiz(key) {
+      const { [key]: _q, ...quiz } = progress.quiz;
+      const { [key]: _s, ...steps } = progress.steps;
+      update({ ...progress, quiz, steps });
     },
     setLastVisited(path) {
       if (progress.lastVisited === path) return;

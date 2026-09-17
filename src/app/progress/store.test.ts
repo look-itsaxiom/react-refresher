@@ -97,6 +97,19 @@ describe('progress store', () => {
     expect(store.getSnapshot().steps['p/q']).toBeUndefined();
   });
 
+  it('clearQuiz removes both the quiz answers and the completed step for that key', async () => {
+    const { backend } = fakeBackend();
+    const store = createProgressStore(backend, { debounceMs: 10 });
+    await store.load();
+    store.answerQuiz('l/q', 'q1', 'b');
+    store.completeStep('l/q');
+    expect(store.getSnapshot().quiz['l/q']).toEqual({ q1: 'b' });
+    expect(store.getSnapshot().steps['l/q']).toBeDefined();
+    store.clearQuiz('l/q');
+    expect(store.getSnapshot().quiz['l/q']).toBeUndefined();
+    expect(store.getSnapshot().steps['l/q']).toBeUndefined();
+  });
+
   it('flush() saves immediately without waiting for the debounce', async () => {
     const { backend, saves } = fakeBackend();
     const store = createProgressStore(backend, { debounceMs: 1000 });
