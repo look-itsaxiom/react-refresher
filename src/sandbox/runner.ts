@@ -48,13 +48,6 @@ declare global {
   var IS_REACT_ACT_ENVIRONMENT: boolean | undefined;
 }
 
-/** Silence React's error-boundary console noise while a check intentionally throws. */
-function quietConsoleError<T>(fn: () => Promise<T>): Promise<T> {
-  const original = console.error;
-  console.error = () => {};
-  return fn().finally(() => { console.error = original; });
-}
-
 export async function runChecks(opts: {
   files: UserFiles;
   entry?: string;
@@ -65,12 +58,19 @@ export async function runChecks(opts: {
   const entry = opts.entry ?? 'App.tsx';
   const timeoutMs = opts.timeoutMs ?? 5000;
 
-  // Compile everything once up front so syntax/import errors surface before any check runs.
+  // Compile everything once up front so syntax/import errors surface before any check runs. Reset
+  // the server first so a top-level side effect during this validation-only evaluate doesn't run
+  // at the default latency, and reset again after so nothing it touched leaks into the check loop
+  // below (which re-evaluates the module fresh for each check anyway).
+  controls.reset();
+  controls.setLatency(0);
   try {
     evaluate(opts.files, entry, opts.registry);
   } catch (e) {
     if (e instanceof CompileError || e instanceof ModuleNotFoundError) return { kind: 'compile-error', error: e };
     // A runtime error at module top level is a check failure, handled below per check.
+  } finally {
+    controls.reset();
   }
 
   const previousActEnv = globalThis.IS_REACT_ACT_ENVIRONMENT;
@@ -100,12 +100,18 @@ export async function runChecks(opts: {
         sleep,
       };
       const started = performance.now();
+      // Silence React's error-boundary console noise while a check intentionally throws. Saved
+      // and restored around the check itself (not inside the racing timeout promise) so a
+      // hanging check can never leave console.error permanently replaced.
+      const originalConsoleError = console.error;
+      console.error = () => {};
       try {
-        await withTimeout(quietConsoleError(async () => { await check.run(ctx); }), timeoutMs);
+        await withTimeout((async () => { await check.run(ctx); })(), timeoutMs);
         results.push({ name: check.name, status: 'pass', durationMs: performance.now() - started });
       } catch (e) {
         results.push({ name: check.name, status: 'fail', error: formatError(e), durationMs: performance.now() - started });
       } finally {
+        console.error = originalConsoleError;
         cleanup();
       }
     }

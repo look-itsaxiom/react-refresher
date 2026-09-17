@@ -61,11 +61,14 @@ describe('runChecks', () => {
   });
 
   it('fails a check that exceeds the timeout', async () => {
+    const original = console.error;
     const slow: Check[] = [{ name: 'hangs', run: () => new Promise(() => {}) }];
     const out = await runChecks({ files: counterFiles, checks: slow, registry: baseRegistry, timeoutMs: 50 });
     if (out.kind !== 'results') throw new Error('expected results');
     expect(out.results[0]?.status).toBe('fail');
     expect(out.results[0]?.error).toMatch(/timed out/i);
+    // A hanging check must not leave console.error permanently muted for later checks/tests.
+    expect(console.error).toBe(original);
   });
 
   it('evaluates the module lazily per check so server config applies first', async () => {
@@ -103,5 +106,17 @@ describe('runChecks', () => {
     if (out.kind !== 'results') throw new Error('expected results');
     expect(out.results[0]?.status).toBe('fail');
     expect(out.results[0]?.error).toContain('kaboom');
+  });
+
+  it('a runtime error while loading the module (not during render) fails the check, not a compile error', async () => {
+    // The throw happens as soon as the module is evaluated, before Component even exists, so this
+    // must NOT be reported as a compile-error outcome (it isn't a syntax/import problem).
+    const files = { 'App.tsx': 'throw new Error("top-level boom"); export default () => null;' };
+    const c: Check[] = [{ name: 'renders', run: ({ render, Component }) => { render(<Component />); } }];
+    const out = await runChecks({ files, checks: c, registry: baseRegistry });
+    expect(out.kind).toBe('results');
+    if (out.kind !== 'results') return;
+    expect(out.results[0]?.status).toBe('fail');
+    expect(out.results[0]?.error).toContain('top-level boom');
   });
 });
