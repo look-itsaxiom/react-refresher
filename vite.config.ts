@@ -6,6 +6,10 @@ import { progressPlugin } from './vite-plugin-progress.ts';
 
 export default defineConfig({
   plugins: [react({ compiler: true }), tailwindcss(), progressPlugin()],
+  server: {
+    port: 5180,
+    watch: { ignored: ['**/progress/**', '**/.superpowers/**'] },
+  },
   resolve: {
     alias: { '@server': fileURLToPath(new URL('./src/sandbox/server', import.meta.url)) },
   },

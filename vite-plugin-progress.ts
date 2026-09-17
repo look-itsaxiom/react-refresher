@@ -91,6 +91,8 @@ function readBody(req: IncomingMessage): Promise<string> {
   });
 }
 
+// NOTE: vite.config.ts's `server.watch.ignored` must exclude the progress directory,
+// or every save this plugin makes triggers Vite's file watcher and reloads the page.
 export function progressPlugin(options: { file?: string } = {}): Plugin {
   const relative = options.file ?? 'progress/progress.json';
   return {
