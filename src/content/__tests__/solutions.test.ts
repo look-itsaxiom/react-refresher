@@ -32,6 +32,7 @@ describe('every exercise', () => {
         expect(Object.keys(step.files).sort()).toEqual(Object.keys(step.solution).sort());
         expect(step.prompt.trim().length).toBeGreaterThan(0);
         expect(step.checks.length).toBeGreaterThan(0);
+        expect(step.hints.length).toBeGreaterThan(0);
       });
     });
   }
