@@ -4,10 +4,12 @@ import { getCurriculumView, getLessons } from '../content/registry';
 import type { Lesson, LessonView } from '../content/types';
 import { progressStore, useProgress, useSaveState } from './progress/useProgress';
 import { isProgress, type Progress } from './progress/types';
-import { firstIncompleteStepIndex, lessonCompletion, lessonStatus, overallCompletion } from './dashboard-status';
+import { firstIncompleteStepIndex, lessonCompletion, lessonStatus, overallCompletion, type LessonStatus } from './dashboard-status';
 import { Button } from './components/Button';
 
-function StatusPill({ status }: { status: 'done' | 'in-progress' | 'available' | 'locked' }) {
+type CardStatus = LessonStatus | 'locked';
+
+function StatusPill({ status }: { status: CardStatus }) {
   const styles = {
     done: 'bg-success/15 text-success',
     'in-progress': 'bg-warning/15 text-warning',
@@ -74,7 +76,13 @@ function ExportImport() {
   }
 
   async function importJson(file: File) {
-    const data: unknown = JSON.parse(await file.text());
+    let data: unknown;
+    try {
+      data = JSON.parse(await file.text());
+    } catch {
+      window.alert('That file is not a valid progress export.');
+      return;
+    }
     if (!isProgress(data)) {
       window.alert('That file is not a valid progress export.');
       return;
