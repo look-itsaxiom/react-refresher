@@ -44,3 +44,29 @@ These have come up repeatedly across lessons and are settled, not open questions
 - The checks file is named `checks.tsx` (not `checks.ts`) because checks contain JSX.
 - Each check gets a fresh module evaluation — module-level state from one check never leaks into the next.
 - `server` defaults to latency 0 for every check; a check that needs latency sets it explicitly.
+
+## Exercise patterns for non-React topics
+
+The sandbox grades client-side behavior, but most of the frontend map is not "write a
+component". These patterns keep exercises gradeable:
+
+- **Pure-function exercises.** The learner completes an exported function; checks call it
+  through `ctx.mod`. Examples: decode a JWT payload and report its expiry; build a CSP
+  header string from a policy object; decide whether a fetch is a CORS preflight; compute
+  a `srcset`/`sizes` pair; pick a `Cache-Control` value for an asset type; normalize a
+  GraphQL response into a cache map; compute a WCAG contrast ratio. Ship a tiny default
+  `App` that renders the function's output so the preview shows something.
+- **Fix-the-component exercises.** Give a working but flawed React component and grade the
+  fix by DOM behavior: an inaccessible dialog (focus trap, `aria-modal`, Escape), a list
+  that re-renders everything (assert render counts via a `data-renders` attribute), an
+  unsafe `dangerouslySetInnerHTML` (assert the script text is escaped), a form that loses
+  state on tab switch (use `<Activity>`).
+- **Web platform exercises.** Custom elements and Shadow DOM work in both the iframe and
+  jsdom; `fetch` can hit `@server/*` fakes; `AbortController`, streams, `structuredClone`,
+  and `IndexedDB` (via `fake-indexeddb` if added to the registry) are fair game.
+- **Reading exercises are quizzes.** When a topic cannot be exercised in a browser tab
+  (deployment pipelines, OAuth server flows, bundler internals), teach with two or three
+  concept steps and a demanding quiz; do not force a token exercise.
+
+Each lesson should still end the learner with something they did, not only something
+they read: aim for at least one exercise or a quiz that requires reasoning through code.

@@ -4,7 +4,28 @@ import type userEvent from '@testing-library/user-event';
 import type { act, ComponentType } from 'react';
 import type { expect as chaiExpect } from 'chai';
 
-export type TrackId = 'refresher' | 'react18' | 'react19' | 'compiler' | 'ecosystem' | 'server';
+export type TrackId =
+  | 'refresher'
+  | 'react18'
+  | 'react19'
+  | 'compiler'
+  | 'ecosystem'
+  | 'server'
+  | 'web-platform'
+  | 'javascript-typescript'
+  | 'tooling'
+  | 'testing'
+  | 'rendering'
+  | 'performance'
+  | 'accessibility'
+  | 'security'
+  | 'auth'
+  | 'graphql'
+  | 'web-components'
+  | 'pwa'
+  | 'deployment'
+  | 'design-systems'
+  | 'ai-assisted';
 
 export type Track = { id: TrackId; title: string; description: string };
 
