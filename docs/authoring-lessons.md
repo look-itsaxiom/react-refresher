@@ -86,12 +86,14 @@ The editor and checks always see the entry file as `query.sql`, regardless of th
 filenames on disk (`starter.sql`/`solution.sql`); `lesson.ts` maps them into that name:
 
 ```ts
+import { splitHints } from '../../lesson-helpers';
+
 {
   kind: 'exercise', id: '02-write-the-schema', title: 'Write the schema', prompt,
   runtime: 'sql', entry: 'query.sql',
   files: { 'seed.sql': seed, 'query.sql': starter },
   solution: { 'seed.sql': seed, 'query.sql': solution },
-  hints: parseHints(hints), checks,
+  hints: splitHints(hints), checks,
 }
 ```
 
@@ -137,13 +139,15 @@ by `go test` instead of anything in the browser sandbox. Folder layout (see
 Step shape:
 
 ```ts
+import { splitHints } from '../../lesson-helpers';
+
 {
   kind: 'exercise', id: '02-table-driven-tests', title: 'Table-driven tests', prompt,
   runtime: 'local',
   local: { dir: '102-go-for-typescript-developers/02-table-driven-tests', command: 'go test ./...', expectedTests: ['TestParseDuration', 'TestParseDurationErrors'] },
   files: { 'duration.go': starterGo },       // imported with ?raw for read-only display
   solution: { 'duration.go': solutionGo },
-  hints: parseHints(hints), checks: [],
+  hints: splitHints(hints), checks: [],
 }
 ```
 
