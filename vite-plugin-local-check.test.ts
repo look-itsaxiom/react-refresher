@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { createLocalCheckHandler, createSpawner, parseGoTestJson, resolveExerciseDir, type SpawnResult } from './vite-plugin-local-check.ts';
+import type { IncomingMessage, ServerResponse } from 'node:http';
+import { createLocalCheckHandler, createLocalCheckMiddleware, createSpawner, parseGoTestJson, resolveExerciseDir, type SpawnResult } from './vite-plugin-local-check.ts';
 
 const root = 'C:/repo';
 
@@ -60,6 +61,58 @@ describe('createLocalCheckHandler', () => {
     expect(JSON.parse((await enoent('POST', '{"dir":"a/b"}', undefined, 'h')).body).error).toBe('go-not-found');
     const slow = createLocalCheckHandler({ root, spawn: async () => ({ code: null, stdout: '', stderr: '', timedOut: true }), exists: async () => true });
     expect(JSON.parse((await slow('POST', '{"dir":"a/b"}', undefined, 'h')).body).error).toBe('timeout');
+  });
+});
+
+describe('createLocalCheckMiddleware', () => {
+  const okSpawn = async (): Promise<SpawnResult> => ({ code: 1, stdout: '{"Action":"pass","Test":"TestA"}\n', stderr: '', timedOut: false });
+
+  function fakeReq(body: string): IncomingMessage {
+    return {
+      method: 'POST',
+      headers: {},
+      setEncoding() {},
+      on(event: string, cb: (arg?: string) => void) {
+        if (event === 'data') cb(body);
+        if (event === 'end') cb();
+        return this;
+      },
+    } as unknown as IncomingMessage;
+  }
+
+  function fakeRes() {
+    const headers: Record<string, string> = {};
+    const res = {
+      statusCode: 0,
+      body: '',
+      setHeader(name: string, value: string) { headers[name.toLowerCase()] = value; },
+      end(body?: string) { res.body = body ?? ''; },
+    };
+    return { res, headers };
+  }
+
+  async function run(handler: ReturnType<typeof createLocalCheckHandler>, body: string) {
+    const middleware = createLocalCheckMiddleware(handler);
+    const { res, headers } = fakeRes();
+    middleware(fakeReq(body), res as unknown as ServerResponse, () => {});
+    // readBody + handler resolve over a few microtasks; flush them with a macrotask tick.
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    return { res, headers };
+  }
+
+  it('sets X-Local-Check on a 404 (missing folder) response', async () => {
+    const handler = createLocalCheckHandler({ root, spawn: okSpawn, exists: async () => false });
+    const { res, headers } = await run(handler, '{"dir":"a/b"}');
+    expect(res.statusCode).toBe(404);
+    expect(headers['x-local-check']).toBe('1');
+  });
+
+  it('sets X-Local-Check on a 200 (successful check) response', async () => {
+    const handler = createLocalCheckHandler({ root, spawn: okSpawn, exists: async () => true });
+    const { res, headers } = await run(handler, '{"dir":"a/b"}');
+    expect(res.statusCode).toBe(200);
+    expect(headers['x-local-check']).toBe('1');
+    expect(headers['content-type']).toContain('json');
   });
 });
 

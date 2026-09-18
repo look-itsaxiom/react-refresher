@@ -148,6 +148,31 @@ function readBody(req: IncomingMessage): Promise<string> {
   });
 }
 
+export type LocalCheckHandler = (method: string, body: string, origin?: string, host?: string) => Promise<HandlerResult>;
+
+/**
+ * Connect-style middleware around a `createLocalCheckHandler` handler. Every response it
+ * emits (200 and every 4xx/405) carries `X-Local-Check: 1`, so the app-side client can tell
+ * "this is our dev server responding" apart from a static host's catch-all 404 page (which
+ * would otherwise be misread the same way).
+ */
+export function createLocalCheckMiddleware(handler: LocalCheckHandler) {
+  return (req: IncomingMessage, res: ServerResponse, next: (err?: unknown) => void) => {
+    void (async () => {
+      try {
+        const body = req.method === 'POST' ? await readBody(req) : '';
+        const result = await handler(req.method ?? 'GET', body, req.headers.origin, req.headers.host);
+        res.statusCode = result.status;
+        res.setHeader('X-Local-Check', '1');
+        if (result.status === 200) res.setHeader('Content-Type', 'application/json');
+        res.end(result.body);
+      } catch (e) {
+        next(e);
+      }
+    })();
+  };
+}
+
 export function localCheckPlugin(): Plugin {
   return {
     name: 'react-refresher-local-check',
@@ -157,19 +182,7 @@ export function localCheckPlugin(): Plugin {
         spawn: goSpawner,
         exists: async (dir) => { try { await access(dir); return true; } catch { return false; } },
       });
-      server.middlewares.use('/__local-check', (req: IncomingMessage, res: ServerResponse, next) => {
-        void (async () => {
-          try {
-            const body = req.method === 'POST' ? await readBody(req) : '';
-            const result = await handler(req.method ?? 'GET', body, req.headers.origin, req.headers.host);
-            res.statusCode = result.status;
-            if (result.status === 200) res.setHeader('Content-Type', 'application/json');
-            res.end(result.body);
-          } catch (e) {
-            next(e);
-          }
-        })();
-      });
+      server.middlewares.use('/__local-check', createLocalCheckMiddleware(handler));
     },
   };
 }

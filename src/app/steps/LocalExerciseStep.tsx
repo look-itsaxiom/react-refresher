@@ -46,6 +46,8 @@ export function LocalExerciseStep({ step, lessonId, runner = runLocalCheck, onCo
       const r = await runner(local!.dir);
       setResult(r);
       if (allExpectedPassed(r, local!.expectedTests)) onComplete(key);
+    } catch (error) {
+      setResult({ ok: false, tests: [], raw: String(error), durationMs: 0, error: 'spawn-failed' });
     } finally {
       setRunning(false);
     }

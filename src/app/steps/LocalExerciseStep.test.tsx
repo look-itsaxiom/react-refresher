@@ -38,6 +38,13 @@ describe('LocalExerciseStep', () => {
     await userEvent.click(screen.getAllByRole('button', { name: /run go test/i })[1]!);
     expect(await screen.findByRole('button', { name: /mark complete/i })).toBeTruthy();
   });
+
+  it('shows the spawn-failed explanation when the runner itself rejects', async () => {
+    const runner = vi.fn().mockRejectedValue(new Error('boom'));
+    render(<LocalExerciseStep step={step} lessonId="102" runner={runner} onComplete={() => {}} />);
+    await userEvent.click(screen.getByRole('button', { name: /run go test/i }));
+    expect(await screen.findByText(/could not start go test/i)).toBeTruthy();
+  });
 });
 
 describe('allExpectedPassed', () => {
