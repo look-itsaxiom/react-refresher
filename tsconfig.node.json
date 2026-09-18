@@ -12,5 +12,5 @@
     "allowImportingTsExtensions": true,
     "types": ["node"]
   },
-  "include": ["vite.config.ts", "vite-plugin-progress.ts", "vite-plugin-progress.test.ts"]
+  "include": ["vite.config.ts", "vite-plugin-progress.ts", "vite-plugin-progress.test.ts", "vite-plugin-local-check.ts", "vite-plugin-local-check.test.ts"]
 }

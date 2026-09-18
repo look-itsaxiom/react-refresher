@@ -3,12 +3,13 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { fileURLToPath } from 'node:url';
 import { progressPlugin } from './vite-plugin-progress.ts';
+import { localCheckPlugin } from './vite-plugin-local-check.ts';
 
 export default defineConfig({
-  plugins: [react({ compiler: true }), tailwindcss(), progressPlugin()],
+  plugins: [react({ compiler: true }), tailwindcss(), progressPlugin(), localCheckPlugin()],
   server: {
     port: 5180,
-    watch: { ignored: ['**/progress/**', '**/.superpowers/**'] },
+    watch: { ignored: ['**/progress/**', '**/.superpowers/**', '**/exercises-local/**'] },
   },
   resolve: {
     alias: { '@server': fileURLToPath(new URL('./src/sandbox/server', import.meta.url)) },
@@ -23,7 +24,7 @@ export default defineConfig({
   },
   test: {
     environment: 'jsdom',
-    include: ['src/**/*.test.{ts,tsx}', 'vite-plugin-progress.test.ts'],
+    include: ['src/**/*.test.{ts,tsx}', 'vite-plugin-progress.test.ts', 'vite-plugin-local-check.test.ts'],
     setupFiles: ['src/test-setup.ts'],
   },
 });
