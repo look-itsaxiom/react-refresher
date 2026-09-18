@@ -1,0 +1,53 @@
+import { useActionState } from 'react';
+import { addTodo, type Todo } from '@server/todos';
+
+/**
+ * Stands in for a cookie-backed session a real server would read (e.g.
+ * `cookies()` + `auth()`). Exported as a mutable value only so this
+ * exercise can be graded -- a real Server Function would never import an
+ * identity like this.
+ */
+export type Session = { userId: string } | null;
+export let session: Session = { userId: 'u1' };
+export function setSession(next: Session): void {
+  session = next;
+}
+
+type ActionState = {
+  todos: Todo[];
+  errors: { auth?: string; title?: string };
+};
+
+const initialState: ActionState = { todos: [], errors: {} };
+
+/**
+ * Simulates a Server Function ('use server' in a real app). It's missing
+ * an auth check, input validation, and error handling -- see prompt.md.
+ */
+export async function createTodoAction(prevState: ActionState, formData: FormData): Promise<ActionState> {
+  const title = String(formData.get('title') ?? '');
+  const userId = String(formData.get('userId') ?? ''); // trusted blindly -- the bug
+  const todos = await addTodo(title);
+  return { todos, errors: {} };
+}
+
+export default function App() {
+  const [state, formAction] = useActionState(createTodoAction, initialState);
+
+  return (
+    <main>
+      <form action={formAction}>
+        <input type="hidden" name="userId" value={session?.userId ?? ''} />
+        <input name="title" aria-label="Title" placeholder="What needs doing?" />
+        <button>Add</button>
+      </form>
+      {state.errors.auth && <p role="alert">{state.errors.auth}</p>}
+      {state.errors.title && <p role="alert">{state.errors.title}</p>}
+      <ul>
+        {state.todos.map((t) => (
+          <li key={t.id}>{t.title}</li>
+        ))}
+      </ul>
+    </main>
+  );
+}
