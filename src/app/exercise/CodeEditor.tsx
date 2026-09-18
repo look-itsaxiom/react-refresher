@@ -4,6 +4,7 @@ import { EditorView, keymap } from '@codemirror/view';
 import { basicSetup } from 'codemirror';
 import { indentWithTab } from '@codemirror/commands';
 import { javascript } from '@codemirror/lang-javascript';
+import { sql, PostgreSQL } from '@codemirror/lang-sql';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { useTheme } from '../theme';
 
@@ -12,13 +13,14 @@ type Props = {
   onChange?: (next: string) => void;
   onRun?: () => void;
   readOnly?: boolean;
+  language?: 'tsx' | 'sql';
 };
 
 // Marks a dispatch as programmatic (prop-driven doc sync), so the update listener can
 // tell it apart from a real user edit and skip firing `onChange` for it.
 const External = Annotation.define<boolean>();
 
-export function CodeEditor({ value, onChange, onRun, readOnly = false }: Props) {
+export function CodeEditor({ value, onChange, onRun, readOnly = false, language = 'tsx' }: Props) {
   const host = useRef<HTMLDivElement>(null);
   const view = useRef<EditorView | null>(null);
   const theme = useTheme();
@@ -35,7 +37,7 @@ export function CodeEditor({ value, onChange, onRun, readOnly = false }: Props) 
         Prec.highest(keymap.of([{ key: 'Mod-Enter', run: () => { handleRun(); return true; } }])),
         keymap.of([indentWithTab]),
         basicSetup,
-        javascript({ jsx: true, typescript: true }),
+        language === 'sql' ? sql({ dialect: PostgreSQL }) : javascript({ jsx: true, typescript: true }),
         ...(theme === 'dark' ? [oneDark] : []),
         EditorState.readOnly.of(readOnly),
         EditorView.editable.of(!readOnly),
@@ -50,9 +52,9 @@ export function CodeEditor({ value, onChange, onRun, readOnly = false }: Props) 
     const v = new EditorView({ state, parent: host.current });
     view.current = v;
     return () => { v.destroy(); view.current = null; };
-    // Re-create only when theme or readOnly changes; `value` is synced by the effect below.
+    // Re-create only when theme, readOnly, or language changes; `value` is synced by the effect below.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [theme, readOnly]);
+  }, [theme, readOnly, language]);
 
   useEffect(() => {
     const v = view.current;

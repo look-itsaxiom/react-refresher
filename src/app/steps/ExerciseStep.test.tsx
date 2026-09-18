@@ -48,7 +48,7 @@ describe('ExerciseStep', () => {
     await user.type(editor, 'edited');
     expect(progressStore.getSnapshot().code['l/ex']?.['App.tsx']).toBe('edited');
     await user.click(screen.getByRole('button', { name: /run checks/i }));
-    expect(sandbox.runChecks).toHaveBeenCalledWith(expect.objectContaining({ 'App.tsx': 'edited' }), 'App.tsx', 'l/ex');
+    expect(sandbox.runChecks).toHaveBeenCalledWith(expect.objectContaining({ 'App.tsx': 'edited' }), 'App.tsx', 'l/ex', 'browser');
   });
 
   it('restores saved code over the starter', () => {
@@ -86,5 +86,18 @@ describe('ExerciseStep', () => {
     render(<ExerciseStep step={step} lessonId="l" />);
     expect(progressStore.getSnapshot().steps['l/ex']).toBeDefined();
     expect(screen.getByText(/all checks passed/i)).toBeTruthy();
+  });
+
+  it('renders the SQL variant: sql editor tab, result grid placeholder, and passes runtime to the sandbox', () => {
+    const step: ExerciseStepData = {
+      kind: 'exercise', id: 'q', title: 'Write a query', prompt: 'p', hints: ['h'], checks: [{ name: 'c', run: () => {} }],
+      runtime: 'sql', entry: 'query.sql',
+      files: { 'seed.sql': 'create table t (x int);', 'query.sql': 'select 1' },
+      solution: { 'seed.sql': 'create table t (x int);', 'query.sql': 'select 1' },
+    };
+    render(<ExerciseStep step={step} lessonId="l" />);
+    expect(screen.getByRole('tab', { name: 'query.sql' })).toBeTruthy();
+    expect(screen.getByRole('tab', { name: 'seed.sql' })).toBeTruthy();
+    expect(screen.getByText(/results/i)).toBeTruthy();
   });
 });

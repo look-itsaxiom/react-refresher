@@ -15,7 +15,8 @@ const PREVIEW_DEBOUNCE_MS = 400;
 
 export function ExerciseStep({ step, lessonId }: { step: ExerciseStepData; lessonId: string }) {
   const key = stepKey(lessonId, step.id);
-  const entry = step.entry ?? 'App.tsx';
+  const runtime = step.runtime ?? 'browser';
+  const entry = step.entry ?? (runtime === 'sql' ? 'query.sql' : 'App.tsx');
   const progress = useProgress();
   const files = progress.code[key] ?? step.files;
   const done = progress.steps[key] !== undefined;
@@ -27,9 +28,9 @@ export function ExerciseStep({ step, lessonId }: { step: ExerciseStepData; lesso
   // Live preview: debounce after edits; also run once when the iframe becomes ready.
   useEffect(() => {
     if (!state.ready) return;
-    const t = setTimeout(() => runPreview(files, entry, key), PREVIEW_DEBOUNCE_MS);
+    const t = setTimeout(() => runPreview(files, entry, key, runtime === 'sql' ? 'sql' : 'browser'), PREVIEW_DEBOUNCE_MS);
     return () => clearTimeout(t);
-  }, [files, entry, key, state.ready, runPreview]);
+  }, [files, entry, key, state.ready, runPreview, runtime]);
 
   // Completion is derived from the sandbox result.
   useEffect(() => {
@@ -41,7 +42,7 @@ export function ExerciseStep({ step, lessonId }: { step: ExerciseStepData; lesso
   }
 
   function handleRunChecks() {
-    runChecks(files, entry, key);
+    runChecks(files, entry, key, runtime === 'sql' ? 'sql' : 'browser');
   }
 
   function handleReset() {
@@ -101,19 +102,25 @@ export function ExerciseStep({ step, lessonId }: { step: ExerciseStepData; lesso
           </div>
         </div>
         <div className="min-h-0 flex-1">
-          <CodeEditor key={`${activeFile}:${showSolution}`} value={editorValue} onChange={showSolution ? undefined : handleChange} onRun={handleRunChecks} readOnly={showSolution} />
+          <CodeEditor key={`${activeFile}:${showSolution}`} value={editorValue} onChange={showSolution ? undefined : handleChange} onRun={handleRunChecks} readOnly={showSolution} language={runtime === 'sql' ? 'sql' : 'tsx'} />
         </div>
       </section>
 
       {/* Preview + results + console */}
       <section className="grid min-h-0 grid-rows-[minmax(0,1.2fr)_minmax(0,1fr)_minmax(0,0.7fr)]">
-        <div className="min-h-0 border-b border-border">
+        <div className="flex min-h-0 flex-col border-b border-border">
+          {runtime === 'sql' && (
+            <>
+              <h3 className="px-3 py-1 text-xs uppercase tracking-wide text-ink-muted border-b border-border">Results</h3>
+              {state.sql?.error && <p className="px-3 py-1 text-xs text-danger">{state.sql.error}</p>}
+            </>
+          )}
           <iframe
             ref={iframeRef}
             src={PREVIEW_PATH}
             title="Preview"
             sandbox="allow-scripts allow-same-origin"
-            className="h-full w-full bg-[#111318]"
+            className="min-h-0 flex-1 w-full bg-[#111318]"
           />
         </div>
         <div className="min-h-0 overflow-y-auto border-b border-border">

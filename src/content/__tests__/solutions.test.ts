@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { getLessons } from '../registry';
 import { runChecks } from '../../sandbox/runner';
 import { baseRegistry } from '../../sandbox/registry';
+import { runSqlChecks } from '../../sandbox/sql/runSqlChecks';
 import type { ExerciseStep, Lesson } from '../types';
 
 const exercises: Array<{ lesson: Lesson; step: ExerciseStep }> = getLessons().flatMap((lesson) =>
@@ -14,15 +15,28 @@ describe('every exercise', () => {
   });
 
   for (const { lesson, step } of exercises) {
+    const runtime = step.runtime ?? 'browser';
+    if (runtime === 'local') continue; // graded by go test; see local-exercises.test.ts
     describe(`${lesson.id}/${step.id}`, () => {
-      it('solution passes every check', { timeout: 30_000 }, async () => {
+      it('solution passes every check', { timeout: 60_000 }, async () => {
+        if (runtime === 'sql') {
+          const out = await runSqlChecks({ files: step.solution, entry: step.entry, checks: step.checks });
+          const failed = out.results.filter((r) => r.status === 'fail');
+          expect(failed, failed.map((f) => `${f.name}: ${f.error}`).join('\n')).toEqual([]);
+          return;
+        }
         const out = await runChecks({ files: step.solution, entry: step.entry, checks: step.checks, registry: baseRegistry });
         if (out.kind === 'compile-error') throw new Error(out.error.message);
         const failed = out.results.filter((r) => r.status === 'fail');
         expect(failed, failed.map((f) => `${f.name}: ${f.error}`).join('\n')).toEqual([]);
       });
 
-      it('starter fails at least one check (exercise is not trivially complete)', { timeout: 30_000 }, async () => {
+      it('starter fails at least one check (exercise is not trivially complete)', { timeout: 60_000 }, async () => {
+        if (runtime === 'sql') {
+          const out = await runSqlChecks({ files: step.files, entry: step.entry, checks: step.checks });
+          expect(out.allPassed).toBe(false);
+          return;
+        }
         const out = await runChecks({ files: step.files, entry: step.entry, checks: step.checks, registry: baseRegistry });
         if (out.kind === 'compile-error') return; // a non-compiling starter is a valid "fix the code" exercise
         expect(out.allPassed).toBe(false);
