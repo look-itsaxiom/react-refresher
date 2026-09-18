@@ -49,6 +49,16 @@ describe('runChecks', () => {
     expect(document.body.innerHTML).toBe(''); // cleaned up between and after checks
   });
 
+  it('removes nodes a check appended to document.body before the next check runs', async () => {
+    const leaky: Check[] = [
+      { name: 'appends', run: async () => { const el = document.createElement('div'); el.id = 'leaked'; document.body.append(el); } },
+      { name: 'sees clean body', run: async ({ expect }) => { expect(document.getElementById('leaked')).to.equal(null); } },
+    ];
+    const out = await runChecks({ files: { 'App.tsx': 'export default () => null;' }, checks: leaky, registry: baseRegistry });
+    expect(out.kind).toBe('results');
+    if (out.kind === 'results') expect(out.results.map((r) => r.status)).toEqual(['pass', 'pass']);
+  });
+
   it('reports compile errors instead of results', async () => {
     const out = await runChecks({ files: { 'App.tsx': 'export default function App() { return <p>; }' }, checks, registry: baseRegistry });
     expect(out.kind).toBe('compile-error');

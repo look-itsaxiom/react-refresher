@@ -99,6 +99,10 @@ export async function runChecks(opts: {
         server: controls,
         sleep,
       };
+      // Checks that build custom elements append them straight to document.body, which
+      // Testing Library's cleanup() does not know about; snapshot so leaked nodes are
+      // removed before the next check queries the document.
+      const bodyBefore = new Set(document.body.childNodes);
       const started = performance.now();
       // Silence React's error-boundary console noise while a check intentionally throws. Saved
       // and restored around the check itself (not inside the racing timeout promise) so a
@@ -113,6 +117,9 @@ export async function runChecks(opts: {
       } finally {
         console.error = originalConsoleError;
         cleanup();
+        for (const node of Array.from(document.body.childNodes)) {
+          if (!bodyBefore.has(node)) node.remove();
+        }
       }
     }
   } finally {
