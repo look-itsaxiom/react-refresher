@@ -4,3 +4,4 @@ dist
 .DS_Store
 .superpowers
 .authoring-quarantine
+.claude/scheduled_tasks.lock
