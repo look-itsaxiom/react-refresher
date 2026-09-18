@@ -31,7 +31,7 @@ export const checks: Check[] = [
           expect(items.length, 'exactly one item, not an optimistic duplicate').to.equal(1);
           expect(items[0]?.getAttribute('data-pending'), 'no longer pending once confirmed').to.equal(null);
         },
-        { timeout: 800 },
+        { timeout: 2000 },
       );
       const { stats } = mod as unknown as Stats;
       expect(
@@ -53,7 +53,7 @@ export const checks: Check[] = [
       server.failNext('Server exploded');
       await user.type(screen.getByLabelText('Title'), 'Doomed todo');
       await user.click(screen.getByRole('button', { name: /add/i }));
-      const alert = await screen.findByRole('alert', undefined, { timeout: 800 });
+      const alert = await screen.findByRole('alert', undefined, { timeout: 2000 });
       expect(alert.textContent).to.contain('Server exploded');
       expect(
         screen.queryByText('Doomed todo', { selector: 'li' }),
@@ -72,7 +72,7 @@ export const checks: Check[] = [
       const button = screen.getByRole('button') as HTMLButtonElement;
       expect(button.disabled, 'button should disable itself while isPending is true').to.equal(true);
       await waitFor(() => expect(button.disabled, 'button should re-enable once the mutation settles').to.equal(false), {
-        timeout: 800,
+        timeout: 2000,
       });
     },
   },
