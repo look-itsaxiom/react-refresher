@@ -43,6 +43,30 @@ describe('runSqlChecks', () => {
     expect(out.results[0]?.error).toMatch(/does not exist/);
   });
 
+  it('a failed database boot fails every check with the boot error, not just the first', async () => {
+    const createDb = async (): Promise<never> => { throw new Error('pglite boot exploded'); };
+    const checks: Check[] = [
+      { name: 'a', run: () => {} },
+      { name: 'b', run: () => {} },
+      { name: 'c', run: () => {} },
+    ];
+    const out = await runSqlChecks({ files: { 'query.sql': 'select 1' }, checks, createDb });
+    expect(out.results).toHaveLength(3);
+    expect(out.results.map((r) => r.name)).toEqual(['a', 'b', 'c']);
+    for (const r of out.results) {
+      expect(r.status).toBe('fail');
+      expect(r.error).toMatch(/pglite boot exploded/);
+    }
+    expect(out.allPassed).toBe(false);
+  });
+
+  it('a failed database boot with no checks reports no results and allPassed true', async () => {
+    const createDb = async (): Promise<never> => { throw new Error('pglite boot exploded'); };
+    const out = await runSqlChecks({ files: { 'query.sql': 'select 1' }, checks: [], createDb });
+    expect(out.results).toEqual([]);
+    expect(out.allPassed).toBe(true);
+  });
+
   it('runSqlScript returns the last statement result for the preview grid', { timeout: 60_000 }, async () => {
     const r = await runSqlScript({ 'seed.sql': seed, 'query.sql': 'select title from tasks order by id' }, 'query.sql');
     expect(r.error).toBeNull();

@@ -90,7 +90,8 @@ export async function runSqlScript(
  * Runs every check against a single PGlite database for the whole call: the public schema
  * is dropped and recreated before each check so checks stay isolated without paying PGlite's
  * ~1.2s boot cost per check. Database creation happens inside the try/catch so a failed boot
- * is reported as a failed first check rather than throwing out of the function.
+ * is reported as every check failing with the boot error, rather than throwing out of the
+ * function or only reporting the first check.
  */
 export async function runSqlChecks(opts: {
   files: Record<string, string>;
@@ -117,7 +118,12 @@ export async function runSqlChecks(opts: {
       }
     }
   } catch (e) {
-    results.push({ name: opts.checks[0]?.name ?? 'setup', status: 'fail', error: formatError(e), durationMs: 0 });
+    // Database boot failed before any check could run: report every check as failed with
+    // the boot error so the checks panel's pass/total stays consistent with opts.checks.
+    const message = formatError(e);
+    for (const check of opts.checks) {
+      results.push({ name: check.name, status: 'fail', error: message, durationMs: 0 });
+    }
   } finally {
     if (db) await db.close();
   }
