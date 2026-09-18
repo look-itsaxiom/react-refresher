@@ -1,4 +1,4 @@
-import { spawn as nodeSpawn } from 'node:child_process';
+import { spawn as nodeSpawn, spawnSync } from 'node:child_process';
 import { access } from 'node:fs/promises';
 import { isAbsolute, normalize, resolve, sep } from 'node:path';
 import type { IncomingMessage, ServerResponse } from 'node:http';
@@ -11,7 +11,7 @@ export const DEFAULT_TIMEOUT_MS = 60_000;
 
 export type TestStatus = 'pass' | 'fail' | 'skip';
 export type TestOutcome = { name: string; status: TestStatus; output: string };
-export type LocalCheckError = 'bad-request' | 'forbidden' | 'not-found' | 'go-not-found' | 'timeout' | 'spawn-failed';
+export type LocalCheckError = 'go-not-found' | 'timeout' | 'spawn-failed';
 export type LocalCheckResponse = { ok: boolean; tests: TestOutcome[]; raw: string; durationMs: number; error?: LocalCheckError };
 
 export type SpawnResult = { code: number | null; stdout: string; stderr: string; timedOut: boolean };
@@ -97,18 +97,46 @@ export function createLocalCheckHandler(deps: HandlerDeps) {
   };
 }
 
-export const goSpawner: Spawner = (cwd, args, timeoutMs) =>
-  new Promise((resolvePromise, reject) => {
-    const child = nodeSpawn('go', args, { cwd, env: { ...process.env }, windowsHide: true });
-    let stdout = '';
-    let stderr = '';
-    let timedOut = false;
-    const timer = setTimeout(() => { timedOut = true; child.kill(); }, timeoutMs);
-    child.stdout.setEncoding('utf8').on('data', (d: string) => { stdout += d; });
-    child.stderr.setEncoding('utf8').on('data', (d: string) => { stderr += d; });
-    child.on('error', (e) => { clearTimeout(timer); reject(e); });
-    child.on('close', (code) => { clearTimeout(timer); resolvePromise({ code, stdout, stderr, timedOut }); });
-  });
+/**
+ * Create a Spawner that runs `command` and, on timeout, kills the whole process tree
+ * rather than just the immediate child. `go test` execs a separate test binary as a
+ * child of `go`, so a plain `child.kill()` can leave that test binary running on Windows.
+ */
+export function createSpawner(command: string): Spawner {
+  return (cwd, args, timeoutMs) =>
+    new Promise((resolvePromise, reject) => {
+      const isWin = process.platform === 'win32';
+      const child = nodeSpawn(command, args, {
+        cwd,
+        env: { ...process.env },
+        windowsHide: true,
+        detached: !isWin,
+      });
+      let stdout = '';
+      let stderr = '';
+      let timedOut = false;
+      const timer = setTimeout(() => {
+        timedOut = true;
+        if (isWin) {
+          if (typeof child.pid === 'number') {
+            spawnSync('taskkill', ['/pid', String(child.pid), '/T', '/F'], { windowsHide: true });
+          }
+        } else {
+          try {
+            if (typeof child.pid === 'number') process.kill(-child.pid, 'SIGKILL');
+          } catch {
+            child.kill('SIGKILL');
+          }
+        }
+      }, timeoutMs);
+      child.stdout.setEncoding('utf8').on('data', (d: string) => { stdout += d; });
+      child.stderr.setEncoding('utf8').on('data', (d: string) => { stderr += d; });
+      child.on('error', (e) => { clearTimeout(timer); reject(e); });
+      child.on('close', (code) => { clearTimeout(timer); resolvePromise({ code, stdout, stderr, timedOut }); });
+    });
+}
+
+export const goSpawner: Spawner = createSpawner('go');
 
 function readBody(req: IncomingMessage): Promise<string> {
   return new Promise((resolvePromise, reject) => {

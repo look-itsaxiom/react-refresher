@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { createLocalCheckHandler, parseGoTestJson, resolveExerciseDir, type SpawnResult } from './vite-plugin-local-check.ts';
+import { createLocalCheckHandler, createSpawner, parseGoTestJson, resolveExerciseDir, type SpawnResult } from './vite-plugin-local-check.ts';
 
 const root = 'C:/repo';
 
@@ -60,5 +60,14 @@ describe('createLocalCheckHandler', () => {
     expect(JSON.parse((await enoent('POST', '{"dir":"a/b"}', undefined, 'h')).body).error).toBe('go-not-found');
     const slow = createLocalCheckHandler({ root, spawn: async () => ({ code: null, stdout: '', stderr: '', timedOut: true }), exists: async () => true });
     expect(JSON.parse((await slow('POST', '{"dir":"a/b"}', undefined, 'h')).body).error).toBe('timeout');
+  });
+});
+
+describe('createSpawner', () => {
+  it('kills the real process tree on timeout without hanging or rejecting', async () => {
+    const started = Date.now();
+    const result = await createSpawner(process.execPath)(process.cwd(), ['-e', 'setTimeout(() => {}, 30000)'], 300);
+    expect(result.timedOut).toBe(true);
+    expect(Date.now() - started).toBeLessThan(5000);
   });
 });
