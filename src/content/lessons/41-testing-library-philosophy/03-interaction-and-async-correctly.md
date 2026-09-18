@@ -106,7 +106,9 @@ worth turning on in a test-setup file — it throws when you use a weaker query 
 later. `logRoles(container)` prints every role Testing Library can currently see in a chunk of
 DOM — the fastest way to find out why a `getByRole` isn't matching what you expect.
 
-Vitest's Browser Mode (stable as of Vitest 4) ships its own **locator API** —
+Vitest's Browser Mode ships its own **locator API** (check the current docs for
+its exact stability milestone — it moved from experimental to stable across recent
+majors) —
 `page.getByRole(...)`, `.locator(...)` — that runs the same accessibility-first queries against a
 real browser instead of jsdom, with built-in auto-retrying assertions (closer to Playwright's
 locators than to `@testing-library/dom`'s snapshot-style queries). It's the direction most new

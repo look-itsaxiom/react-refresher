@@ -77,12 +77,14 @@ service worker and re-subscribe there, or your server will keep POSTing to a dea
 
 Push works on Safari for macOS 13+ and, on iOS/iPadOS, **only for a web app the user has
 installed to the home screen** (iOS 16.4+) — a Safari tab open in the browser cannot receive
-push at all on iOS. Apple also shipped **Declarative Web Push** (2024–2025), where the
-payload itself is a static JSON notification description rather than JavaScript run in a
-service worker — it's positioned as a lower-power, no-code-execution alternative for simple
-notifications. Treat it as an Apple-specific option layered on top of standard Web Push, not
-a replacement; confirm current Chromium support before depending on it, since it was still
-maturing as of this writing.
+push at all on iOS. Apple also shipped **Declarative Web Push**, landing in iOS 18.4,
+iPadOS 18.4, and macOS 15.5 (2025), where the payload itself is a static JSON notification
+description rather than JavaScript run in a service worker — a fallback notification is
+guaranteed even if any optional JS enhancement fails, eliminating the old "silent push"
+penalty. WebKit proposed it to the W3C Push and Notifications API working groups starting
+in 2023–2024; as of this writing there's no confirmed Chromium or Firefox adoption, so treat
+it as an Apple-specific option layered on top of standard Web Push, not a cross-browser
+replacement.
 
 ## Permission UX is the part that actually determines whether this works
 
@@ -114,3 +116,4 @@ with real users:
 - [MDN: Notifications API](https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API)
 - [web.dev: Notifications permissions UX best practices](https://web.dev/articles/push-notifications-overview)
 - [web-push npm package](https://github.com/web-push-libs/web-push)
+- [WebKit: Meet Declarative Web Push](https://webkit.org/blog/16535/meet-declarative-web-push/)

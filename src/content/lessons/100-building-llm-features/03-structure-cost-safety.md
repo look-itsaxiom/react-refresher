@@ -35,8 +35,11 @@ Pricing is quoted per million tokens, input and output priced separately, output
 several times the input rate. Prompt caching — sending a stable prefix (a system prompt, a
 big document) and paying a reduced rate for cache hits on later requests — is the single
 biggest lever for cost and latency on repeated context; treat cache-eligible content as
-whatever *doesn't change* between requests. (Exact prices and cache discount rates move
-between provider announcements — check the provider's current pricing page before you budget
+whatever *doesn't change* between requests. On Anthropic's Claude models, the shape is a
+write premium and a read discount: writing to the cache costs more than a normal input
+token (roughly 1.25x for a 5-minute cache, 2x for a 1-hour cache), while a cache hit costs
+a fraction of the normal input rate. (Exact multipliers and dollar prices move between
+provider announcements — check the provider's current pricing page before you budget
 against a number here.)
 
 Pick model size per task, not per app: a `Haiku`-class small model for classification or

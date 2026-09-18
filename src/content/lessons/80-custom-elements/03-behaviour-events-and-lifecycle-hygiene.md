@@ -100,10 +100,9 @@ class XRating extends HTMLElement {
 `static formAssociated = true` is what makes the browser treat the element as a form control at
 all; `attachInternals()` then hands you `setFormValue` (what gets submitted), `setValidity` (native
 constraint-validation integration — `:invalid`, `reportValidity()`, the works), and read access to
-the owning `<form>`. Support for this landed across all major engines in 2023, so treat it as
-safe to use without a fallback in any app targeting current browsers — but verify current Baseline
-status before shipping it, since exact cross-browser nuances (Safari's rollout was later than
-Chrome's and Firefox's) are worth a fresh check. `adoptedStyleSheets` and full declarative shadow
+the owning `<form>`. `ElementInternals` reached Baseline "widely available" status in March 2023 (all
+major engines shipped it, Safari last), so it's safe to use without a fallback in any app
+targeting current browsers. `adoptedStyleSheets` and full declarative shadow
 DOM matter more for the next lesson; jsdom, notably, does not implement `ElementInternals` at all,
 so form-associated behavior can only be exercised in a real browser, not in this course's
 jsdom-graded checks.
@@ -134,6 +133,6 @@ be called twice for the same tag and there's no teardown that un-registers one.
 
 **Further reading**
 - [MDN: `CustomEvent`](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent)
-- [MDN: `ElementInternals`](https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals)
+- [MDN: `ElementInternals` (Baseline: widely available, since March 2023)](https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals)
 - [web.dev: More capable form controls](https://web.dev/articles/more-capable-form-controls)
 - [MDN: `AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController)

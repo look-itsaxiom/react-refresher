@@ -138,3 +138,4 @@ last week's cached numbers.
 - [developer.chrome.com: Workbox strategies](https://developer.chrome.com/docs/workbox/modules/workbox-strategies)
 - [developer.chrome.com: Workbox background sync](https://developer.chrome.com/docs/workbox/modules/workbox-background-sync)
 - [MDN: StorageManager.persist()](https://developer.mozilla.org/en-US/docs/Web/API/StorageManager/persist)
+- [caniuse: Background Sync (no Safari, no Firefox as of 2026)](https://caniuse.com/mdn-api_serviceworkerregistration_sync)

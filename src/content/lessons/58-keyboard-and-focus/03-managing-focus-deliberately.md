@@ -52,7 +52,7 @@ A toolbar, listbox, menu, tabs, or grid is a single logical "stop" in the page's
 
 ## The Popover API
 
-Baseline-available since 2024/2025, the `popover` attribute turns any element into a top-layer overlay with light-dismiss (click outside or `Escape` closes it) and disclosure wiring built into HTML, no JavaScript required for the common case:
+Baseline "newly available" since January 2025 (per MDN), the `popover` attribute turns any element into a top-layer overlay with light-dismiss (click outside or `Escape` closes it) and disclosure wiring built into HTML, no JavaScript required for the common case:
 
 ```html
 <button popovertarget="menu">Options</button>

@@ -86,10 +86,10 @@ A few pieces worth naming precisely:
   `token`, `secret`, or `authorization` anywhere in the payload (recursively — nested
   objects, not just top-level keys), and return `null` from the hook entirely to drop an
   event you don't want sent at all.
-- SDK version 9 changed Sentry's default for `sendDefaultPii` — worth confirming the
-  current default against Sentry's own migration docs before assuming request headers and
-  cookies are or aren't captured automatically in whatever version you're on; don't take
-  this lesson's word for the current default.
+- `sendDefaultPii` still defaults to `false` (confirmed on docs.sentry.io), so request
+  headers, cookies, and user IP aren't captured automatically unless you opt in — Sentry's
+  docs now steer new setups toward the newer `dataCollection` option instead, which this
+  option is being deprecated in favor of, so check that if you're setting up a fresh SDK.
 - **Tunneling** (`tunnel: '/monitoring'`, proxied server-side to Sentry) routes error
   reports through your own domain instead of `*.sentry.io`, because ad blockers and
   privacy extensions block the latter by default — a real and common cause of "why did our

@@ -22,10 +22,14 @@ directive opts a function, component, or page into caching, replacing the
 older implicit fetch-level caching. Caching under `"use cache"` is
 tag- and path-addressable, and invalidated with two different functions:
 
-- `revalidateTag(tag)` / `revalidatePath(path)` mark cached entries stale
-  and trigger a stale-while-revalidate refresh — the old value can still be
-  served briefly while the new one loads in the background. This is the
-  right default for content other users will eventually see.
+- `revalidateTag(tag, profile)` / `revalidatePath(path)` mark cached entries
+  stale and trigger a stale-while-revalidate refresh — the old value can
+  still be served briefly while the new one loads in the background. As of
+  Next.js 16, `revalidateTag` takes a required second argument: `"max"` (the
+  recommended profile, a one-year stale window) or `{ expire: 0 }` for no
+  stale serving at all. Calling it with just a tag still works but is
+  deprecated and may be removed later. This is the right default for
+  content other users will eventually see.
 - `updateTag(tag)`, callable only from inside a Server Function, updates
   the tag's cached value immediately, so the *same* request that performed
   the mutation can read its own write without waiting on a background

@@ -162,3 +162,4 @@ hydration step described above, not the parser shortcut a real browser gets for 
 - [MDN: `CSSStyleSheet` (constructable stylesheets)](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet)
 - [MDN: `::part()`](https://developer.mozilla.org/en-US/docs/Web/CSS/::part)
 - [web.dev: Declarative Shadow DOM](https://web.dev/articles/declarative-shadow-dom)
+- [MDN: `:host-context()` (deprecated, removed from spec)](https://developer.mozilla.org/en-US/docs/Web/CSS/:host-context)

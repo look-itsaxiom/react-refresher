@@ -45,9 +45,12 @@ content (your HTML/JS/CSS) can ship instantly via Capacitor Live Updates,
 without a store review, but the native shell itself — the binary, any
 native plugin code — still goes through normal store review when it
 changes. Ionic Framework's ownership changed hands (OutSystems acquired
-it in 2023); worth a quick current-status check before betting a large
-project on its long-term roadmap, but Capacitor itself is maintained
-independently and is the piece that matters for this comparison.
+it in November 2022); Ionic wound down new sales of its paid products
+(Appflow, Identity Vault, Portals) in February 2025, with those products
+scheduled to be retired by the end of 2027, so worth a quick current-status
+check before betting a large project on its long-term roadmap. Capacitor
+itself and the open-source Ionic Framework continue to be maintained under
+OutSystems and are the pieces that matter for this comparison.
 
 ## Option 3: React Native with Expo — native views driven by JavaScript
 

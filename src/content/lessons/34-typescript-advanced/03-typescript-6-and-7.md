@@ -8,10 +8,11 @@ runs and what quietly stopped working along the way.
 ## The native compiler
 
 TypeScript 7.0 ships `tsc` as a native Go binary — same command, same flags, same
-`tsconfig.json`, a different implementation underneath. Microsoft's own benchmarks (and
-early adopters like Slack, Sentry, and Bluesky) reported roughly 8–12x faster full-project
-type-checks, with editor startup on a file with existing errors dropping from double-digit
-seconds to about a second. The speedup comes from native code plus real multithreading —
+`tsconfig.json`, a different implementation underneath. Microsoft's own benchmark suite
+(VS Code, Playwright, TypeORM, date-fns, tRPC, rxjs) reported 9–13.5x faster full-project
+type-checks (VS Code itself at 10.4x), with editor startup on a file with existing errors
+dropping from double-digit seconds to about a second. The speedup comes from native code
+plus real multithreading —
 something the old JS-based `tsc` could never do, since Node's single-threaded model meant
 "parallel type-checking" wasn't on the table. `tsc --noEmit` as your CI gate (which this
 repo uses via `pnpm typecheck`) goes from the slowest step in the pipeline to one of the

@@ -50,11 +50,12 @@ doesn't pin the scope) are the same trust exploited two different ways.
 **Compromised CI, not just compromised packages.** The supply chain isn't only
 `node_modules` — it's the CI pipeline that builds and ships your app. GitHub Actions
 that reference a third-party action by a mutable tag (`uses: owner/repo@v4`) trust that
-tag to keep pointing at the code you reviewed. In 2025, a popular action
-(`tj-actions/changed-files`) was compromised in exactly this way, and workflows across
-thousands of repositories ran the attacker's code with the CI job's own secrets in
-scope. Pinning actions to an immutable commit SHA closes this specific hole; a floating
-tag doesn't.
+tag to keep pointing at the code you reviewed. In March 2025, a popular action
+(`tj-actions/changed-files`, tracked as CVE-2025-30066) was compromised this way: the
+attacker rewrote release tags to point at a malicious commit that dumped CI runner
+secrets into workflow logs, and workflows across an estimated 23,000+ repositories ran
+that code with the CI job's own secrets in scope. Pinning actions to an immutable commit
+SHA closes this specific hole; a floating tag doesn't.
 
 ## The framework itself is part of the supply chain
 
@@ -85,4 +86,4 @@ browser will simply refuse to run it.
 - [Socket: npm author Qix compromised](https://socket.dev/blog/npm-author-qix-compromised-in-major-supply-chain-attack)
 - [StepSecurity / Socket coverage of the Shai-Hulud worm](https://socket.dev/blog/ongoing-supply-chain-attack-targets-crowdstrike-npm-packages)
 - [react.dev/blog — Critical Security Vulnerability in React Server Components](https://react.dev/blog)
-- [Socket: tj-actions/changed-files supply chain compromise](https://socket.dev/blog)
+- [GitHub Security Advisory: tj-actions/changed-files (CVE-2025-30066)](https://github.com/advisories/GHSA-mrrh-fwg8-r2c3)

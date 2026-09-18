@@ -68,10 +68,10 @@ flipping a flag, no new deploy required.
 There's no single standardized wire protocol yet, but OpenFeature (a CNCF project) defines
 a common *vendor-neutral SDK shape* that most providers now implement an adapter for —
 LaunchDarkly, Flagsmith, Unleash, PostHog, Statsig, and GrowthBook all ship OpenFeature
-providers, and Vercel's `flags` package targets a similar evaluation model. Treat the
-following as the shape that generalizes across them, not any one vendor's exact API
-(verify the current OpenFeature spec version against openfeature.dev before quoting it in
-production docs — this lesson doesn't rely on a specific version number):
+providers, and Vercel's `flags` package targets a similar evaluation model. The spec is
+still pre-1.0 (v0.9.0, released July 2026, per the spec's GitHub releases) and can still
+ship breaking changes between minors. Treat the following as the shape that generalizes
+across providers, not any one vendor's exact API:
 
 - **Evaluation context**: the data used to decide a flag's value for this call — typically
   `{ userId, attributes }` (plan tier, region, signed-up-at, etc.).
@@ -165,5 +165,6 @@ turns "just roll back" into "we can't roll back."
 
 - [Vite: Env Variables and Modes](https://vite.dev/guide/env-and-mode)
 - [OpenFeature: What is OpenFeature?](https://openfeature.dev/docs/reference/intro)
+- [OpenFeature spec releases](https://github.com/open-feature/spec/releases)
 - [LaunchDarkly: Percentage rollouts](https://launchdarkly.com/docs/home/flags/rollouts)
 - [Vercel: Instant Rollback](https://vercel.com/docs/deployments/rollbacks)

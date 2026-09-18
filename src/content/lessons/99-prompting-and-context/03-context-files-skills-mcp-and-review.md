@@ -58,9 +58,10 @@ every skill's full body into context up front; it sees the short frontmatter lis
 expands one only when a task matches. That's progressive disclosure again, applied to
 *behavior* instead of facts: "how do I run this project's release process" can be a
 five-hundred-line procedure without costing five hundred lines on tasks that never touch a
-release. As of late 2025, this shape (frontmatter-plus-body, `name`/`description`/trigger
-convention) is circulating as an "Agent Skills" open standard beyond Claude specifically —
-worth treating as still-settling rather than fully fixed.
+release. This shape (frontmatter-plus-body, `name`/`description`/trigger convention) is now
+published as the "Agent Skills" open standard beyond Claude specifically, with its own
+spec site at agentskills.io separate from Anthropic's own `anthropic-skills` repo — still
+worth treating as recently-settled rather than long-established.
 
 ## MCP: tools from a server, not a package
 
@@ -72,10 +73,12 @@ process, or Streamable HTTP for a remote one, with OAuth for authenticated remot
 Instead of writing bespoke integration code per tool your agent needs (a filesystem
 walker, a GitHub client, a Figma reader, a Playwright driver, a database query layer), you
 point the host at an MCP server and it exposes a consistent tool interface. Governance of
-the spec moved from Anthropic alone to the Linux Foundation's Agentic AI Foundation as of
-December 2025 — treat that governance detail as reported rather than something to build a
-lesson claim on, but the protocol shape (hosts/clients/servers, tools/resources/prompts,
-the two transports) is stable and worth knowing cold.
+the spec moved from Anthropic alone to the Linux Foundation: the project is now run as
+"Model Context Protocol, a Series of LF Projects, LLC" (confirmed on
+modelcontextprotocol.io's governance page), with a Lead Maintainer/Core Maintainer/
+Maintainer structure and changes proposed as Specification Enhancement Proposals. The
+protocol shape (hosts/clients/servers, tools/resources/prompts, the two transports) is
+stable and worth knowing cold.
 
 The security posture matters as much as the plumbing. An MCP server is a plugin with
 whatever access you grant it, and its tool *results* are untrusted input to the model —
