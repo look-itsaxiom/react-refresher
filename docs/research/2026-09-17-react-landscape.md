@@ -79,7 +79,7 @@ Source: [React 19.3 blog post](https://react.dev/blog/2026/09/09/react-19-3).
 | `cacheSignal`, `cache()` | Server Components only |
 | `SuspenseList`, taint APIs, `unstable_*` | Still canary/experimental (not in any stable release notes found) |
 
-**Security note**: in December 2025 an unauthenticated RCE (CVE-2025-66478) and two follow-up issues were disclosed in React Server Components. Anything running RSC must be on 19.0.1+, 19.1.2+, or 19.2.1+ ([advisory](https://react.dev/blog)).
+**Security note**: in December 2025 an unauthenticated RCE (CVE-2025-55182 in the react-server-dom packages; Next.js published its own advisory) and follow-up DoS and source-exposure issues (CVE-2025-55183, -55184, -67779, CVE-2026-23864) were disclosed in React Server Components. Anything running RSC must be on 19.0.1+, 19.1.2+, or 19.2.1+ ([advisory](https://react.dev/blog)).
 
 ---
 

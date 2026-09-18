@@ -56,3 +56,16 @@ describe('posts', () => {
     expect(fetchPosts()).not.toBe(p1);
   });
 });
+
+describe('reset makes in-flight calls stale', () => {
+  it('a call started before reset still resolves but does not consume a later failNext', async () => {
+    controls.reset();
+    controls.setLatency(30);
+    const stale = serverCall(() => 'stale');
+    controls.reset(); // simulates the runner moving to the next check
+    controls.setLatency(0);
+    controls.failNext('for the next check');
+    await expect(stale).resolves.toBe('stale');
+    await expect(serverCall(() => 'fresh')).rejects.toThrow('for the next check');
+  });
+});
