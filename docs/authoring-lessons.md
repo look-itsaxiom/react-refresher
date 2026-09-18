@@ -104,9 +104,10 @@ Check conventions:
   `ctx.db.exec(sql)` runs a multi-statement script and throws on the first failing statement;
   `ctx.db.explain(sql)` returns the `EXPLAIN (FORMAT TEXT)` lines. The runner opens and closes
   the database for you; do not call `ctx.db.close()` yourself.
-- Every check gets its own fresh database: `seed.sql` (if present) runs first, then the
-  learner's `query.sql`. A SQL error in the learner's file fails every check with that
-  error's message, before any check-specific assertion runs.
+- Each check starts from an empty `public` schema: one PGlite database boots per run (not
+  per check), and its `public` schema is dropped and recreated before every check, then
+  `seed.sql` (if present) runs, then the learner's `query.sql`. A SQL error in the learner's
+  file fails every check with that error's message, before any check-specific assertion runs.
 - `ctx.mod`, `ctx.Component`, `ctx.render`, `ctx.screen`, `ctx.within`, `ctx.user`, and
   `ctx.act` all throw in SQL exercises — they only exist for `runtime: 'browser'`. Use
   `ctx.db`, `ctx.expect`, `ctx.server`, `ctx.sleep`.

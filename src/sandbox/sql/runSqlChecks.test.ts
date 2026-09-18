@@ -17,15 +17,21 @@ describe('runSqlChecks', () => {
         const r = await db.query<{ n: number }>('select count(*)::int as n from tasks');
         expect(r.rows[0]?.n).to.equal(4); // 3 + 1, not 5
       } },
+      { name: 'schema was reset, not shared, after the previous check', run: async ({ db, expect }) => {
+        // If the database (or its public schema) were reused without a reset, this would
+        // see the row inserted by the previous check and count 5 instead of the seeded 3.
+        const r = await db.query<{ n: number }>('select count(*)::int as n from tasks');
+        expect(r.rows[0]?.n).to.equal(3);
+      } },
       { name: 'deliberately failing', run: async ({ expect }) => { expect(1).to.equal(2); } },
     ];
     const out = await runSqlChecks({
       files: { 'seed.sql': seed, 'query.sql': "insert into tasks values (3, 'c');" },
       checks,
     });
-    expect(out.results.map((r) => r.status)).toEqual(['pass', 'pass', 'fail']);
+    expect(out.results.map((r) => r.status)).toEqual(['pass', 'pass', 'pass', 'fail']);
     expect(out.allPassed).toBe(false);
-    expect(out.results[2]?.error).toMatch(/expected 1 to equal 2/);
+    expect(out.results[3]?.error).toMatch(/expected 1 to equal 2/);
   });
 
   it('a failing statement in the entry fails every check with the SQL error', { timeout: 60_000 }, async () => {
