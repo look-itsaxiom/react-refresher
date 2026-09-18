@@ -69,13 +69,11 @@ export function createLocalCheckHandler(deps: HandlerDeps) {
     let parsed: unknown;
     try { parsed = JSON.parse(body); } catch { return { status: 400, body: 'Malformed JSON' }; }
     const dir = typeof parsed === 'object' && parsed !== null ? (parsed as { dir?: unknown }).dir : undefined;
-    const tags = typeof parsed === 'object' && parsed !== null ? (parsed as { tags?: unknown }).tags : undefined;
     const full = typeof dir === 'string' ? resolveExerciseDir(deps.root, dir) : null;
     if (!full) return { status: 400, body: 'Invalid dir' };
-    if (typeof tags !== 'undefined' && (typeof tags !== 'string' || !/^[A-Za-z0-9_,]*$/.test(tags))) return { status: 400, body: 'Invalid tags' };
     if (!(await deps.exists(full))) return { status: 404, body: 'No such exercise folder' };
 
-    const args = ['test', '-json', '-count=1', ...(tags ? ['-tags', tags] : []), './...'];
+    const args = ['test', '-json', '-count=1', './...'];
     const started = Date.now();
     let result: SpawnResult;
     try {
