@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { lessonStatus, lessonCompletion, overallCompletion, firstIncompleteStepIndex } from './dashboard-status';
+import { lessonStatus, lessonCompletion, overallCompletion, firstIncompleteStepIndex, pathCompletion } from './dashboard-status';
+import { getPathView } from '../content/paths';
 import { emptyProgress } from './progress/types';
 import type { Lesson } from '../content/types';
 
@@ -37,5 +38,16 @@ describe('dashboard status', () => {
   it('finds the first incomplete step, or 0 when all done', () => {
     expect(firstIncompleteStepIndex(lesson, done('l1/a'))).toBe(1);
     expect(firstIncompleteStepIndex(lesson, done('l1/a', 'l1/b', 'l1/c'))).toBe(0);
+  });
+});
+
+describe('pathCompletion', () => {
+  it('counts only authored stops and finds the first incomplete one', () => {
+    const view = getPathView('integrate-fullstack');
+    const empty = pathCompletion(view, emptyProgress());
+    expect(empty.done).toBe(0);
+    expect(empty.total).toBeGreaterThan(0);
+    expect(empty.authoredStops).toBeLessThan(view.stops.length);
+    expect(empty.nextLessonId).toBe(view.stops.find((s) => s.lesson)!.planned.id);
   });
 });

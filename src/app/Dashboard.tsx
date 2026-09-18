@@ -1,10 +1,11 @@
 import { useRef } from 'react';
 import { Link } from 'react-router';
-import { getCurriculumView, getLessons } from '../content/registry';
+import { getCurriculumView, getLesson, getLessons } from '../content/registry';
 import type { Lesson, LessonView } from '../content/types';
+import { getPathView, paths } from '../content/paths';
 import { progressStore, useProgress, useSaveState } from './progress/useProgress';
 import { isProgress, type Progress } from './progress/types';
-import { firstIncompleteStepIndex, lessonCompletion, lessonStatus, overallCompletion, type LessonStatus } from './dashboard-status';
+import { firstIncompleteStepIndex, lessonCompletion, lessonStatus, overallCompletion, pathCompletion, type LessonStatus } from './dashboard-status';
 import { Button } from './components/Button';
 
 type CardStatus = LessonStatus | 'locked';
@@ -48,6 +49,47 @@ function LessonCard({ view, progress }: { view: LessonView; progress: Progress }
       </div>
       <p className="mt-1 text-xs text-ink-muted">{done}/{total} steps</p>
     </Link>
+  );
+}
+
+function PathCard({ pathId, progress }: { pathId: string; progress: Progress }) {
+  const view = getPathView(pathId);
+  const c = pathCompletion(view, progress);
+  const next = c.nextLessonId ? getLesson(c.nextLessonId) : undefined;
+  return (
+    <section aria-labelledby={`path-${pathId}`} className="rounded-lg border border-accent/40 bg-surface-2 p-5">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h2 id={`path-${pathId}`} className="text-lg font-semibold">{view.path.title}</h2>
+          <p className="mt-1 text-sm text-ink-muted max-w-3xl">{view.path.description}</p>
+        </div>
+        {next && (
+          <Link to={`/lesson/${next.id}/${firstIncompleteStepIndex(next, progress)}`}>
+            <Button size="sm">Continue path</Button>
+          </Link>
+        )}
+      </div>
+      <div className="mt-3 h-1.5 rounded bg-surface-3 overflow-hidden">
+        <div className="h-full bg-accent" style={{ width: `${c.percent}%` }} />
+      </div>
+      <p className="mt-1 text-xs text-ink-muted">
+        {c.done}/{c.total} steps across {c.authoredStops} of {view.stops.length} stops ({view.stops.length - c.authoredStops} coming soon)
+      </p>
+      <ol className="mt-3 flex flex-wrap gap-1.5">
+        {view.stops.map(({ stop, planned, lesson }) => (
+          <li key={stop.lessonId}>
+            {lesson ? (
+              <Link to={`/lesson/${lesson.id}/${firstIncompleteStepIndex(lesson, progress)}`} title={stop.why}
+                className={`inline-block rounded px-2 py-0.5 text-xs border ${lessonStatus(lesson, progress) === 'done' ? 'border-success/40 text-success' : 'border-border text-ink hover:border-accent'}`}>
+                {planned.title}
+              </Link>
+            ) : (
+              <span title={stop.why} className="inline-block rounded px-2 py-0.5 text-xs border border-border text-ink-muted opacity-70">{planned.title}</span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </section>
   );
 }
 
@@ -125,6 +167,8 @@ export function Dashboard() {
           <ContinueButton lessons={lessons} progress={progress} />
         </div>
       </section>
+
+      {paths.map((p) => <PathCard key={p.id} pathId={p.id} progress={progress} />)}
 
       {view.map(({ track, lessons: items }) => (
         <section key={track.id}>

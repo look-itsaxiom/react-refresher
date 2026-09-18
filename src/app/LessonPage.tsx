@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Link, NavLink, useNavigate, useParams } from 'react-router';
 import { getLesson, stepKey } from '../content/registry';
+import { pathStopFor } from '../content/paths';
 import { progressStore, useProgress } from './progress/useProgress';
 import { ConceptStep } from './steps/ConceptStep';
 import { QuizStep } from './steps/QuizStep';
@@ -30,6 +31,8 @@ export function LessonPage() {
     );
   }
 
+  const onPath = pathStopFor(lesson.id);
+
   const isLast = index === lesson.steps.length - 1;
   const isExercise = step.kind === 'exercise';
 
@@ -39,6 +42,11 @@ export function LessonPage() {
         <div className="p-4 border-b border-border">
           <Link to="/" className="text-xs text-ink-muted hover:text-ink">← Dashboard</Link>
           <h1 className="mt-1 font-semibold leading-tight">{lesson.title}</h1>
+          {onPath && (
+            <p className="mt-2 rounded border border-accent/40 bg-accent/10 px-2 py-1 text-xs text-ink" title={onPath.stop.why}>
+              On your path: {onPath.path.title.split(':')[0]}. {onPath.stop.why}
+            </p>
+          )}
         </div>
         <ol className="p-2">
           {lesson.steps.map((s, i) => {
