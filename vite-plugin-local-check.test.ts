@@ -41,13 +41,20 @@ describe('createLocalCheckHandler', () => {
     const h = createLocalCheckHandler({ root, spawn: okSpawn, exists: async () => true });
     expect((await h('GET', '', undefined, 'localhost:5180')).status).toBe(405);
     expect((await h('POST', '{"dir":"a/b"}', 'http://evil.test', 'localhost:5180')).status).toBe(403);
-    expect((await h('POST', 'nope', undefined, 'localhost:5180')).status).toBe(400);
-    expect((await h('POST', '{"dir":"../x"}', undefined, 'localhost:5180')).status).toBe(400);
+    expect((await h('POST', 'nope', 'http://localhost:5180', 'localhost:5180')).status).toBe(400);
+    expect((await h('POST', '{"dir":"../x"}', 'http://localhost:5180', 'localhost:5180')).status).toBe(400);
+  });
+
+  it('rejects a POST with a missing Origin header', async () => {
+    const h = createLocalCheckHandler({ root, spawn: okSpawn, exists: async () => true });
+    const r = await h('POST', '{"dir":"a/b"}', undefined, 'localhost:5180');
+    expect(r.status).toBe(403);
+    expect(r.body).toBe('Forbidden: missing Origin');
   });
 
   it('404s when the folder is missing and 200s with parsed tests otherwise', async () => {
     const missing = createLocalCheckHandler({ root, spawn: okSpawn, exists: async () => false });
-    expect((await missing('POST', '{"dir":"a/b"}', undefined, 'localhost:5180')).status).toBe(404);
+    expect((await missing('POST', '{"dir":"a/b"}', 'http://localhost:5180', 'localhost:5180')).status).toBe(404);
     const h = createLocalCheckHandler({ root, spawn: okSpawn, exists: async () => true });
     const r = await h('POST', '{"dir":"a/b"}', 'http://localhost:5180', 'localhost:5180');
     expect(r.status).toBe(200);
@@ -58,9 +65,9 @@ describe('createLocalCheckHandler', () => {
 
   it('maps ENOENT to go-not-found and timeouts to timeout', async () => {
     const enoent = createLocalCheckHandler({ root, spawn: async () => { throw Object.assign(new Error('spawn go ENOENT'), { code: 'ENOENT' }); }, exists: async () => true });
-    expect(JSON.parse((await enoent('POST', '{"dir":"a/b"}', undefined, 'h')).body).error).toBe('go-not-found');
+    expect(JSON.parse((await enoent('POST', '{"dir":"a/b"}', 'http://localhost:5180', 'localhost:5180')).body).error).toBe('go-not-found');
     const slow = createLocalCheckHandler({ root, spawn: async () => ({ code: null, stdout: '', stderr: '', timedOut: true }), exists: async () => true });
-    expect(JSON.parse((await slow('POST', '{"dir":"a/b"}', undefined, 'h')).body).error).toBe('timeout');
+    expect(JSON.parse((await slow('POST', '{"dir":"a/b"}', 'http://localhost:5180', 'localhost:5180')).body).error).toBe('timeout');
   });
 });
 
@@ -70,7 +77,7 @@ describe('createLocalCheckMiddleware', () => {
   function fakeReq(body: string): IncomingMessage {
     return {
       method: 'POST',
-      headers: {},
+      headers: { origin: 'http://localhost:5180', host: 'localhost:5180' },
       setEncoding() {},
       on(event: string, cb: (arg?: string) => void) {
         if (event === 'data') cb(body);

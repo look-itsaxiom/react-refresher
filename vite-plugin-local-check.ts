@@ -64,7 +64,8 @@ export function createLocalCheckHandler(deps: HandlerDeps) {
   const timeoutMs = deps.timeoutMs ?? DEFAULT_TIMEOUT_MS;
   return async (method: string, body: string, origin?: string, host?: string): Promise<HandlerResult> => {
     if (method !== 'POST') return { status: 405, body: 'Method not allowed' };
-    if (origin && host && !isSameOriginAsHost(origin, host)) return { status: 403, body: 'Forbidden' };
+    if (!origin) return { status: 403, body: 'Forbidden: missing Origin' };
+    if (host && !isSameOriginAsHost(origin, host)) return { status: 403, body: 'Forbidden' };
     let parsed: unknown;
     try { parsed = JSON.parse(body); } catch { return { status: 400, body: 'Malformed JSON' }; }
     const dir = typeof parsed === 'object' && parsed !== null ? (parsed as { dir?: unknown }).dir : undefined;
