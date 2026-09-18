@@ -94,3 +94,8 @@ React 18 and who wants the whole 2026 frontend map, taught concept then exercise
   `act`, `expect` (chai), `server`, `sleep`. Import `waitFor` from
   `@testing-library/dom` when polling. Configure `ctx.server` before touching
   `ctx.Component` or `ctx.mod`.
+- See "SQL exercises (runtime: 'sql')" in `docs/authoring-lessons.md`: these run on
+  PGlite (in-memory Postgres) both in the browser and in Node.
+- See "Local exercises (runtime: 'local')" in `docs/authoring-lessons.md`: these are
+  graded by `go test` via the dev server, and validated by `local-exercises.test.ts`,
+  which needs Go on the machine running the suite.
