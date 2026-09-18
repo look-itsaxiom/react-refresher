@@ -33,14 +33,16 @@ describe('content registry', () => {
     expect(getLesson('nope')).toBeUndefined();
   });
 
-  it('curriculum view has every track and marks planned lessons without modules as unavailable', () => {
+  it('curriculum view has every track, one entry per planned lesson, and only authored lessons are available', () => {
     const view = getCurriculumView();
     expect(view.map((v) => v.track.id)).toEqual(tracks.map((t) => t.id));
     const all = view.flatMap((v) => v.lessons);
     expect(all.length).toBe(curriculum.length);
-    const locked = all.filter((l) => l.lesson === undefined);
-    expect(locked.length).toBeGreaterThan(0);
-    for (const l of locked) expect(curriculum.some((p) => p.id === l.planned.id)).toBe(true);
+    const available = all.filter((l) => l.lesson !== undefined);
+    expect(available.length).toBe(getLessons().length);
+    // Planned lessons without a module are shown as locked; since the curriculum is now fully
+    // authored this set is empty, but the view must still tolerate it for future additions.
+    for (const l of all) expect(curriculum.some((p) => p.id === l.planned.id)).toBe(true);
   });
 
   it('every step id inside a lesson is unique', () => {
