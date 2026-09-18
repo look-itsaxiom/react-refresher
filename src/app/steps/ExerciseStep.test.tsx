@@ -88,7 +88,8 @@ describe('ExerciseStep', () => {
     expect(screen.getByText(/all checks passed/i)).toBeTruthy();
   });
 
-  it('renders the SQL variant: sql editor tab, result grid placeholder, and passes runtime to the sandbox', () => {
+  it('renders the SQL variant: sql editor tab, result grid placeholder, and passes runtime to the sandbox', async () => {
+    const user = userEvent.setup();
     const step: ExerciseStepData = {
       kind: 'exercise', id: 'q', title: 'Write a query', prompt: 'p', hints: ['h'], checks: [{ name: 'c', run: () => {} }],
       runtime: 'sql', entry: 'query.sql',
@@ -99,5 +100,7 @@ describe('ExerciseStep', () => {
     expect(screen.getByRole('tab', { name: 'query.sql' })).toBeTruthy();
     expect(screen.getByRole('tab', { name: 'seed.sql' })).toBeTruthy();
     expect(screen.getByText(/results/i)).toBeTruthy();
+    await user.click(screen.getByRole('button', { name: /run checks/i }));
+    expect(sandbox.runChecks).toHaveBeenCalledWith(expect.anything(), 'query.sql', 'l/q', 'sql');
   });
 });
