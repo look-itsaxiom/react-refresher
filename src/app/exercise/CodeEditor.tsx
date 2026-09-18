@@ -1,5 +1,5 @@
 import { useEffect, useEffectEvent, useRef } from 'react';
-import { EditorState, Prec } from '@codemirror/state';
+import { Annotation, EditorState, Prec } from '@codemirror/state';
 import { EditorView, keymap } from '@codemirror/view';
 import { basicSetup } from 'codemirror';
 import { indentWithTab } from '@codemirror/commands';
@@ -13,6 +13,10 @@ type Props = {
   onRun?: () => void;
   readOnly?: boolean;
 };
+
+// Marks a dispatch as programmatic (prop-driven doc sync), so the update listener can
+// tell it apart from a real user edit and skip firing `onChange` for it.
+const External = Annotation.define<boolean>();
 
 export function CodeEditor({ value, onChange, onRun, readOnly = false }: Props) {
   const host = useRef<HTMLDivElement>(null);
@@ -35,7 +39,11 @@ export function CodeEditor({ value, onChange, onRun, readOnly = false }: Props) 
         ...(theme === 'dark' ? [oneDark] : []),
         EditorState.readOnly.of(readOnly),
         EditorView.editable.of(!readOnly),
-        EditorView.updateListener.of((u) => { if (u.docChanged) handleChange(u.state.doc.toString()); }),
+        EditorView.updateListener.of((u) => {
+          if (!u.docChanged) return;
+          if (u.transactions.some((t) => t.annotation(External))) return;
+          handleChange(u.state.doc.toString());
+        }),
         EditorView.theme({ '&': { height: '100%', fontSize: '13px' }, '.cm-scroller': { fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace' } }),
       ],
     });
@@ -51,7 +59,7 @@ export function CodeEditor({ value, onChange, onRun, readOnly = false }: Props) 
     if (!v) return;
     const current = v.state.doc.toString();
     if (current !== value) {
-      v.dispatch({ changes: { from: 0, to: current.length, insert: value } });
+      v.dispatch({ changes: { from: 0, to: current.length, insert: value }, annotations: External.of(true) });
     }
   }, [value]);
 

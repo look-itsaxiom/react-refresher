@@ -8,6 +8,7 @@ import { initTheme } from './app/theme';
 
 initTheme();
 void progressStore.load();
+window.addEventListener('pagehide', () => { void progressStore.flush(); });
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

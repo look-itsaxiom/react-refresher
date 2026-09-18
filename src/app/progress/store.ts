@@ -37,6 +37,27 @@ export function createProgressStore(
   let dirty = false;
   let inFlight: Promise<void> | null = null;
   const listeners = new Set<() => void>();
+  // Resolved by load() once it settles (success or failure), so persist() never saves
+  // before the initial GET comes back and clobbers it with a near-empty shape. `isLoaded`
+  // lets persist() skip the `await` entirely once loading has already settled, so saves
+  // after that point are not delayed by an extra microtask tick.
+  let isLoaded = false;
+  let resolveLoaded: () => void = () => {};
+  const loaded: Promise<void> = new Promise((resolve) => { resolveLoaded = resolve; });
+  function markLoaded() { isLoaded = true; resolveLoaded(); }
+
+  // Edits made while load() is in flight land on top of `emptyProgress()` (via `update()`,
+  // which sets `progress` immediately); merge them onto the loaded snapshot (loaded data
+  // first, local edits win per-key) instead of letting the loaded data overwrite them.
+  function mergeLocalOntoLoaded(loadedData: Progress, local: Progress): Progress {
+    return {
+      ...loadedData,
+      steps: { ...loadedData.steps, ...local.steps },
+      code: { ...loadedData.code, ...local.code },
+      quiz: { ...loadedData.quiz, ...local.quiz },
+      lastVisited: local.lastVisited ?? loadedData.lastVisited,
+    };
+  }
 
   function emit() {
     for (const l of listeners) l();
@@ -53,6 +74,7 @@ export function createProgressStore(
     if (inFlight) return inFlight;
     if (!dirty) return Promise.resolve();
     inFlight = (async () => {
+      if (!isLoaded) await loaded;
       while (dirty) {
         dirty = false;
         const snapshot = progress;
@@ -93,12 +115,15 @@ export function createProgressStore(
     async load() {
       setSaveState('loading');
       try {
-        progress = await backend.load();
+        const loadedData = await backend.load();
+        // `progress` here reflects any local edits made while this await was pending.
+        progress = mergeLocalOntoLoaded(loadedData, progress);
         setSaveState('idle');
       } catch {
         setSaveState('error');
       }
       emit();
+      markLoaded();
     },
     completeStep(key) {
       if (progress.steps[key]) return;

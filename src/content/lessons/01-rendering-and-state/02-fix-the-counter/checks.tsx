@@ -1,3 +1,4 @@
+import { waitFor } from '@testing-library/dom';
 import type { Check } from '../../../types';
 
 export const checks: Check[] = [
@@ -20,13 +21,15 @@ export const checks: Check[] = [
   },
   {
     name: '"+1 in a moment" does not clobber clicks made while it waits',
-    run: async ({ render, screen, user, expect, Component, sleep }) => {
+    run: async ({ render, screen, user, expect, Component }) => {
       render(<Component />);
       await user.click(screen.getByRole('button', { name: '+1 in a moment' }));
       await user.click(screen.getByRole('button', { name: '+3' }));
       expect(screen.getByTestId('count').textContent).to.equal('3');
-      await sleep(400);
-      expect(screen.getByTestId('count').textContent, 'after the delayed increment fires').to.equal('4');
+      await waitFor(
+        () => expect(screen.getByTestId('count').textContent, 'after the delayed increment fires').to.equal('4'),
+        { timeout: 2000 },
+      );
     },
   },
   {

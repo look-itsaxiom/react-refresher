@@ -1,3 +1,4 @@
+import { waitFor } from '@testing-library/dom';
 import type { Check } from '../../../types';
 
 export const checks: Check[] = [
@@ -15,15 +16,16 @@ export const checks: Check[] = [
   },
   {
     name: 'after the server confirms, the todo stays and is no longer pending',
-    run: async ({ render, screen, user, expect, server, Component, sleep }) => {
+    run: async ({ render, screen, user, expect, server, Component }) => {
       server.setLatency(100);
       render(<Component />);
       await user.type(screen.getByLabelText('Title'), 'Water plants');
       await user.click(screen.getByRole('button', { name: 'Add' }));
-      await sleep(400);
-      const items = screen.getAllByText('Water plants', { selector: 'li' });
-      expect(items.length, 'exactly one item, not an optimistic duplicate').to.equal(1);
-      expect(items[0]?.getAttribute('data-pending')).to.equal(null);
+      await waitFor(() => {
+        const items = screen.getAllByText('Water plants', { selector: 'li' });
+        expect(items.length, 'exactly one item, not an optimistic duplicate').to.equal(1);
+        expect(items[0]?.getAttribute('data-pending')).to.equal(null);
+      }, { timeout: 2000 });
     },
   },
   {
@@ -41,14 +43,13 @@ export const checks: Check[] = [
   },
   {
     name: 'still resets the input after a successful add',
-    run: async ({ render, screen, user, expect, server, Component, sleep }) => {
+    run: async ({ render, screen, user, expect, server, Component }) => {
       server.setLatency(50);
       render(<Component />);
       const input = screen.getByLabelText('Title') as HTMLInputElement;
       await user.type(input, 'Read a book');
       await user.click(screen.getByRole('button', { name: 'Add' }));
-      await sleep(300);
-      expect(input.value).to.equal('');
+      await waitFor(() => expect(input.value).to.equal(''), { timeout: 2000 });
     },
   },
 ];

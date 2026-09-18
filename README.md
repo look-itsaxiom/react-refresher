@@ -23,5 +23,6 @@ Progress (completed steps, your exercise code, quiz answers) is written to `prog
 - `src/content/lessons/*/lesson.ts` defines a lesson as ordered steps: `concept` (markdown), `exercise` (starter files, solution, hints, checks), `quiz`.
 - Exercises run in `preview.html`, a separate Vite entry loaded in an iframe. Your code is compiled with Sucrase to CommonJS and evaluated against a fixed module registry (`react`, `react-dom`, `@server/*`). Checks are written with Testing Library and run in the iframe; the same checks run in Vitest against each solution.
 - `@server/*` modules simulate a server with latency and a failure switch, standing in for Server Functions.
+- A synchronous infinite loop in learner code freezes the preview tab; the 5s watchdog only covers async hangs. Reload the page to recover.
 
 See `docs/authoring-lessons.md` to add lessons and `docs/research/2026-09-17-react-landscape.md` for the research behind the curriculum.

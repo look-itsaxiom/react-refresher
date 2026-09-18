@@ -173,4 +173,28 @@ describe('progress store', () => {
     expect(saves.length).toBe(1);
     expect(saves[0]?.code['a/b']).toEqual({ 'App.tsx': 'v2' });
   });
+
+  it('never saves before load() resolves, and merges edits made during load onto the loaded snapshot', async () => {
+    const seed = { ...emptyProgress(), steps: { 'x/y': { completedAt: 'seed' } } };
+    let resolveLoad: (p: Progress) => void = () => {};
+    const save = vi.fn(async (_p: Progress) => {});
+    const backend = {
+      load: vi.fn(() => new Promise<Progress>((resolve) => { resolveLoad = resolve; })),
+      save,
+    };
+    const store = createProgressStore(backend, { debounceMs: 10, now: () => 't' });
+
+    const loadPromise = store.load();
+    store.completeStep('a/b'); // edit lands before load() has resolved
+    await vi.advanceTimersByTimeAsync(10); // past the debounce
+    expect(backend.save).not.toHaveBeenCalled();
+
+    resolveLoad(structuredClone(seed));
+    await loadPromise;
+    await vi.waitFor(() => expect(backend.save).toHaveBeenCalledTimes(1));
+
+    const saved = backend.save.mock.calls[0]?.[0] as Progress;
+    expect(saved.steps['x/y']).toEqual({ completedAt: 'seed' }); // loaded data survives
+    expect(saved.steps['a/b']).toEqual({ completedAt: 't' }); // local edit survives
+  });
 });

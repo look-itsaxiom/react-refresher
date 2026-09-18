@@ -1,4 +1,4 @@
-`const [optimisticTodos, addOptimisticTodo] = useOptimistic(state.todos, (current, title: string) => [...current, { id: -1, title, done: false, pending: true }])`. Render `optimisticTodos`, not `state.todos`.
+`const [optimisticTodos, addOptimisticTodo] = useOptimistic(state.todos, (current, title: string) => [...current, { id: -Date.now(), title, done: false, pending: true }])`. Render `optimisticTodos`, not `state.todos`.
 ---
 Wrap the form action: a function that calls `addOptimisticTodo(title)` and then `formAction(formData)`. Pass that wrapper to `<form action>`; it runs inside a transition, which is where `addOptimisticTodo` must be called.
 ---

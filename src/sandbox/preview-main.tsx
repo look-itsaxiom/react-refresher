@@ -1,7 +1,8 @@
 import { baseRegistry } from './registry';
 import { findExercise } from '../content/registry';
 import { createPreviewHost } from './preview-host';
-import type { ConsoleLevel, FrameToParent, ParentToFrame } from './protocol';
+import { createFrameMessageHandler } from './preview-bridge';
+import type { ConsoleLevel, FrameToParent } from './protocol';
 
 // Some libraries probe process.env; the iframe has no bundler define for it.
 (globalThis as { process?: unknown }).process ??= { env: {} };
@@ -43,15 +44,14 @@ const host = createPreviewHost({
   mount,
 });
 
-let queue: Promise<void> = Promise.resolve();
-window.addEventListener('message', (event: MessageEvent<unknown>) => {
-  if (event.source !== window.parent) return;
-  const data = event.data as Partial<ParentToFrame> | null;
-  if (!data || data.type !== 'run') return;
-  // Serialize runs so a checks run and a preview run never interleave.
-  queue = queue.then(() => host.handle(data as ParentToFrame)).catch((e: unknown) => {
-    post({ type: 'runtime-error', runId: (data as ParentToFrame).runId, message: e instanceof Error ? e.message : String(e) });
-  });
-});
+window.addEventListener(
+  'message',
+  createFrameMessageHandler({
+    handle: (msg) => host.handle(msg),
+    post,
+    expectedOrigin: window.location.origin,
+    parentWindow: window.parent,
+  }),
+);
 
 post({ type: 'ready' });

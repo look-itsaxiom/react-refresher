@@ -37,13 +37,20 @@ export type ProgressIo = {
 
 export type HandlerResult = { status: number; body: string };
 
+function isSameOriginAsHost(origin: string, host: string): boolean {
+  return origin === `http://${host}` || origin === `https://${host}`;
+}
+
 export function createProgressHandler(io: ProgressIo) {
-  return async (method: string, body: string): Promise<HandlerResult> => {
+  return async (method: string, body: string, origin?: string, host?: string): Promise<HandlerResult> => {
     if (method === 'GET') {
       const text = await io.read();
       return { status: 200, body: text ?? EMPTY };
     }
     if (method === 'PUT') {
+      if (origin && host && !isSameOriginAsHost(origin, host)) {
+        return { status: 403, body: 'Forbidden' };
+      }
       let parsed: unknown;
       try {
         parsed = JSON.parse(body);
@@ -103,7 +110,7 @@ export function progressPlugin(options: { file?: string } = {}): Plugin {
         void (async () => {
           try {
             const body = req.method === 'PUT' ? await readBody(req) : '';
-            const result = await handler(req.method ?? 'GET', body);
+            const result = await handler(req.method ?? 'GET', body, req.headers.origin, req.headers.host);
             res.statusCode = result.status;
             if (result.status === 200) res.setHeader('Content-Type', 'application/json');
             res.end(result.body);

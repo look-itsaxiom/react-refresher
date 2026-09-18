@@ -58,4 +58,24 @@ describe('progress handler', () => {
     const res = await createProgressHandler(io)('PUT', body);
     expect(res.status).toBe(500);
   });
+
+  it('PUT rejects a cross-origin request without writing', async () => {
+    const { io, current } = fakeIo(null);
+    const body = JSON.stringify({ version: 1, steps: {}, code: {}, quiz: {} });
+    const res = await createProgressHandler(io)('PUT', body, 'http://evil.example', 'localhost:5180');
+    expect(res.status).toBe(403);
+    expect(current()).toBeNull();
+  });
+
+  it('PUT accepts a same-origin request (http or https) and one with no Origin header', async () => {
+    const { io: io1 } = fakeIo(null);
+    const body = JSON.stringify({ version: 1, steps: {}, code: {}, quiz: {} });
+    expect((await createProgressHandler(io1)('PUT', body, 'http://localhost:5180', 'localhost:5180')).status).toBe(204);
+
+    const { io: io2 } = fakeIo(null);
+    expect((await createProgressHandler(io2)('PUT', body, 'https://localhost:5180', 'localhost:5180')).status).toBe(204);
+
+    const { io: io3 } = fakeIo(null);
+    expect((await createProgressHandler(io3)('PUT', body)).status).toBe(204);
+  });
 });

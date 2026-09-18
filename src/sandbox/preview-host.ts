@@ -97,19 +97,32 @@ export function createPreviewHost(deps: Deps) {
       renderPreview(msg);
       return;
     }
-    const outcome = await runChecks({ files: msg.files, entry: msg.entry, checks, registry: deps.registry });
-    if (outcome.kind === 'compile-error') {
-      const e = outcome.error;
-      deps.post({
-        type: 'compile-error',
-        runId: msg.runId,
-        message: e.message,
-        filename: e instanceof CompileError ? e.filename : e.from,
-        line: e instanceof CompileError ? e.line : undefined,
-        column: e instanceof CompileError ? e.column : undefined,
-      });
-    } else {
-      deps.post({ type: 'check-results', runId: msg.runId, results: outcome.results, allPassed: outcome.allPassed });
+    // Checks render into document.body (via Testing Library); hide it for the duration so the
+    // preview pane doesn't flicker with check renders. The preview mount is unmounted anyway.
+    // `opacity: 0` rather than `visibility: hidden`: visibility is inherited and would make every
+    // descendant "inaccessible", which is exactly what Testing Library's getByRole/findByRole
+    // filter out by default — most exercise checks use those and would start failing for real.
+    // Opacity is not part of that accessibility check, so it hides the flicker without touching
+    // query results.
+    const previousOpacity = document.body.style.opacity;
+    document.body.style.opacity = '0';
+    try {
+      const outcome = await runChecks({ files: msg.files, entry: msg.entry, checks, registry: deps.registry });
+      if (outcome.kind === 'compile-error') {
+        const e = outcome.error;
+        deps.post({
+          type: 'compile-error',
+          runId: msg.runId,
+          message: e.message,
+          filename: e instanceof CompileError ? e.filename : e.from,
+          line: e instanceof CompileError ? e.line : undefined,
+          column: e instanceof CompileError ? e.column : undefined,
+        });
+      } else {
+        deps.post({ type: 'check-results', runId: msg.runId, results: outcome.results, allPassed: outcome.allPassed });
+      }
+    } finally {
+      document.body.style.opacity = previousOpacity;
     }
     renderPreview(msg);
   }
