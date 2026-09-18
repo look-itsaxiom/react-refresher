@@ -34,7 +34,7 @@ Rules:
 
 ## Sandbox limits
 
-User code can import only: `react`, `react/jsx-runtime`, `react/jsx-dev-runtime`, `react-dom`, `react-dom/client`, and `@server/todos|users|posts`. To expose a new server module, add it under `src/sandbox/server/`, register it in `src/sandbox/registry.ts`, and list it in the plan's Global Constraints.
+User code can import only: `react`, `react/jsx-runtime`, `react/jsx-dev-runtime`, `react-dom`, `react-dom/client`, `react-dom/server` (renderToString for SSR/hydration exercises), and `@server/todos|users|posts`. To expose a new server module, add it under `src/sandbox/server/`, register it in `src/sandbox/registry.ts`, and list it in the plan's Global Constraints.
 - A synchronous infinite loop in learner code freezes the preview tab; the 5s watchdog only covers async hangs. Reload the page to recover.
 
 ## Recurring rulings

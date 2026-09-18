@@ -86,7 +86,7 @@ React 18 and who wants the whole 2026 frontend map, taught concept then exercise
   Web Push, real network) unless the starter ships a tiny stub. `customElements` and
   Shadow DOM work in both.
 - Available imports: `react`, `react/jsx-runtime`, `react/jsx-dev-runtime`, `react-dom`,
-  `react-dom/client`, `@server/todos`, `@server/users`, `@server/posts`, plus any server
+  `react-dom/client`, `react-dom/server`, `@server/todos`, `@server/users`, `@server/posts`, plus any server
   module you add and register.
 - The preview renders the entry's default export (or `App`). Function-style exercises
   still need a small default component that displays the function's output.
