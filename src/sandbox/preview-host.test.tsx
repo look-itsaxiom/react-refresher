@@ -2,7 +2,7 @@ import { describe, it, expect, vi, afterEach } from 'vitest';
 import { createPreviewHost } from './preview-host';
 import { baseRegistry } from './registry';
 import type { FrameToParent, ParentToFrame } from './protocol';
-import type { Check } from '../content/types';
+import type { Check, SqlDb } from '../content/types';
 
 function setup(checks: Check[] | undefined) {
   const posted: FrameToParent[] = [];
@@ -75,5 +75,28 @@ describe('preview host', () => {
     await host.handle(run({ mode: 'checks' }));
     const results = posted.find((m) => m.type === 'check-results');
     expect(results).toMatchObject({ allPassed: false });
+  });
+
+  it('runs SQL previews and checks through the sql runner when runtime is sql', async () => {
+    const posted: FrameToParent[] = [];
+    const fakeDb = () => Promise.resolve<SqlDb>({
+      async query<T = Record<string, unknown>>(sql: string) { return sql.includes('boom') ? Promise.reject(new Error('relation "boom" does not exist')) : { rows: [{ one: 1 }] as T[], columns: ['one'] }; },
+      async exec(sql: string) { if (sql.includes('boom')) throw new Error('relation "boom" does not exist'); },
+      async explain() { return ['Seq Scan on t']; },
+      async close() {},
+    });
+    const host = createPreviewHost({
+      post: (m) => posted.push(m),
+      registry: baseRegistry,
+      findChecks: () => [{ name: 'has a row', run: async ({ db, expect }) => { const r = await db.query('select 1 as one'); expect(r.rows.length).to.equal(1); } }],
+      mount: document.createElement('div'),
+      createSqlDb: fakeDb,
+    });
+    await host.handle({ type: 'run', runId: 1, mode: 'preview', runtime: 'sql', files: { 'query.sql': 'select 1 as one' }, entry: 'query.sql', exerciseKey: 'x/y' });
+    expect(posted.at(-1)).toMatchObject({ type: 'sql-result', runId: 1, columns: ['one'], error: null });
+    await host.handle({ type: 'run', runId: 2, mode: 'checks', runtime: 'sql', files: { 'query.sql': 'select 1 as one' }, entry: 'query.sql', exerciseKey: 'x/y' });
+    expect(posted.at(-1)).toMatchObject({ type: 'check-results', runId: 2, allPassed: true });
+    await host.handle({ type: 'run', runId: 3, mode: 'preview', runtime: 'sql', files: { 'query.sql': 'select * from boom' }, entry: 'query.sql', exerciseKey: 'x/y' });
+    expect(posted.at(-1)).toMatchObject({ type: 'sql-result', runId: 3, error: expect.stringMatching(/boom/) });
   });
 });

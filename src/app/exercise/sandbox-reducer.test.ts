@@ -45,4 +45,16 @@ describe('sandboxReducer', () => {
     s = sandboxReducer(s, { type: 'clear-logs' });
     expect(s.logs).toEqual([]);
   });
+
+  it('stores sql-result for the current run and ignores stale ones', () => {
+    let s = sandboxReducer(initialSandboxState, { type: 'start', runId: 3, mode: 'preview' });
+    s = sandboxReducer(s, { type: 'message', msg: { type: 'sql-result', runId: 2, columns: ['x'], rows: [{ x: 1 }], error: null, statements: 1 } });
+    expect(s.sql).toBeNull();
+    s = sandboxReducer(s, { type: 'message', msg: { type: 'sql-result', runId: 3, columns: ['x'], rows: [{ x: 1 }], error: null, statements: 1 } });
+    expect(s.sql?.rows).toEqual([{ x: 1 }]);
+    expect(s.phase).toBe('ok');
+    s = sandboxReducer(s, { type: 'message', msg: { type: 'sql-result', runId: 3, columns: [], rows: [], error: 'syntax error', statements: 0 } });
+    expect(s.phase).toBe('runtime-error');
+    expect(s.error?.message).toBe('syntax error');
+  });
 });

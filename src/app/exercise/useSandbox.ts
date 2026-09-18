@@ -18,20 +18,20 @@ export function useSandbox() {
     return () => window.removeEventListener('message', onMessage);
   }, []);
 
-  const send = useCallback((mode: ParentToFrame['mode'], files: Record<string, string>, entry: string, exerciseKey: string) => {
+  const send = useCallback((mode: ParentToFrame['mode'], files: Record<string, string>, entry: string, exerciseKey: string, runtime: ParentToFrame['runtime'] = 'browser') => {
     const target = iframeRef.current?.contentWindow;
     if (!target) return;
     const runId = ++runCounter;
     dispatch({ type: 'start', runId, mode });
-    const msg: ParentToFrame = { type: 'run', runId, mode, files, entry, exerciseKey };
+    const msg: ParentToFrame = { type: 'run', runId, mode, files, entry, exerciseKey, runtime };
     target.postMessage(msg, window.location.origin);
   }, []);
 
   return {
     state,
     iframeRef,
-    runPreview: useCallback((files: Record<string, string>, entry: string, key: string) => send('preview', files, entry, key), [send]),
-    runChecks: useCallback((files: Record<string, string>, entry: string, key: string) => send('checks', files, entry, key), [send]),
+    runPreview: useCallback((files: Record<string, string>, entry: string, key: string, runtime: ParentToFrame['runtime'] = 'browser') => send('preview', files, entry, key, runtime), [send]),
+    runChecks: useCallback((files: Record<string, string>, entry: string, key: string, runtime: ParentToFrame['runtime'] = 'browser') => send('checks', files, entry, key, runtime), [send]),
     clearLogs: useCallback(() => dispatch({ type: 'clear-logs' }), []),
   };
 }

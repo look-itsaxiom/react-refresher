@@ -1,17 +1,20 @@
 import { Component, createElement, type ErrorInfo, type ReactNode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { flushSync } from 'react-dom';
-import type { Check } from '../content/types';
+import type { Check, SqlDb } from '../content/types';
 import { CompileError } from './compile';
 import { evaluate, ModuleNotFoundError, type ModuleRegistry } from './modules';
 import type { FrameToParent, ParentToFrame } from './protocol';
 import { formatError, getComponent, runChecks } from './runner';
+import { createSqlDb as defaultCreateSqlDb } from './sql/db';
+import { runSqlChecks, runSqlScript } from './sql/runSqlChecks';
 
 type Deps = {
   post(msg: FrameToParent): void;
   registry: ModuleRegistry;
   findChecks(exerciseKey: string): Check[] | undefined;
   mount: HTMLElement;
+  createSqlDb?: () => Promise<SqlDb>;
 };
 
 type BoundaryProps = { onError(message: string): void; children?: ReactNode };
@@ -40,12 +43,56 @@ class PreviewErrorBoundary extends Component<BoundaryProps, BoundaryState> {
 
 export function createPreviewHost(deps: Deps) {
   let root: Root | null = null;
+  const createSqlDb = deps.createSqlDb ?? defaultCreateSqlDb;
 
   function unmount() {
     if (root) {
       root.unmount();
       root = null;
     }
+  }
+
+  function renderSqlGrid(result: Awaited<ReturnType<typeof runSqlScript>>): void {
+    unmount();
+    deps.mount.textContent = '';
+    if (result.error) {
+      const pre = document.createElement('pre');
+      pre.style.cssText = 'color:#f87171;white-space:pre-wrap;font-size:13px';
+      pre.textContent = result.error;
+      deps.mount.appendChild(pre);
+      return;
+    }
+    const table = document.createElement('table');
+    table.style.cssText = 'border-collapse:collapse;font:12px ui-monospace,monospace';
+    const head = table.createTHead().insertRow();
+    for (const c of result.columns) { const th = document.createElement('th'); th.textContent = c; th.style.cssText = 'text-align:left;padding:4px 8px;border-bottom:1px solid #444'; head.appendChild(th); }
+    const body = table.createTBody();
+    for (const row of result.rows.slice(0, 200)) {
+      const tr = body.insertRow();
+      for (const c of result.columns) { const td = tr.insertCell(); const v = row[c]; td.textContent = v === null ? 'NULL' : typeof v === 'object' ? JSON.stringify(v) : String(v); td.style.cssText = 'padding:4px 8px;border-bottom:1px solid #2a2a2a'; }
+    }
+    const caption = document.createElement('p');
+    caption.style.cssText = 'color:#9aa0a6;font-size:12px';
+    caption.textContent = `${result.rows.length} row${result.rows.length === 1 ? '' : 's'}${result.rows.length > 200 ? ' (showing 200)' : ''} · ${result.statements} statement${result.statements === 1 ? '' : 's'}`;
+    deps.mount.appendChild(table);
+    deps.mount.appendChild(caption);
+  }
+
+  async function previewSql(msg: ParentToFrame): Promise<void> {
+    const result = await runSqlScript(msg.files, msg.entry, createSqlDb);
+    renderSqlGrid(result);
+    deps.post({ type: 'sql-result', runId: msg.runId, columns: result.columns, rows: result.rows.slice(0, 200), error: result.error, statements: result.statements });
+  }
+
+  async function checkSql(msg: ParentToFrame): Promise<void> {
+    const checks = deps.findChecks(msg.exerciseKey);
+    if (!checks) {
+      deps.post({ type: 'check-results', runId: msg.runId, allPassed: false, results: [{ name: 'exercise found', status: 'fail', error: `No checks registered for '${msg.exerciseKey}'`, durationMs: 0 }] });
+      return;
+    }
+    await previewSql(msg);
+    const outcome = await runSqlChecks({ files: msg.files, entry: msg.entry, checks, createDb: createSqlDb });
+    deps.post({ type: 'check-results', runId: msg.runId, results: outcome.results, allPassed: outcome.allPassed });
   }
 
   function renderPreview(msg: ParentToFrame): void {
@@ -130,6 +177,11 @@ export function createPreviewHost(deps: Deps) {
   return {
     async handle(msg: ParentToFrame): Promise<void> {
       if (msg.type !== 'run') return;
+      if (msg.runtime === 'sql') {
+        if (msg.mode === 'preview') await previewSql(msg);
+        else await checkSql(msg);
+        return;
+      }
       if (msg.mode === 'preview') renderPreview(msg);
       else await runExerciseChecks(msg);
     },
