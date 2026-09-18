@@ -7,7 +7,7 @@ export const checks: Check[] = [
   {
     name: 'shows the new todo immediately as pending, before the server responds',
     run: async (ctx) => {
-      ctx.server.setLatency(300);
+      ctx.server.setLatency(3000); // generous: this check only asserts what is visible before the server responds
       const { render, screen, user, expect, Component } = ctx;
       render(<Component />);
       await user.type(screen.getByLabelText('Title'), 'Walk the dog');
@@ -46,10 +46,11 @@ export const checks: Check[] = [
       // The mount itself makes a getTodos() call (the initial query load) — let that settle
       // on its own success *before* arming failNext, so the forced failure lands on the
       // addTodo() call the test actually cares about, not on the unrelated initial load.
-      ctx.server.setLatency(20);
+      ctx.server.setLatency(0); // let the initial load finish immediately
       const { render, screen, user, expect, sleep, server, Component } = ctx;
       render(<Component />);
-      await sleep(60);
+      await sleep(50);
+      server.setLatency(20);
       server.failNext('Server exploded');
       await user.type(screen.getByLabelText('Title'), 'Doomed todo');
       await user.click(screen.getByRole('button', { name: /add/i }));
