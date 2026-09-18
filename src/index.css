@@ -1,0 +1,56 @@
+@import "tailwindcss";
+@source not "../progress";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@theme {
+  --color-surface: #0f1115;
+  --color-surface-2: #171a21;
+  --color-surface-3: #1f2430;
+  --color-border: #2a3040;
+  --color-ink: #e7e9ee;
+  --color-ink-muted: #9aa3b2;
+  --color-accent: #61dafb;
+  --color-accent-strong: #22b8e6;
+  --color-success: #4ade80;
+  --color-danger: #f87171;
+  --color-warning: #fbbf24;
+}
+
+:root[data-theme="light"] {
+  --color-surface: #ffffff;
+  --color-surface-2: #f5f6f8;
+  --color-surface-3: #e9ebf0;
+  --color-border: #d6dae3;
+  --color-ink: #14171e;
+  --color-ink-muted: #5b6474;
+  --color-accent: #0a7ea4;
+  --color-accent-strong: #086482;
+}
+
+html, body, #root { height: 100%; }
+body { @apply bg-surface text-ink antialiased; }
+
+/* shiki dual themes: light values are default, dark variables under data-theme=dark */
+:root[data-theme="dark"] .shiki,
+:root[data-theme="dark"] .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+.shiki { @apply rounded-md p-3 text-[13px] leading-relaxed overflow-x-auto; }
+
+.prose-refresher { @apply text-[15px] leading-7; }
+.prose-refresher h1 { @apply text-2xl font-semibold mt-2 mb-4 tracking-tight; }
+.prose-refresher h2 { @apply text-xl font-semibold mt-8 mb-3; }
+.prose-refresher h3 { @apply text-base font-semibold mt-6 mb-2; }
+.prose-refresher p { @apply my-3; }
+.prose-refresher ul { @apply list-disc pl-6 my-3; }
+.prose-refresher ol { @apply list-decimal pl-6 my-3; }
+.prose-refresher li { @apply my-1; }
+.prose-refresher a { @apply text-accent underline; }
+.prose-refresher blockquote { @apply border-l-2 border-accent pl-4 text-ink-muted my-4; }
+.prose-refresher code:not(.shiki code) { @apply bg-surface-3 rounded px-1 py-0.5 text-[13px]; }
+.prose-refresher pre { @apply my-4; }
+.prose-refresher table { @apply w-full text-sm my-4 border-collapse; }
+.prose-refresher th, .prose-refresher td { @apply border border-border px-2 py-1 text-left; }
+.prose-refresher hr { @apply border-border my-6; }

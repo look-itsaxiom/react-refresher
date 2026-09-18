@@ -205,8 +205,11 @@ text explains that in a real app these would be Server Functions.
 2. **02-suspense-and-transitions** (React 18 you skipped track): concept "Suspense as a
    loading boundary"; exercise: wrap a data component so a fallback shows, using a
    provided `use`-style resource; concept "startTransition / useTransition and
-   useDeferredValue"; exercise: make a filter input stay responsive with
-   `useDeferredValue` (check asserts deferred behavior through the DOM).
+   useDeferredValue"; exercise: make a tab switch that suspends a transition with
+   `useTransition`, so the current tab stays visible and the nav reports pending.
+   (Amended 2026-09-17: the original `useDeferredValue` filter exercise was replaced
+   because deferred-value behavior cannot be asserted deterministically through the
+   DOM; the concept step still teaches `useDeferredValue`.)
 3. **03-actions-and-optimistic-ui** (React 19 track): concept "Actions, useActionState,
    useFormStatus"; exercise: convert a manual fetch+state form to a `<form action>` with
    `useActionState` against `@server/todos`; concept "useOptimistic"; exercise: add an
