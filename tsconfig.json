@@ -15,5 +15,6 @@
     "types": ["vite/client"],
     "paths": { "@server/*": ["./src/sandbox/server/*"] }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["src/content/__tests__/local-exercises.test.ts"]
 }

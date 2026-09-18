@@ -10,10 +10,16 @@ import { useSandbox } from '../exercise/useSandbox';
 import { ChecksPanel } from '../exercise/ChecksPanel';
 import { ConsolePanel } from '../exercise/ConsolePanel';
 import { HintsPanel } from '../exercise/HintsPanel';
+import { LocalExerciseStep } from './LocalExerciseStep';
 
 const PREVIEW_DEBOUNCE_MS = 400;
 
-export function ExerciseStep({ step, lessonId }: { step: ExerciseStepData; lessonId: string }) {
+export function ExerciseStep(props: { step: ExerciseStepData; lessonId: string }) {
+  if (props.step.runtime === 'local') return <LocalExerciseStep {...props} />;
+  return <BrowserOrSqlExerciseStep {...props} />;
+}
+
+function BrowserOrSqlExerciseStep({ step, lessonId }: { step: ExerciseStepData; lessonId: string }) {
   const key = stepKey(lessonId, step.id);
   const runtime = step.runtime ?? 'browser';
   const entry = step.entry ?? (runtime === 'sql' ? 'query.sql' : 'App.tsx');

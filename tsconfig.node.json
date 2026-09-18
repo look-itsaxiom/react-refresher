@@ -10,7 +10,7 @@
     "skipLibCheck": true,
     "noEmit": true,
     "allowImportingTsExtensions": true,
-    "types": ["node"]
+    "types": ["node", "vite/client"]
   },
-  "include": ["vite.config.ts", "vite-plugin-progress.ts", "vite-plugin-progress.test.ts", "vite-plugin-local-check.ts", "vite-plugin-local-check.test.ts"]
+  "include": ["vite.config.ts", "vite-plugin-progress.ts", "vite-plugin-progress.test.ts", "vite-plugin-local-check.ts", "vite-plugin-local-check.test.ts", "src/content/__tests__/local-exercises.test.ts"]
 }
