@@ -20,12 +20,54 @@ function goTest(dir: string, tags?: string) {
   return spawnSync('go', args, { cwd: dir, encoding: 'utf8', windowsHide: true, timeout: 120_000 });
 }
 
+type GoTestEvent = { Action?: string; Test?: string };
+
+/** Top-level (non-subtest) Go test names the solution actually reports via `go test -json`. */
+function collectTopLevelTestNames(dir: string): Set<string> {
+  const result = spawnSync('go', ['test', '-json', '-count=1', '-tags', 'solution', './...'], {
+    cwd: dir,
+    encoding: 'utf8',
+    windowsHide: true,
+    timeout: 120_000,
+  });
+  const names = new Set<string>();
+  for (const line of result.stdout.split('\n')) {
+    if (!line.trim()) continue;
+    let event: GoTestEvent;
+    try {
+      event = JSON.parse(line) as GoTestEvent;
+    } catch {
+      continue;
+    }
+    if (
+      event.Test !== undefined &&
+      !event.Test.includes('/') &&
+      (event.Action === 'pass' || event.Action === 'fail' || event.Action === 'skip')
+    ) {
+      names.add(event.Test);
+    }
+  }
+  return names;
+}
+
+function assertExpectedTestsAreReal(dir: string, expectedTests: string[]) {
+  const realNames = collectTopLevelTestNames(dir);
+  const missing = expectedTests.filter((name) => !realNames.has(name));
+  expect(missing, `expectedTests not found among go test's reported test names: ${missing.join(', ')}`).toEqual([]);
+}
+
 describe('local (go) exercises', () => {
   it('smoke fixture: starter fails, solution passes', { timeout: 180_000 }, () => {
     if (!goAvailable) { console.warn('go not installed; skipping local exercise validation'); return; }
     const dir = resolve(root, 'exercises-local/_smoke');
     expect(goTest(dir).status).not.toBe(0);
     expect(goTest(dir, 'solution').status).toBe(0);
+  });
+
+  it('smoke fixture: expectedTests match go test\'s reported test names', { timeout: 180_000 }, () => {
+    if (!goAvailable) { console.warn('go not installed; skipping'); return; }
+    const dir = resolve(root, 'exercises-local/_smoke');
+    assertExpectedTestsAreReal(dir, ['TestAdd']);
   });
 
   for (const { lesson, step } of locals) {
@@ -48,6 +90,7 @@ describe('local (go) exercises', () => {
         expect(solution.status, `solution failed:\n${solution.stdout}\n${solution.stderr}`).toBe(0);
         const vet = spawnSync('go', ['vet', '-tags', 'solution', './...'], { cwd: dir, encoding: 'utf8', windowsHide: true });
         expect(vet.status, `go vet failed:\n${vet.stderr}`).toBe(0);
+        assertExpectedTestsAreReal(dir, step.local!.expectedTests);
       });
     });
   }
