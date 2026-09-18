@@ -25,7 +25,10 @@ export type TrackId =
   | 'pwa'
   | 'deployment'
   | 'design-systems'
-  | 'ai-assisted';
+  | 'ai-assisted'
+  | 'go'
+  | 'postgres'
+  | 'interview';
 
 export type Track = { id: TrackId; title: string; description: string };
 
@@ -50,6 +53,27 @@ export type ServerControls = {
   failNext(message?: string): void;
 };
 
+export type ExerciseRuntime = 'browser' | 'sql' | 'local';
+
+/** A fresh PostgreSQL database (PGlite) for SQL exercises. Present on ctx only when runtime === 'sql'. */
+export type SqlDb = {
+  query<T = Record<string, unknown>>(sql: string, params?: unknown[]): Promise<{ rows: T[]; columns: string[] }>;
+  /** Runs a multi-statement script. Throws on the first failing statement. */
+  exec(sql: string): Promise<void>;
+  /** `EXPLAIN (FORMAT TEXT)` lines for a query. */
+  explain(sql: string): Promise<string[]>;
+  close(): Promise<void>;
+};
+
+export type LocalExerciseConfig = {
+  /** Folder under exercises-local/, e.g. '102-go-for-typescript-developers/02-table-driven-tests'. */
+  dir: string;
+  /** Shown to the learner as the manual command, e.g. 'go test ./...'. */
+  command: string;
+  /** `go test -json` test names that must all pass for the step to complete. */
+  expectedTests: string[];
+};
+
 export type CheckContext = {
   /** The user's compiled entry module. Evaluated lazily on first access, so configure `server` first. */
   readonly mod: Record<string, unknown>;
@@ -64,6 +88,8 @@ export type CheckContext = {
   server: ServerControls;
   /** Resolves after `ms` milliseconds. */
   sleep(ms: number): Promise<void>;
+  /** Fresh database for this check. Only defined for `runtime: 'sql'` exercises. */
+  readonly db: SqlDb;
 };
 
 export type Check = {
@@ -81,6 +107,10 @@ export type ExerciseStep = {
   hints: string[];
   checks: Check[];
   entry?: string; // default 'App.tsx'
+  /** Where the learner's code runs. Defaults to 'browser'. */
+  runtime?: ExerciseRuntime;
+  /** Required when runtime === 'local'. */
+  local?: LocalExerciseConfig;
 };
 
 export type Step = ConceptStep | ExerciseStep | QuizStep;

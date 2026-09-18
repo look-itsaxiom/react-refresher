@@ -98,6 +98,9 @@ export async function runChecks(opts: {
         expect,
         server: controls,
         sleep,
+        get db(): never {
+          throw new Error('ctx.db is only available in SQL exercises (runtime: "sql")');
+        },
       };
       // Checks that build custom elements append them straight to document.body, which
       // Testing Library's cleanup() does not know about; snapshot so leaked nodes are

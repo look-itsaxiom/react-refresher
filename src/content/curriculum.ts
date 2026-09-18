@@ -26,6 +26,9 @@ export const tracks: Track[] = [
   { id: 'deployment', title: 'Deployment and CI/CD', description: 'Static hosts, CDNs, edge and serverless, containers, GitHub Actions, and release safety.' },
   { id: 'design-systems', title: 'Design systems and CSS architecture', description: 'Tokens, theming, component libraries, Storybook, and CSS that scales.' },
   { id: 'ai-assisted', title: 'AI-assisted development', description: 'Agents, MCP, prompting, code review with AI, and building LLM features into a frontend.' },
+  { id: 'go', title: 'Go for the backend', description: 'Go for TypeScript developers: HTTP services, service patterns, and integrations, graded by go test on your machine.' },
+  { id: 'postgres', title: 'PostgreSQL in practice', description: 'Schema design, queries, indexes, and migrations for cross-organization project data, run on Postgres in the browser.' },
+  { id: 'interview', title: 'Interview practice', description: 'System design, timed live-coding drills, a take-home rehearsal, and product thinking for a small full-stack team.' },
 ];
 
 /** Ordered. Ids with a matching folder under ./lessons are playable; the rest render as locked. */
@@ -152,4 +155,22 @@ export const curriculum: PlannedLesson[] = [
   { id: '99-prompting-and-context', track: 'ai-assisted', title: 'Prompting, context, and skills', summary: 'Specs over vibes, context files, skills and MCP, and reviewing AI-written code.' },
   { id: '100-building-llm-features', track: 'ai-assisted', title: 'Building LLM features in a frontend', summary: 'Streaming UIs, tool use, structured outputs, cost and latency, and safety basics.' },
   { id: '101-ai-and-frontend-quality', track: 'ai-assisted', title: 'AI and frontend quality', summary: 'AI-assisted tests, accessibility audits, refactors, and keeping humans in the loop.' },
+  // ---- Go
+  { id: '102-go-for-typescript-developers', track: 'go', title: 'Go for TypeScript developers', summary: 'Syntax and types, structs and interfaces, errors as values, slices and maps, goroutines, and the go tool.' },
+  { id: '103-http-services-in-go', track: 'go', title: 'HTTP services in Go', summary: 'net/http routing patterns, handlers, middleware chains, context, JSON, error responses, and httptest.' },
+  { id: '104-go-service-patterns', track: 'go', title: 'Go service patterns', summary: 'Project layout, dependency injection, error wrapping, cancellation, worker pools, graceful shutdown, and slog.' },
+  { id: '105-integrations-in-go', track: 'go', title: 'Integrations in Go', summary: 'Webhook signatures and idempotency, retries and backoff, rate limiting, async queues, and observability of the contract.' },
+  // ---- PostgreSQL
+  { id: '106-schema-design-for-project-data', track: 'postgres', title: 'Schema design for cross-organization project data', summary: 'Organizations, projects, tasks, dependencies, and sharing across companies; constraints, enums, soft deletes, audit columns.' },
+  { id: '107-queries-that-answer-product-questions', track: 'postgres', title: 'Queries that answer product questions', summary: 'Joins, CTEs, window functions, recursive CTEs for hierarchies and dependency graphs, LATERAL, and jsonb.' },
+  { id: '108-indexes-and-explain', track: 'postgres', title: 'Indexes and EXPLAIN', summary: 'Btree, composite, partial, covering, and GIN indexes; reading plans; the database side of n+1.' },
+  { id: '109-migrations-and-schema-evolution', track: 'postgres', title: 'Migrations and schema evolution', summary: 'Expand/contract, zero-downtime changes, batched backfills, locks and CONCURRENTLY, and migration tools.' },
+  // ---- GraphQL extension
+  { id: '110-graphql-servers-in-go', track: 'graphql', title: 'GraphQL servers in Go', summary: 'gqlgen schema-first workflow, resolvers, dataloaders for n+1, complexity limits, and auth in context.' },
+  { id: '111-apollo-client-in-react', track: 'graphql', title: 'Apollo Client in React', summary: 'Normalized cache and typePolicies, fragments, useQuery and useMutation, optimistic updates, pagination, codegen.' },
+  // ---- Interview practice
+  { id: '112-system-design-cross-org-collaboration', track: 'interview', title: 'System design: cross-organization collaboration', summary: 'Permissions across companies, real-time updates, conflict handling, audit history, and the data model for shared programs.' },
+  { id: '113-live-coding-drills', track: 'interview', title: 'Live-coding drills for project UIs', summary: 'Timeboxed React exercises: dependency lists with cycle detection, large task tables, optimistic edits with rollback.' },
+  { id: '114-take-home-rehearsal', track: 'interview', title: 'Take-home rehearsal', summary: 'A Go API, Postgres schema, React UI, and GitHub Actions workflow template, with a reviewer checklist.' },
+  { id: '115-product-thinking-and-ownership', track: 'interview', title: 'Product thinking and ownership', summary: 'Talking about tradeoffs, pushing back on specs, UX polish as an engineering requirement, and questions to ask.' },
 ];

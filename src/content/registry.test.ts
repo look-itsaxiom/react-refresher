@@ -45,6 +45,19 @@ describe('content registry', () => {
     for (const l of all) expect(curriculum.some((p) => p.id === l.planned.id)).toBe(true);
   });
 
+  it('planned lessons without a module appear as locked entries in their track', () => {
+    const view = getCurriculumView();
+    const go = view.find((v) => v.track.id === 'go');
+    expect(go).toBeDefined();
+    expect(go!.lessons.map((l) => l.planned.id)).toEqual([
+      '102-go-for-typescript-developers',
+      '103-http-services-in-go',
+      '104-go-service-patterns',
+      '105-integrations-in-go',
+    ]);
+    for (const l of go!.lessons) expect(l.lesson).toBeUndefined();
+  });
+
   it('every step id inside a lesson is unique', () => {
     for (const lesson of getLessons()) {
       const ids = lesson.steps.map((s) => s.id);
