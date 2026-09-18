@@ -99,4 +99,28 @@ describe('preview host', () => {
     await host.handle({ type: 'run', runId: 3, mode: 'preview', runtime: 'sql', files: { 'query.sql': 'select * from boom' }, entry: 'query.sql', exerciseKey: 'x/y' });
     expect(posted.at(-1)).toMatchObject({ type: 'sql-result', runId: 3, error: expect.stringMatching(/boom/) });
   });
+
+  it('does not leave a stale sql-result error once checks post their own results for a failing script', async () => {
+    const posted: FrameToParent[] = [];
+    const fakeDb = () => Promise.resolve<SqlDb>({
+      async query<T = Record<string, unknown>>(sql: string) { return sql.includes('boom') ? Promise.reject(new Error('relation "boom" does not exist')) : { rows: [{ one: 1 }] as T[], columns: ['one'] }; },
+      async exec(sql: string) { if (sql.includes('boom')) throw new Error('relation "boom" does not exist'); },
+      async explain() { return ['Seq Scan on t']; },
+      async close() {},
+    });
+    const host = createPreviewHost({
+      post: (m) => posted.push(m),
+      registry: baseRegistry,
+      findChecks: () => [{ name: 'has a row', run: async ({ db, expect }) => { const r = await db.query('select 1 as one'); expect(r.rows.length).to.equal(1); } }],
+      mount: document.createElement('div'),
+      createSqlDb: fakeDb,
+    });
+    await host.handle({ type: 'run', runId: 4, mode: 'checks', runtime: 'sql', files: { 'query.sql': 'select * from boom' }, entry: 'query.sql', exerciseKey: 'x/y' });
+    const sqlResult = posted.find((m) => m.type === 'sql-result');
+    expect(sqlResult).toMatchObject({ type: 'sql-result', runId: 4, error: expect.stringMatching(/boom/) });
+    expect(posted.at(-1)).toMatchObject({ type: 'check-results', runId: 4, allPassed: false });
+    if (posted.at(-1)?.type === 'check-results') {
+      expect(posted.at(-1)).toMatchObject({ results: [{ name: 'has a row', status: 'fail' }] });
+    }
+  });
 });

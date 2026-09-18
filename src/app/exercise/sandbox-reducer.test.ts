@@ -57,4 +57,16 @@ describe('sandboxReducer', () => {
     expect(s.phase).toBe('runtime-error');
     expect(s.error?.message).toBe('syntax error');
   });
+
+  it('clears a stale error once check-results follows a failing sql-result', () => {
+    let s = sandboxReducer(initialSandboxState, { type: 'start', runId: 5, mode: 'checks' });
+    s = sandboxReducer(s, { type: 'message', msg: { type: 'sql-result', runId: 5, columns: [], rows: [], error: 'syntax error', statements: 0 } });
+    expect(s.phase).toBe('runtime-error');
+    expect(s.error?.message).toBe('syntax error');
+    s = sandboxReducer(s, { type: 'message', msg: { type: 'check-results', runId: 5, results: [{ name: 'has a row', status: 'fail', error: 'syntax error', durationMs: 1 }], allPassed: false } });
+    expect(s.phase).toBe('ok');
+    expect(s.error).toBeNull();
+    expect(s.results).toEqual([{ name: 'has a row', status: 'fail', error: 'syntax error', durationMs: 1 }]);
+    expect(s.sql?.error).toBe('syntax error');
+  });
 });

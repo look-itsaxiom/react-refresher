@@ -44,7 +44,7 @@ export function sandboxReducer(state: SandboxState, action: SandboxAction): Sand
         case 'runtime-error':
           return msg.runId !== state.runId ? state : { ...state, phase: 'runtime-error', error: { message: msg.message } };
         case 'check-results':
-          return msg.runId !== state.runId ? state : { ...state, phase: 'ok', results: msg.results, allPassed: msg.allPassed };
+          return msg.runId !== state.runId ? state : { ...state, phase: 'ok', results: msg.results, allPassed: msg.allPassed, error: null };
         case 'sql-result':
           if (msg.runId !== state.runId) return state;
           return {
