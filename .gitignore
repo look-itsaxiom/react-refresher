@@ -1,4 +1,6 @@
 node_modules
+# personal progress lives only on your machine (dev server writes it); static builds use localStorage
+progress/
 dist
 *.local
 .DS_Store

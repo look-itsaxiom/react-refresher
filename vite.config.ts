@@ -5,7 +5,11 @@ import { fileURLToPath } from 'node:url';
 import { progressPlugin } from './vite-plugin-progress.ts';
 import { localCheckPlugin } from './vite-plugin-local-check.ts';
 
+// GITHUB_PAGES=1 builds for the project site at look-itsaxiom.github.io/react-refresher (see scripts/deploy-pages.mjs).
+const base = process.env.GITHUB_PAGES === '1' ? '/react-refresher/' : '/';
+
 export default defineConfig({
+  base,
   plugins: [react({ compiler: true }), tailwindcss(), progressPlugin(), localCheckPlugin()],
   server: {
     port: 5180,

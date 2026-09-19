@@ -1,6 +1,7 @@
 import type { UserFiles } from './modules';
 
-export const PREVIEW_PATH = '/preview.html';
+/** Resolved against Vite's `base` so the iframe loads under a sub-path deploy (GitHub Pages). */
+export const PREVIEW_PATH = `${import.meta.env.BASE_URL}preview.html`;
 
 export type CheckResult = {
   name: string;
