@@ -105,6 +105,14 @@ step, or permanently, if the value is the unified client-facing graph and not a
 GraphQL-native backend. The reverse also happens: exposing a REST-shaped subset of a
 GraphQL backend for a partner who can't or won't adopt GraphQL.
 
+## Interview angle
+
+N+1 is the concrete pattern the posting names directly, and DataLoader is the answer worth being able to describe mechanically: a `Task.vendor` resolver that hits the database once per task turns "load 50 tasks" into 51 round trips, and batching fixes it by registering every `load()` call within a tick and flushing them into one query, with a loader instance scoped per request so caching never leaks between users. Past that, this product's shape, an API surface that customers, vendors, and partners all query, makes the "operating GraphQL safely" half just as relevant as the algorithm: depth limiting and cost-based rate limiting catch what a flat per-IP request limit can't, since one GraphQL request can be a single field or a twenty-level fan-out, and disabling introspection plus persisted queries in production matters more once the schema is exposed to parties outside your own team.
+
+**Likely follow-up:** Someone sends a query aliasing the same expensive field two hundred times in one request. Depth limiting doesn't catch it. What does, and how would you actually implement the check?
+
+**Pitfall:** Rate-limiting a GraphQL API by request count the way you would a REST API, which does nothing against alias abuse or deep nesting, since a single request can hide an arbitrary amount of work. The fix is cost-based limiting computed statically from the query document before execution, not a per-IP request counter.
+
 ## Further reading (optional)
 
 - [graphql.org — DataLoader pattern](https://github.com/graphql/dataloader)

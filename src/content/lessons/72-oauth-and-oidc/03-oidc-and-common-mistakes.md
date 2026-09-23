@@ -149,6 +149,28 @@ Auth0 and Okta both support custom claims namespaced under a URL (like
 colliding with future registered ones. None of this changes the validation
 rules above — it changes what you can rely on being *present*.
 
+## Interview angle
+
+This is the lesson to connect directly to the posting's call for integration patterns and
+third-party APIs: OAuth is how your product would connect a vendor's tool, and OIDC is how you'd
+know who a user actually is when they authenticate. The single most valuable thing you can
+demonstrate is the distinction this lesson centers: an ID token proves who authenticated to your
+client, an access token authorizes a specific request to a specific API, and sending the wrong
+one to your Go API is a real, recurring bug class, not a theoretical one. On a program where
+multiple companies' users authenticate against possibly different identity providers, also be
+ready to talk about mix-up attacks and why checking `iss` on the callback matters once more than
+one authorization server is in play, and why redirect URI allowlisting has to be exact-match
+rather than a wildcard given how much damage a stolen authorization code could do here.
+
+**Likely follow-up:** You're integrating a vendor's third-party service that needs to call your
+API on a schedule with no user present. Is that still OAuth, and if so, which flow, and what's
+actually being authenticated?
+
+**Pitfall:** Treating "logged in with Google" and "authorized to call our API" as the same fact.
+Candidates who send an ID token to a backend as if it were a bearer credential are describing
+exactly the mistake this lesson calls out, and it's a fast way to lose credibility in a
+security-minded interview.
+
 ### Further reading (optional)
 
 - [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html)

@@ -176,6 +176,14 @@ default because query strings have length limits and because most GraphQL traffi
 mutations or queries not worth CDN-caching, but for a genuinely cacheable read, GET is
 the only shape ordinary HTTP infrastructure understands.
 
+## Interview angle
+
+Designing `assignVendorToTask` or `updateDependency` as a mutation is a direct test of the payload pattern here: one `input` object instead of scalar arguments so adding a field later stays non-breaking, a payload type that returns both the affected `Task` and a `userErrors` list, and a clear line between "the vendor doesn't have permission for this program" (an expected, user-facing failure that belongs in `userErrors` as ordinary data) versus "the vendor service timed out" (an unexpected failure that belongs in the top-level `errors` array). A strong answer also connects pagination to the product directly: a program's task list or a task's dependency list is exactly the case for Relay-style cursor pagination, since keyset pagination stays stable while multiple collaborators across companies are concurrently adding and removing tasks, where offset pagination would silently skip or repeat rows.
+
+**Likely follow-up:** Design the mutation for "add a dependency between two tasks." What goes in the input, what does the payload return, and where does "these two tasks would create a circular dependency" surface as an error?
+
+**Pitfall:** Putting a business-rule validation failure, like a permission check or a circular-dependency check, into the top-level GraphQL `errors` array instead of a typed `userErrors` field on the payload. It technically works, but it forces the client to parse error message strings instead of handling a typed, expected outcome, which is exactly the ergonomics `userErrors` exists to give back.
+
 ## Further reading (optional)
 
 - [Relay: Cursor Connections Specification](https://relay.dev/graphql/connections.htm)

@@ -119,6 +119,14 @@ override legacy styles without touching a single legacy selector's specificity. 
 component-by-component by deleting the legacy rule for a component once its React
 replacement ships, not by trying to convert the whole file at once.
 
+## Interview angle
+
+"If you build it, you own it" on a small team means whatever styling architecture you pick has to survive a year of a few people adding features under time pressure, including bringing in third-party widgets you don't control, like a document viewer for vendor-uploaded spec sheets or an embedded calendar for scheduling. A strong answer explains the `@layer` stack as the actual fix for the recurring "our CSS versus their CSS" fight: unlayered third-party styles beat every layer regardless of specificity, so wrapping a vendor stylesheet in its own named layer, placed early in the `@layer` order, lets your own `components`/`utilities` layers override it without a single `!important`. It's also worth naming the utilities-for-layout, CSS-Modules-for-state-heavy-components split, since a task card with a dozen interacting boolean props (selected, overdue, blocked, assigned-to-me) reads better as a module with a couple of composed classes than as a wall of conditional Tailwind strings.
+
+**Likely follow-up:** A vendor-supplied widget's CSS is fighting your own styles and you can't touch its source or its `<link>` tag. What's your actual fix, and what's the fallback if you can't control where its stylesheet is injected?
+
+**Pitfall:** Reaching for `!important` or an ever-more-specific selector to win a fight against third-party or legacy CSS, instead of controlling the fight at the layer level. It works once, and then the next override needs an even higher-specificity hack, which is the exact spiral `@layer` was built to end.
+
 ## Further reading (optional)
 
 - Tailwind Labs, [Tailwind CSS v4 upgrade guide](https://tailwindcss.com/docs/upgrade-guide)

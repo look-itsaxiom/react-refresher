@@ -96,6 +96,14 @@ each post's `author` with its own database call turns "get 20 posts" into 21 rou
 trips — the **N+1 problem**. The fix (batching per-request loads, most commonly with
 DataLoader) and the fuller REST/GraphQL/tRPC tradeoff live in lesson 79.
 
+## Interview angle
+
+This is squarely what the posting means by "read and reason about a resolver." Expect to be handed a schema like `Task { id, title, assignee: User, dependencies: [Task!]!, vendor: Vendor }` and asked to trace execution: which fields need a real resolver versus falling through to the default resolver reading a property off `parent`, and what happens when `vendor` is nullable but `dependencies` isn't. A strong answer explains null propagation concretely: if a `Task.vendor` resolver throws, only `vendor` nulls out, because it's nullable; if a non-null field like `dependencies` fails, the failure bubbles to the nearest nullable ancestor, which could null out the entire task depending on how the schema was shaped, so a deeply non-null schema around cross-company data, like a vendor lookup that might legitimately fail, is a reliability decision, not just a type decision.
+
+**Likely follow-up:** A `Program` type has a non-null `tasks: [Task!]!` field, and one task's `vendor` resolver throws because the vendor's system timed out. What does the client actually receive back, and would you design the schema differently knowing vendor lookups can fail?
+
+**Pitfall:** Treating every field as needing a hand-written resolver, or not accounting for how aggressive non-null usage around data you don't control, like a vendor integration or a partner API, turns one flaky dependency into a nulled-out response far bigger than the field that actually failed.
+
 ## Further reading (optional)
 
 - [GraphQL spec, September 2025 edition — §6 Execution](https://spec.graphql.org/September2025/#sec-Execution)

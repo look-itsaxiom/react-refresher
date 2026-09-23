@@ -152,7 +152,15 @@ tokens too — `--motion-duration-base` swapped to near-zero under that media qu
 "disable motion" is one variable change, not a search-and-replace through every
 `transition` declaration.
 
-**Further reading**
+## Interview angle
+
+A product where a customer and their vendors share the same dashboard is a natural candidate for per-tenant branding on top of light/dark, and this lesson's multi-brand section is the direct answer: the same custom-property override mechanism that powers a `.dark`/`[data-theme]` toggle also supports a tenant-scoped override, just at a different scope, a wrapper's `style` or a `<style>` block keyed by tenant instead of the document root. A strong answer keeps the three-state model straight (preference, resolved, and a media-query listener for "system") and can explain why the no-flash inline script matters more here than in a typical app: if a customer's branded theme resolves after first paint, they see your default brand flash before their own, which reads as a bug in a product they're being asked to trust with cross-company data.
+
+**Likely follow-up:** You need to support a customer's brand color on top of light/dark mode. Where do the tenant override and the light/dark toggle interact, and where do they stay independent?
+
+**Pitfall:** Treating "dark mode" and "multi-tenant branding" as the same problem solved by the same toggle, instead of recognizing they're two independent axes of the same custom-property mechanism. Collapsing them tends to produce a theme system where a customer's brand color silently resets when they switch to dark mode, because the two overrides were never designed to compose.
+
+## Further reading (optional)
 - MDN, `light-dark()` — https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark
 - MDN, `color-scheme` — https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme
 - web.dev, dark mode — https://web.dev/articles/prefers-color-scheme

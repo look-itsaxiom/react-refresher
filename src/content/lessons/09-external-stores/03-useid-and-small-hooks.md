@@ -100,6 +100,14 @@ couldn't solve without becoming three different hooks. That's a pattern worth re
 across the whole hooks API: when you see a hook with one very specific job, look for the
 one very specific problem it was carved out to fix.
 
+## Interview angle
+
+A PM tool that dynamically renders task creation forms, vendor invite forms, and inline-edit fields runs into exactly the problem `useId` solves: an id that's hardcoded works for one instance and breaks the moment the same field component renders twice on a page (two tasks both editing their "due date" field, say), producing duplicate ids that make `<label htmlFor>` ambiguous for both assistive technology and test queries. A strong answer explains why `Math.random()` or a module counter doesn't work either: it produces a different id on the server than the client, causing a hydration mismatch, which matters if any part of the dashboard is server-rendered.
+
+**Likely follow-up:** You're rendering the same `<TaskField>` component 30 times in a table, each with its own label and input. What breaks if you hardcode the id, and what's different about `useId`'s guarantee versus a module-level counter?
+
+**Pitfall:** Using a `useId` value as a list `key`. Keys need to track an item's identity across data (a task's database id), not a component instance's render identity; using `useId` there would break reconciliation the moment the list reorders, even though the code compiles and looks reasonable.
+
 ## Further reading (optional)
 
 - [`useId`](https://react.dev/reference/react/useId) — react.dev

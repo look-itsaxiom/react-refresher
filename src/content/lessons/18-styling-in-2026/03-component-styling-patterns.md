@@ -88,6 +88,14 @@ fully supported and is not deprecated; `shadcn init -b radix` keeps the old defa
 styling layer — Tailwind classes baked into the copied source — is unaffected by that
 underlying primitives swap; only the accessibility/behavior layer underneath changed.
 
+## Interview angle
+
+Tailwind is in the stack, and a PM tool that renders the same `<Button>` or `<StatusBadge>` across a customer view, a vendor view, and an internal admin view needs variants that don't turn into string-concatenation spaghetti. A strong answer reaches for `cva` or `tailwind-variants` to model `intent`/`size`/`status` as a declared table instead of nested ternaries, and knows to reach for `tailwind-merge` the moment a shared component accepts a `className` prop for a caller to override, since Tailwind's cascade order is stylesheet order, not the order classes appear in a string. Tokens as CSS custom properties matter here too: a semantic `--color-status-blocked` that themed components read via `var()` lets a "blocked" badge look consistent everywhere it's used without hunting down every hardcoded hex.
+
+**Likely follow-up:** A `<StatusBadge className="p-8">` doesn't actually override the component's own `p-2`. Why not, and what's the fix?
+
+**Pitfall:** Building variant logic as hand-written conditional class strings that happen to work today, then having a caller's `className` override silently lose to the component's own classes later, because nothing in the setup resolves same-property Tailwind conflicts deterministically. `tailwind-merge` exists specifically to remove that guesswork.
+
 ## Further reading (optional)
 
 - [class-variance-authority](https://cva.style/docs)

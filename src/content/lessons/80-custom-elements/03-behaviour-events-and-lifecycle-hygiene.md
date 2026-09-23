@@ -131,7 +131,7 @@ element is. The one thing you must do that a React-only test suite never has to 
 each test run its own tag name (a random suffix works well), because `customElements.define` can't
 be called twice for the same tag and there's no teardown that un-registers one.
 
-**Further reading**
+## Further reading (optional)
 - [MDN: `CustomEvent`](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent)
 - [MDN: `ElementInternals` (Baseline: widely available, since March 2023)](https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals)
 - [web.dev: More capable form controls](https://web.dev/articles/more-capable-form-controls)

@@ -98,6 +98,29 @@ loader/action — and never let a provider token cross into a client bundle. Cli
 code calls your own same-origin routes, which hold the real credential, instead of ever
 holding one itself.
 
+## Interview angle
+
+The interviewer wants to see that you can name the actual attacker capability you're defending
+against, not just recite "don't use localStorage." Walk through the table from this lesson out
+loud: XSS, CSRF, physical device access, other tabs, a malicious extension — each storage
+location trades one off against another. Given that this product's sessions cross company
+boundaries and the security bar is higher than a typical consumer app, lead with the strongest
+option, a token handler pattern where the Go API holds real credentials and the browser only ever
+sees a scoped `HttpOnly`, `Secure`, `__Host-`-prefixed session cookie, and explain why that
+narrows an XSS bug's blast radius from "steal a replayable credential" to "ride the current
+session through the proxy." Also be ready to talk about multi-tab logout — a user on a shared
+workstation switching between a customer view and a vendor view is a real scenario here, not a
+hypothetical, so `storage` events or `BroadcastChannel` to sync logout across tabs is a concrete,
+relevant detail.
+
+**Likely follow-up:** If a user is logged into two different organizations' views in two tabs, how
+does logging out of one correctly affect the other, or does it?
+
+**Pitfall:** Saying "we'll just put the token in localStorage since HttpOnly cookies are more
+setup." That trade might be fine for a low-stakes internal tool, but for a product where one
+compromised session could expose another company's program data, it's the wrong default, and a
+reviewer will notice you didn't weigh the actual cost.
+
 ## Further reading (optional)
 
 - [OWASP: HTML5 Security Cheat Sheet — local storage](https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html)

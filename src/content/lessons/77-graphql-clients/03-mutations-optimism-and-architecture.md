@@ -97,6 +97,14 @@ current docs.
   mostly live in one place on screen and you don't want to operate a normalized cache at
   all.
 
+## Interview angle
+
+Apollo Client is explicitly called out as a plus in the posting, and this is the lesson that shows you actually understand its cache, not just its hooks. A strong answer can trace what normalization gives you for free (renaming a task updates every screen showing that task, since they all read the same normalized entity) versus what still needs manual work: a new task doesn't appear in a cached task list on its own, because no entity changed, one was created, so `cache.modify` or an equivalent has to say where the new reference goes. Fetch policy choice is worth tying to the product directly: `cache-first` for your own team's data, `cache-and-network` for a dashboard where a vendor's status might have changed since you last looked, and `network-only` for anything you deliberately don't want stale, like a compliance-sensitive audit view.
+
+**Likely follow-up:** You optimistically add a task to a program's task list on creation. The mutation fails. Walk through exactly what has to roll back, and what's different about rolling back a new list entry versus rolling back a changed field.
+
+**Pitfall:** Writing an optimistic update that patches the entity but forgets the list it should also appear in, or vice versa, so the UI briefly shows an inconsistent state, like a task that exists if you navigate to it directly but is missing from the list, that only resolves once the real response lands. This is the "partial optimistic write" failure mode the lesson calls out by name.
+
 ## Further reading (optional)
 
 - [Apollo Client — Mutations and cache updates](https://www.apollographql.com/docs/react/data/mutations/)

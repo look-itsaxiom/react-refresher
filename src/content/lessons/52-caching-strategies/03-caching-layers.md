@@ -122,7 +122,31 @@ the first place. It's the cleanup step for the shared-device case a
 `private`/`no-store` header alone doesn't cover: the data was legitimately
 cached for this user, and now this user is done.
 
-**Further reading:**
+## Interview angle
+
+Caching shows up explicitly in the posting's backend concerns list, and the strongest answer
+treats it as several layers, not one knob. Walk through them by name: CDN caching with
+`s-maxage` and tag-based purging, and application-layer caching like React Query's `staleTime`
+for client-held data — and be ready to explain why none of these read each other's state, a
+short client `staleTime` does nothing if a CDN in front of your Go API is serving a different,
+staler copy to a different vendor's session. Given that this program's data is shared across a
+customer, vendors, and partners, purge-by-tag matters more than it would on a single-tenant app:
+when one company updates a shared resource, every cached view referencing it across every other
+participant's session needs to be invalidated together, exactly the "every page that embeds
+article 4821" problem this lesson names. Also worth mentioning: cache keys that don't account for
+per-organization scoping are a real bug — two different companies' views of "the same" project
+page are not actually the same response.
+
+**Likely follow-up:** A vendor updates a shared document and three other companies on the program
+are viewing cached versions of a page that references it. How do you get everyone a fresh copy
+without just disabling caching?
+
+**Pitfall:** Reaching for `Vary: Cookie` or session-scoped caching as a default fix for
+multi-tenant data. It technically works but destroys your CDN hit rate — the better move is
+scoping cache keys and tags by the actual resource and organization boundary, not by the whole
+session.
+
+## Further reading (optional)
 - [web.dev: HTTP caching](https://web.dev/articles/http-cache)
 - [MDN: Using the Cache API (service workers)](https://developer.mozilla.org/en-US/docs/Web/API/Cache)
 - [MDN: `Clear-Site-Data`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Clear-Site-Data)

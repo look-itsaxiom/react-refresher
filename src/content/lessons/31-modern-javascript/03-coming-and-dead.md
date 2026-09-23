@@ -117,7 +117,7 @@ status — Stage 4 means "will ship eventually," Baseline means "already ships i
 current browser and has for at least 30 months" (Baseline "newly available" means it just
 crossed that line in every engine, without the 30-month buffer yet).
 
-**Further reading**
+## Further reading (optional)
 - [TC39 proposals repo](https://github.com/tc39/proposals) — live stage tracking for everything above
 - [tc39/proposal-temporal](https://github.com/tc39/proposal-temporal) — spec, polyfill link, and status
 - [tc39/proposal-explicit-resource-management](https://github.com/tc39/proposal-explicit-resource-management) — `using`/`await using` spec text

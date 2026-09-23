@@ -147,7 +147,7 @@ depending on vendor) tells you HIT vs. MISS at that layer specifically —
 useful because "cached" is never a single yes/no across browser, CDN, and
 origin at once.
 
-**Further reading:**
+## Further reading (optional)
 - [MDN: `Cache-Control`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control)
 - [RFC 9111: HTTP Caching](https://www.rfc-editor.org/rfc/rfc9111.html)
 - [MDN: `Vary`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Vary)

@@ -87,6 +87,14 @@ Without the `useMemo`, every consumer anywhere in the tree re-renders on every r
 
 Context re-renders every consumer of a context on every value change; it has no concept of "only re-render if the part I read changed," and it isn't built for reading state outside of React (a WebSocket handler, a browser tab syncing state via `storage` events). High-frequency updates, deeply nested selective subscriptions, or state that needs to be read outside a component tree are where people reach for an external store — `useSyncExternalStore` under the hood, which is what libraries like Zustand build on. That's the next lesson.
 
+## Interview angle
+
+A multiplayer PM tool has exactly the kind of state this lesson is warning about: the active program, the signed-in user's role, which task is selected, what a vendor is currently allowed to see. A strong answer starts with composition, not context: pass the task list down as `children` from a layout component instead of threading `program`, `task`, and `onAssign` through four layers of task board components that don't use them. Reach for context only once a value genuinely needs to reach components at depth you don't control, like "does the current user have edit rights on this program" read by buttons scattered across the tree. Then name the cost: a provider value recreated on every render re-renders every consumer, so a `ProgramContext` needs a memoized value, and a context that mixes fast-changing state (the selected task) with slow-changing state (the program's vendor list) should be split into two contexts so selecting a task doesn't re-render every panel that only reads the vendor list.
+
+**Likely follow-up:** A task board has a context feeding a sidebar, a Gantt chart, and a comments panel, and only the sidebar needs the "current selection." How do you stop the other two from re-rendering on every click?
+
+**Pitfall:** Reaching for context as the default sharing mechanism instead of composition, then "fixing" the resulting re-render storm with `React.memo` on every consumer instead of splitting the context or moving the fast-changing piece into local state.
+
 ## Further reading (optional)
 
 - [Passing Data Deeply with Context](https://react.dev/learn/passing-data-deeply-with-context) — react.dev

@@ -122,6 +122,28 @@ which reopens exactly the algorithm-confusion risk from the previous concept.
 If you're maintaining code that uses it, always pass an explicit `algorithms`
 array to `verify()`; for new code, reach for `jose` instead.
 
+## Interview angle
+
+JWTs come up constantly in interviews, and the tell for a shallow answer is treating "stateless"
+as a pure win. For this product, the sharper point is the one this lesson makes explicitly: a
+signed token can't be edited after issuance, so if a vendor's access to a program needs to end
+right now — a contract ends, a partner is offboarded, an account is compromised — an access
+token's signature keeps verifying until `exp` no matter what. Be able to describe the real
+mitigations and when each applies: short-lived access tokens so the exposure window is naturally
+small, refresh token rotation with reuse detection so a stolen refresh token gets caught rather
+than silently reused, and a `jti` denylist for the rare case you need to kill one specific token
+before it expires. Also worth naming: JWT-as-session anti-patterns — packing a token with a
+user's full permission set across every program they touch bloats every request and goes stale
+the moment a role changes.
+
+**Likely follow-up:** A vendor's employee is removed from a program mid-session. Walk me through
+what actually happens to their existing access token, and how long the exposure window is.
+
+**Pitfall:** Claiming JWTs eliminate the need for a database lookup entirely, and stopping there.
+That's true for verification, but revocation on a security-sensitive, multi-tenant product needs
+either short lifetimes plus rotation or an explicit denylist, and candidates who don't volunteer
+that tradeoff usually haven't operated a JWT-based system under a real offboarding requirement.
+
 ## Further reading (optional)
 
 - [RFC 9700 — Best Practices for OAuth 2.0 Security](https://www.rfc-editor.org/rfc/rfc9700)

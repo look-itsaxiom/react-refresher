@@ -93,7 +93,7 @@ much bigger risk, where a clean axe run gets read as "this is accessible" instea
 cleared the ~half of issues a machine can see." The manual layer in the next section is how you
 close that gap.
 
-**Further reading**
+## Further reading (optional)
 - [Deque: automated testing study identifies 57% of accessibility issues](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-issues/)
 - [axe-core rule descriptions (dequelabs/axe-core)](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md)
 - [Playwright: accessibility testing](https://playwright.dev/docs/accessibility-testing)

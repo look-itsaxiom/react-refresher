@@ -110,6 +110,29 @@ slowest shard instead of the sum of all of them — are the same controls that m
 cheap. A pipeline that's slow is usually also a pipeline that's expensive, and fixing the
 first problem tends to fix the second for free.
 
+## Interview angle
+
+This is named directly in the posting, so expect a real question about pipelines you've
+maintained, not just used. The strongest material here is the security section: fork PRs get a
+read-only `GITHUB_TOKEN` and no repository secrets by design, and `pull_request_target` combined
+with checking out the fork's own code is a well-known way to hand an attacker your deploy
+credentials — exactly the kind of mistake a defense-adjacent org's security review exists to
+catch. Be ready to talk about OIDC replacing long-lived cloud keys as repository secrets: a
+short-lived token minted per job run instead of a static credential sitting in GitHub's secret
+store indefinitely is a concrete, current best practice you can describe without hand-waving.
+Also worth having ready: environments with required reviewers as the cheap version of a deploy
+gate, and why a required status check that never runs on a filtered PR gets stuck pending rather
+than passing — a real gotcha, not a trivia fact.
+
+**Likely follow-up:** Walk me through what happens, step by step, when an external contributor
+opens a PR against this repo that touches a workflow file. What can they access, and what can't
+they?
+
+**Pitfall:** Describing CI/CD purely as "make the tests run green" without addressing who can
+trigger a deploy and with what credentials. On a small team where you own what you ship, the
+pipeline is also the access-control boundary, and candidates who haven't thought about fork PRs or
+secret scoping tend to reveal that fast under a follow-up.
+
 ## Further reading (optional)
 
 - [GitHub Docs — Security hardening for GitHub Actions](https://docs.github.com/actions/security-guides/security-hardening-for-github-actions)

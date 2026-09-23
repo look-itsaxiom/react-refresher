@@ -119,7 +119,7 @@ None of this replaces knowing specificity — it adds a layer (literally) on top
 specificity, specificity still decides ties within a layer or within the unlayered bucket, and
 source order breaks ties within that.
 
-**Further reading**
+## Further reading (optional)
 - [MDN: `@layer`](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer)
 - [MDN: `:has()`](https://developer.mozilla.org/en-US/docs/Web/CSS/:has)
 - [web.dev: Cascade layers](https://web.dev/articles/css-cascade-layers)

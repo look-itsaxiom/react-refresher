@@ -92,7 +92,7 @@ ship it behind the same feature-flag-and-canary discipline you'd use for any beh
 accessibility regressions are regressions, and "it's an accessibility fix" is not, on its own,
 proof that it's safe.
 
-**Further reading**
+## Further reading (optional)
 - [WebAIM: screen reader user survey (browse vs. focus mode background)](https://webaim.org/projects/screenreadersurvey/)
 - [MDN: `prefers-reduced-motion`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion)
 - [MDN: `forced-colors`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors)

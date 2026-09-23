@@ -79,7 +79,7 @@ listen to its events, but it can't see inside it the way it sees inside a functi
 If the whole product is React and stays that way, a plain component is less code, not more,
 even after this lesson's wrapper pattern.
 
-**Further reading**
+## Further reading (optional)
 - [React 19 release notes: full support for custom elements](https://react.dev/blog/2024/12/05/react-19)
 - [MDN: Using shadow DOM — `::part` and CSS shadow parts](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM)
 - [web.dev: Declarative Shadow DOM](https://web.dev/articles/declarative-shadow-dom)

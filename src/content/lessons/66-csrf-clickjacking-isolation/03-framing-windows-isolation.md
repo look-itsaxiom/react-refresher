@@ -110,6 +110,29 @@ window happens to be showing at delivery time, which can change between when you
 checking on receive, naming a specific origin on send — are required; either one alone
 leaves a gap.
 
+## Interview angle
+
+This lesson is where you show CSRF, clickjacking, and CORS are three different jobs, not one
+"web security" blob — that distinction from lesson 65 is exactly the kind of precision a
+defense-adjacent product needs. Given that this program shares a single project across a
+customer, vendors, and partners, cookie-based sessions crossing company boundaries make
+`SameSite`, an Origin or Fetch Metadata check, and `frame-ancestors` all load-bearing rather than
+optional. If the product ever embeds a shared view inside a partner's own portal, that's a
+legitimate framing use case, so be ready to talk about scoping `frame-ancestors` to a real
+allowlist instead of leaving it open by default. Speak concretely about `postMessage` too: if the
+UI ever needs to communicate across windows, for an OAuth-style popup connecting a vendor's tool,
+say, both directions have to be checked — an explicit target origin on send and an `event.origin`
+check on receive, not just one.
+
+**Likely follow-up:** If a partner company wants to embed one of your project views inside their
+own internal tool, how do you allow that framing without reopening clickjacking against everyone
+else?
+
+**Pitfall:** Treating `SameSite=Lax` as a complete CSRF defense on its own, or assuming CORS
+already covers this. `SameSite` is the floor, not the whole defense, and CORS says nothing about
+a form POST or an image tag riding the browser's ambient session cookie. Candidates who conflate
+the two usually haven't designed a session-cookie-based system under real cross-origin pressure.
+
 ### Further reading (optional)
 
 - [MDN: CSP frame-ancestors](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors)

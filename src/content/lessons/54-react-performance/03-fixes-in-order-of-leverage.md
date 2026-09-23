@@ -118,6 +118,14 @@ check the treemap, don't assume), and `lodash` imported wholesale instead of per
 not just once at project start — a minor version bump can silently un-tree-shake something
 that used to be fine.
 
+## Interview angle
+
+A dependency graph or task board with a few thousand rows is the canonical case this checklist is built for, and the interview signal isn't knowing every tool, it's picking the right one in order. If a filter input feels laggy because the whole board re-renders per keystroke, the first move is state colocation (does the filter string need to live above the board at all?), not reaching for `React.memo` on every row. If the board itself is thousands of DOM nodes, virtualization is the actual fix, not memoization, since the cost is in the DOM, not re-computation. A strong answer can also explain why `<Activity>` matters for a "next likely screen" pattern specific to this kind of app, like pre-rendering a task's detail pane while its row is hovered, so opening it is a mode flip instead of a mount from zero.
+
+**Likely follow-up:** The task board is slow specifically when you type in the filter box, but fast otherwise. Walk through your diagnosis before proposing a fix: what would make you reach for colocation versus `useDeferredValue` versus virtualization?
+
+**Pitfall:** Jumping straight to `useMemo`/`useCallback`/`React.memo` as the first move on any slow list, without first checking whether the state causing the re-render even needs to live where it does. Memoizing a re-render that colocation would have prevented entirely adds maintenance cost for no leverage.
+
 ## Further reading (optional)
 
 - [react.dev: Performance](https://react.dev/learn/render-and-commit)

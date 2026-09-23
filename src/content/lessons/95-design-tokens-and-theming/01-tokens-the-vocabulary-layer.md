@@ -122,7 +122,7 @@ from. Because consuming apps pin a version, token changes follow normal semver: 
 token is minor, renaming or removing one is a breaking major with a documented migration,
 and a `$deprecated` extension on the JSON can warn consumers before a token disappears.
 
-**Further reading**
+## Further reading (optional)
 - Design Tokens Community Group format spec — https://tr.designtokens.org/format/
 - Style Dictionary docs — https://styledictionary.com/
 - MDN, `@property` — https://developer.mozilla.org/en-US/docs/Web/CSS/@property

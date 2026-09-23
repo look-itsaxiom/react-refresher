@@ -94,6 +94,28 @@ belong server-side when there's a server to put them on:
 None of them hand a raw OAuth access token to browser JavaScript by default. That's the
 industry-wide version of the same move RFC 10017 formalizes.
 
+## Interview angle
+
+Frame this around the actual system: a React frontend, a Go API, and very likely third parties
+calling in via webhooks or integrations — three different callers with three different trust
+levels. A strong answer explains the sessions-vs-tokens tradeoff precisely: opaque server-side
+sessions give instant revocation with no token sprawl, bearer tokens avoid a server-side lookup
+but push you toward the BFF pattern this lesson describes once you think through where XSS damage
+lands. Since Go isn't typically rendering your pages the way Next.js or React Router do, be ready
+to say what the Go-service equivalent of a BFF looks like: the Go API holds any third-party or
+provider tokens server-side and issues the browser nothing but an `HttpOnly` session cookie, so a
+compromised frontend can ride the session through your API but can never exfiltrate a token that
+lets someone replay access from elsewhere. That matters more here than at a typical SaaS, because
+the session boundary you're protecting spans separate companies.
+
+**Likely follow-up:** A vendor's system needs to call your API server-to-server to post updates
+back into a shared project. Would you authenticate that the same way you authenticate the React
+frontend, and if not, what's different?
+
+**Pitfall:** Reaching for JWTs by default because they're "stateless and scale better," without
+naming the revocation cost. On a program where offboarding a vendor's access needs to be
+immediate, not "whenever the token expires," that tradeoff is the wrong one to make silently.
+
 ### Further reading (optional)
 
 - [IETF RFC 10017: OAuth 2.0 for Browser-Based Applications](https://datatracker.ietf.org/doc/draft-ietf-oauth-browser-based-apps/)

@@ -136,6 +136,27 @@ edge/serverless idiom for "log this without blocking the response."
 | Webhook receiver that must ack fast, then do work | Function or edge handler that acks immediately and uses `waitUntil` for the real work | Caller times out fast; deferred work shouldn't hold the response open |
 | Long video transcode / batch job | Long-running server or a queue-backed worker, not a function | Exceeds serverless execution-time limits; needs sustained CPU, not per-request billing |
 
+## Interview angle
+
+Where you place the Go API matters more than which serverless product you pick, and this
+lesson's core point, edge only wins when the data is also close, is the one to lead with. Given
+that Postgres almost certainly lives in a single region, putting the Go API at the edge without
+also solving data locality just adds a hop before the same long round trip — worse than a plain
+regional deployment, the same shape as the Sydney/`us-east-1` example this lesson walks through.
+A strong candidate reasons from the actual workload: a webhook receiver that has to ack fast and
+defer real work is a good fit for `waitUntil`-style deferred processing, while a dashboard reading
+from one regional Postgres instance wants compute pinned next to that instance, not distributed
+globally. Cold starts matter less here than data locality does, and saying so, instead of
+reflexively pitching "serverless for scale," is what separates a real systems answer from a
+buzzword one.
+
+**Likely follow-up:** Where would you actually run the Go API relative to Postgres, and would
+your answer change for a webhook endpoint versus the endpoints the React frontend calls directly?
+
+**Pitfall:** Pitching edge compute as a universal latency win. It's a common overclaim, and the
+moment an interviewer asks "what about the database round trip," an answer that hasn't accounted
+for where the data lives falls apart.
+
 ## Further reading (optional)
 
 - [AWS Lambda: cold starts and provisioned concurrency](https://docs.aws.amazon.com/lambda/latest/dg/provisioned-concurrency.html)

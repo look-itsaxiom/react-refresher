@@ -144,6 +144,29 @@ is behind a flag, and kill the flag first**. That buys time to debug calmly with
 already reverted to known-good behavior, which is the entire reason the previous concept
 step's flag-and-rollback machinery exists.
 
+## Interview angle
+
+"If you build it, you own it" is basically this lesson's thesis: flags and canaries reduce blast
+radius, they don't tell you something broke, that's what monitoring is for, and owning a release
+means closing that loop yourself. Speak concretely about the mechanics: React 19's
+`onCaughtError`, `onUncaughtError`, and `onRecoverableError` root options let you report every
+error centrally instead of instrumenting every boundary, and `onRecoverableError` specifically
+catches the cases where nothing crashed but something was still wrong — a hydration mismatch, a
+recovered concurrent-render failure — real evidence worth alerting on even though the user never
+saw a broken screen. Tie it back to ownership: tagging every error with a release identifier and
+marking every deploy on your dashboards is what turns "error rate went up" into "this deploy
+caused it," and the incident runbook's first move on a correlated spike is almost always killing
+the flag, not debugging live.
+
+**Likely follow-up:** An alert fires showing a spike in errors right after a deploy. Walk me
+through exactly what you'd look at first, and what you'd do before you start debugging.
+
+**Pitfall:** Talking about monitoring as "we have Sentry installed" and stopping there. Having
+the SDK wired up isn't the same as owning release safety — the real skill is correlating errors
+with a specific deploy, scrubbing PII before it leaves the browser, and having a kill-the-flag
+reflex, and a candidate who can't describe that loop hasn't actually operated a release, just
+watched one.
+
 ## Further reading (optional)
 
 - [React: `createRoot`](https://react.dev/reference/react-dom/client/createRoot)

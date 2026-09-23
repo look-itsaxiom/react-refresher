@@ -117,6 +117,28 @@ independently addressable snapshot, a rollback is just re-pointing
 production traffic at a previous snapshot's id — no revert commit, no
 rebuild, no race with the next merge landing mid-rollback.
 
+## Interview angle
+
+This lesson maps cleanly onto how you'd actually ship the React frontend for this product: hashed
+assets cached forever, `index.html` revalidated on every load, and a deploy atomic enough that
+rollback means re-pointing traffic at a previous snapshot instead of a revert-and-rebuild race.
+Bring that precision into the interview — name the two-tier cache policy directly, and explain
+why caching `index.html` like its hashed children is the classic way to serve a stale app for a
+week without anyone noticing. Since this product runs across staging and production for a
+defense-adjacent customer base, also be ready to talk about deploy previews: they're
+unauthenticated by default on most platforms, which is a real risk if a preview URL for an
+in-progress feature leaks a partner's data, so `noindex` and platform-level access gating aren't
+nice-to-haves here.
+
+**Likely follow-up:** A deploy just shipped a broken build to production and a customer is
+mid-session on an active project board. Walk me through what actually happens and how fast you
+can get back to known-good.
+
+**Pitfall:** Talking about caching only at the CDN level and forgetting the entry-point file has
+to be revalidated every time. It's the single most common static-hosting bug, and it's also the
+one most candidates can describe in the abstract but haven't actually reasoned through for their
+own app's deploy shape.
+
 ### Further reading (optional)
 
 - [MDN: HTTP caching](https://developer.mdn.io/en-US/docs/Web/HTTP/Caching)

@@ -125,7 +125,7 @@ None of these features change what's *possible* — everything above has always 
 expressible with a loop, a `reduce`, or a hand-rolled deferred. What changed is that the
 common case now has a name, ships everywhere current, and reads at a glance.
 
-**Further reading**
+## Further reading (optional)
 - [TC39 finished proposals](https://github.com/tc39/proposals/blob/main/finished-proposals.md) — every feature above, with its stage history
 - [MDN: Change Array by copy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Indexed_collections#copying_methods_and_mutating_methods) — the non-mutating array methods in context
 - [web.dev: Iterator helpers are Baseline](https://web.dev/blog/baseline-iterator-helpers) — browser/engine support timeline

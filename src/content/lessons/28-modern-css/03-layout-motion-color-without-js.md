@@ -144,7 +144,15 @@ dates).
   tooltip to a trigger element's edge without a positioning library. It reached Baseline in
   January 2026 with Firefox and Safari 26 catching up to Chrome; new, but usable.
 
-**Further reading**
+## Interview angle
+
+The posting wants CSS without a framework crutch, and this lesson is the direct evidence for that: a task card in this product needs to look different in a narrow kanban column than in a wide detail panel, and a container query does that off the card's own containing element with zero JS, where the old approach was a `ResizeObserver` and a class toggle. Similarly, "show a bulk-actions toolbar when any task in a list is checked" is a `:has()` selector, not a `useState` plus a `useEffect` watching checkbox state. A strong answer can name why these matter beyond cleverness: state that's really about layout or appearance, kept out of React state, means one less re-render source and one less thing that can drift from the DOM's actual condition.
+
+**Likely follow-up:** You're building a task card that needs a different internal layout in a 300px sidebar than in a 900px main panel, and the surrounding page layout also changes at different breakpoints. Would you reach for a media query, a container query, or both, and why?
+
+**Pitfall:** Defaulting to a `ResizeObserver` or a state-tracking `useEffect` for something that's purely presentational, like a card's layout at a given width or a toolbar's visibility based on descendant state. It works, but it adds a re-render path and a synchronization bug surface that `@container` or `:has()` don't have, since they read the DOM's actual condition directly.
+
+## Further reading (optional)
 - [MDN: CSS container queries](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries)
 - [MDN: `@starting-style`](https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style)
 - [React blog: React 19.3](https://react.dev/blog/2026/09/09/react-19-3)

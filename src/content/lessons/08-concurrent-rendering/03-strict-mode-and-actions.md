@@ -38,6 +38,14 @@ This is a "known limitation" React's team has said they intend to fix; today, tr
 
 The React Compiler (stable since React 19) auto-memoizes components and values by statically proving they're safe to skip re-computing — but that proof only holds if your code follows the Rules of React, the same purity rules concurrent rendering needs: no mutating props/state/module-level variables during render, no calling hooks conditionally. The Compiler doesn't add new constraints; it makes existing purity violations matter more, because a component the Compiler wrongly assumes is pure can now return a stale memoized result instead of just double-invoking harmlessly under StrictMode. Practically: code that passes StrictMode's double-invocation cleanly is a good sign the Compiler will memoize it correctly.
 
+## Interview angle
+
+Reassigning a task, changing a dependency, or inviting a vendor are all async writes that should keep the UI responsive while they're in flight, which is exactly what Actions and transitions are for. A strong answer ties `startTransition`'s async form to a concrete action, like submitting a "move task to vendor's board" mutation, and can explain that `isPending` stays true across the `await`, not just the synchronous part, so a saving indicator doesn't flip off early. It should also connect `useDeferredValue` to filtering a large dependency graph or task list by keyword: keep the input itself synchronous so typing never lags, and let the expensive filtered render lag one frame behind.
+
+**Likely follow-up:** You call `startTransition(async () => { const result = await reassignTask(id); setStatus(result.status); })`. Is `setStatus` still a transition update? Walk through why or why not.
+
+**Pitfall:** Assuming everything inside an async transition function stays marked as a transition. React only automatically treats updates before the first `await` as transition-priority; anything after has to be re-wrapped in its own `startTransition` call, or it becomes a synchronous, blocking update that defeats the point of using a transition at all.
+
 ## Further reading (optional)
 
 - [React docs — `<StrictMode>`](https://react.dev/reference/react/StrictMode)

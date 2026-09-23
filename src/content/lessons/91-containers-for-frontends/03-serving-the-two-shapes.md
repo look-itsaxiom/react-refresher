@@ -100,6 +100,29 @@ logic, a container is solving a problem a static host and CDN already solve for 
 operational cost — reach for one when SSR, monorepo reproducibility, or a
 container-shaped deployment target actually requires it.
 
+## Interview angle
+
+Containers come up here less as "how do you Dockerize a React app" and more as "can you reason
+about what's actually running in production." Be precise about the two runtime shapes: an SPA
+behind nginx is just static files plus a `try_files` fallback and per-path cache headers, a Go
+API is a long-running process, and neither one needs the other's build tooling sitting in the
+final image. On a defense-adjacent product, a smaller runtime image with no dev dependencies
+isn't just about size, it's less attack surface in exactly the kind of environment where a
+security review will ask what's in your containers. Also connect this to local dev: Docker
+Compose wiring up React, the Go API, and Postgres together is how a small team keeps "works on my
+machine" from becoming a real cost, which ties directly to the posting's "if you build it, you
+own it" framing — you're the one who debugs the difference between local and production when
+something breaks.
+
+**Likely follow-up:** Your Compose setup runs Postgres, the Go API, and the React dev server
+together locally. What's different about how each of those three is actually deployed in
+production, and why don't you just ship the Compose file?
+
+**Pitfall:** Describing containerization as a goal in itself. If the frontend is a pure SPA with
+no server-side logic, a container is solving a problem static hosting already solves for less
+operational cost — reach for one because SSR, monorepo reproducibility, or the deployment target
+actually requires it, not by default.
+
 ## Further reading (optional)
 
 - [nginx: Module ngx_http_core_module (try_files)](https://nginx.org/en/docs/http/ngx_http_core_module.html#try_files)

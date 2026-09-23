@@ -164,7 +164,7 @@ in React Router) or return a typed "not authorized" result the component
 renders explicitly. The client never re-derives identity from data the
 server sent; it only reads what the server already decided.
 
-**Further reading:**
+## Further reading (optional)
 - [React reference: `cache`](https://react.dev/reference/react/cache)
 - [Next.js: `cookies()`](https://nextjs.org/docs/app/api-reference/functions/cookies)
 - [React Router: data loading](https://reactrouter.com/start/framework/data-loading)

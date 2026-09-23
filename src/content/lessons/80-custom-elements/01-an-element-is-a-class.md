@@ -142,7 +142,7 @@ from any framework (they're just strings in JSX/templates), but rich values, and
 custom events, need framework-specific glue. React 19 closed most of that gap for events and
 properties; lesson 83 covers exactly what changed and what still needs a `ref`.
 
-**Further reading**
+## Further reading (optional)
 - [MDN: Using custom elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements)
 - [MDN: `customElements.whenDefined()`](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/whenDefined)
 - [WHATWG HTML spec: custom elements](https://html.spec.whatwg.org/multipage/custom-elements.html)

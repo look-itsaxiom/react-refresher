@@ -118,6 +118,29 @@ or loopback address, the browser now asks the user to allow it, similar to a cam
 prompt, rather than silently allowing or silently blocking. If you run a local dev server that
 a deployed site legitimately needs to reach, expect that prompt in current Chrome versions.
 
+## Interview angle
+
+A strong answer here starts from the mechanism, not the vibe: CORS is a browser-enforced,
+response-header-controlled relaxation of the same-origin policy, and on this product it matters
+because a program shares data across company boundaries, so your Go API is very likely serving
+requests from origins you don't fully control — a customer portal, a vendor's tool, maybe an
+embedded widget. Say plainly that CORS headers are set by the server, that a request "working in
+curl" tells you nothing about whether a browser will let a page read the response, and that the
+fix for a caller you don't control is a same-origin proxy, not a header you send from the
+frontend. Given the defense-adjacent security posture, allowlist discipline matters more than
+usual: reflecting `Origin` back with `Access-Control-Allow-Credentials: true` for every caller is
+the single most common way to turn "our API works for every partner" into "any origin on the
+internet can read authenticated responses." Compare the incoming origin against a real,
+per-program allowlist and only then echo it.
+
+**Likely follow-up:** How would you structure the CORS allowlist when each vendor or partner
+company gets its own subdomain, and the list changes as programs are onboarded and offboarded?
+
+**Pitfall:** Saying "just enable CORS" as if it's a boolean. It's an allowlist decision with real
+consequences once credentials are involved, and on a program with multiple companies
+collaborating, a wildcard-plus-credentials misconfiguration is exactly the kind of finding a
+security review would flag first.
+
 ### Further reading (optional)
 
 - [MDN: CORS errors](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS/Errors)

@@ -103,6 +103,14 @@ operation change can each drift out of sync with what's actually generated, and 
 value of this pipeline depends on the generated types being trustworthy at every commit,
 not just on the day you set it up.
 
+## Interview angle
+
+GitHub Actions is explicitly in the stack, and this is where GraphQL tooling and CI/CD actually meet: a real answer describes running codegen with `--check` in CI so a PR that changes a `.graphql` document or the schema without regenerating types fails the build, alongside a schema registry's breaking-change check that diffs a proposed schema change against what's actually in production. That second check matters more in a product spanning company boundaries than in a typical internal API, since a "breaking" change to a field a partner's integration depends on has a blast radius you don't fully see from inside your own codebase, which is exactly why usage reporting, tracking which fields real clients are actually querying, turns a binary breaking/safe question into an informed one.
+
+**Likely follow-up:** A teammate wants to remove a deprecated field from the schema. What has to be true before that's actually safe to merge, and how would you find out?
+
+**Pitfall:** Running codegen locally and trusting the generated types without gating CI on it. Someone edits a `.graphql` document, forgets to regenerate, and commits stale generated types that still compile, silently losing the whole point of codegen, which is that a mismatch between schema and client should be a compile error, not a runtime surprise found by a user in production.
+
 ## Further reading (optional)
 
 - [GraphQL Hive](https://the-guild.dev/graphql/hive)

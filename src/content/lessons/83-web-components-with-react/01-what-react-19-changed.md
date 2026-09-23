@@ -91,7 +91,7 @@ and instead write one small typed wrapper component — which also gives them a 
 ref-based event wiring — rather than teach every consumer the raw element's quirks. That's the
 pattern the next exercise builds.
 
-**Further reading**
+## Further reading (optional)
 - [React 19 release notes: full support for custom elements](https://react.dev/blog/2024/12/05/react-19)
 - [Custom Elements Everywhere — React results and event-matching rules](https://custom-elements-everywhere.com/)
 - [MDN: CustomEvent](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent)

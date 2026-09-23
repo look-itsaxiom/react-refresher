@@ -121,7 +121,7 @@ across loader → cache lookup → downstream service. Add timing headers
 before you need them — retrofitting observability during an incident is
 the expensive way to learn this lesson.
 
-**Further reading:**
+## Further reading (optional)
 - [React: `renderToPipeableStream`](https://react.dev/reference/react-dom/server/renderToPipeableStream)
 - [React: `renderToReadableStream`](https://react.dev/reference/react-dom/server/renderToReadableStream)
 - [MDN: `Cache-Control`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control)

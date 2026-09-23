@@ -95,6 +95,14 @@ optimistic like button, "refetch on window focus." A Server Function (lesson 22)
 relevant query, done. Reach for Query when the client needs to *ask again*; reach for RSC/Server
 Functions when the server can just tell you at render time.
 
+## Interview angle
+
+This is the mechanism behind "a vendor updates a task's ETA and the customer's dashboard reflects it." A strong answer distinguishes `invalidateQueries`, which marks a key stale and lets every mounted observer refetch in the background, from `setQueryData`, which writes a known value directly when you already have it, like the mutation's own response. For data your own UI owns end to end, like renaming a task, an optimistic update via `onMutate`/`onError`/`onSettled` is reasonable. For data another company controls, like a vendor's shipment status, invalidating and refetching the server's actual answer is usually the safer default, since you can't reliably predict what a system outside your control will return. It's also worth naming `useSuspenseQuery` over manually checking `isPending`, since a task detail pane that suspends into a shared boundary composes better with the rest of a multi-panel layout than one more `if (isPending)` branch per component.
+
+**Likely follow-up:** Two people, one on the customer side and one on a vendor, edit the same task's due date within a second of each other. Walk through what invalidation does and doesn't solve here, and where you'd need something more, like a version field or a conflict UI.
+
+**Pitfall:** Defaulting to optimistic updates for data you don't fully control or can't see the true next state of, like a cross-company dependency graph, then having no reliable "previous" snapshot to roll back to when the write fails or a concurrent edit lands first.
+
 ## Further reading (optional)
 
 - [Mutations](https://tanstack.com/query/v5/docs/framework/react/guides/mutations) — tanstack.com
