@@ -104,7 +104,7 @@ Reach for this specifically for "render, then immediately focus what just render
 
 Everything above is mechanical enough to get subtly wrong: off-by-one wrap logic, forgetting Shift+Tab, restoring focus to the wrong element after an async close, an `aria-activedescendant` id that goes stale. Base UI, Radix, and React Aria all implement dialog focus trapping, roving tabindex, and popover/menu dismiss behavior correctly and have been exercised against real screen readers across browsers. Build the mechanics yourself to learn them — that's what both exercises in this lesson do — but reach for one of those libraries for anything shipping to real users.
 
-## Further reading
+## Further reading (optional)
 
 - [MDN: The Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
 - [MDN: `<dialog>`: The Dialog element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)

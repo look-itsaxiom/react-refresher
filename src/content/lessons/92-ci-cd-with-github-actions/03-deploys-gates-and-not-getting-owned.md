@@ -110,7 +110,7 @@ slowest shard instead of the sum of all of them — are the same controls that m
 cheap. A pipeline that's slow is usually also a pipeline that's expensive, and fixing the
 first problem tends to fix the second for free.
 
-## Further reading
+## Further reading (optional)
 
 - [GitHub Docs — Security hardening for GitHub Actions](https://docs.github.com/actions/security-guides/security-hardening-for-github-actions)
 - [GitHub Docs — Using OpenID Connect to get access to cloud resources](https://docs.github.com/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect)

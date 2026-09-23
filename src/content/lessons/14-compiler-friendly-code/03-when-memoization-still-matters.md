@@ -112,7 +112,7 @@ component. If adding one measurably drops re-render count on a component fed by 
 uncompiled parent, keep it, and leave a comment saying which boundary it's protecting
 against.
 
-## Further reading
+## Further reading (optional)
 
 - [You Might Not Need an Effect / `useEffectEvent` — react.dev](https://react.dev/reference/react/experimental_useEffectEvent)
 - [React Compiler 1.0 — react.dev](https://react.dev/blog/2025/10/07/react-compiler-1)

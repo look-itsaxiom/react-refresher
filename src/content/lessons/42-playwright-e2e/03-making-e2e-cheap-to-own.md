@@ -86,7 +86,7 @@ fast. On page objects versus fixtures: a page object class wrapping locators for
 for a large suite's readability, but prefer fixtures for anything cross-cutting (auth, seeded data,
 API clients) — a fixture composes with other fixtures, a page object's constructor chain does not.
 
-## Further reading
+## Further reading (optional)
 
 - [Playwright: Network](https://playwright.dev/docs/network) — playwright.dev
 - [Playwright: HAR](https://playwright.dev/docs/mock#recording-a-har-file) — playwright.dev

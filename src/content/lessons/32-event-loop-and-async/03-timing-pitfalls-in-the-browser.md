@@ -108,7 +108,7 @@ manages, follows the same "re-wrap it" rule. This is a live gap in the API, not 
 design decision — check the React changelog before assuming it's been resolved by the time
 you're reading this.
 
-## Further reading
+## Further reading (optional)
 
 - [MDN — Document: `visibilitychange` event](https://developer.mozilla.org/en-US/docs/Web/API/Document/visibilitychange_event)
 - [MDN — `structuredClone()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/structuredClone)

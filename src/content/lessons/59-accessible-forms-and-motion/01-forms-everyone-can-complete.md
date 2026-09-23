@@ -133,7 +133,7 @@ per-field errors and the last-submitted values, inputs are `defaultValue`d from 
 state — combines directly with everything above: add the error summary and focus management as a
 layer on top of the returned `errors` object, keyed by the same field names.
 
-### Further reading
+### Further reading (optional)
 
 - [WCAG 2.2 quick reference, filtered to level A/AA](https://www.w3.org/WAI/WCAG22/quickref/)
 - [WHATWG HTML: autofill field name list](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill-detail-tokens)

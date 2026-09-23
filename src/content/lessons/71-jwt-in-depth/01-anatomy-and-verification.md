@@ -124,7 +124,7 @@ typed into a text box; it's just as easy to forge, so any authorization
 decision — what a user is allowed to do — has to happen on the server against a
 token the server verified itself.
 
-## Further reading
+## Further reading (optional)
 
 - [RFC 7519 — JSON Web Token](https://www.rfc-editor.org/rfc/rfc7519)
 - [RFC 8725 — JSON Web Token Best Current Practices](https://www.rfc-editor.org/rfc/rfc8725)

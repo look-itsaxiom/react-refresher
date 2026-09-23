@@ -95,7 +95,7 @@ optimistic like button, "refetch on window focus." A Server Function (lesson 22)
 relevant query, done. Reach for Query when the client needs to *ask again*; reach for RSC/Server
 Functions when the server can just tell you at render time.
 
-## Further reading
+## Further reading (optional)
 
 - [Mutations](https://tanstack.com/query/v5/docs/framework/react/guides/mutations) — tanstack.com
 - [Optimistic Updates](https://tanstack.com/query/v5/docs/framework/react/guides/optimistic-updates) — tanstack.com

@@ -122,7 +122,7 @@ before merge, not after an incident. The [Threat Modeling Manifesto](https://www
 frames this well: threat modeling is a team practice done continuously as part of
 building, not a gate a security team runs once against a finished design.
 
-### Further reading
+### Further reading (optional)
 
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)
 - [OWASP Top 10 Client-Side Security Risks](https://owasp.org/www-project-top-10-client-side-security-risks/)

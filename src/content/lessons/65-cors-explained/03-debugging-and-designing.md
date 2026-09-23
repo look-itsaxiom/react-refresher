@@ -118,7 +118,7 @@ or loopback address, the browser now asks the user to allow it, similar to a cam
 prompt, rather than silently allowing or silently blocking. If you run a local dev server that
 a deployed site legitimately needs to reach, expect that prompt in current Chrome versions.
 
-### Further reading
+### Further reading (optional)
 
 - [MDN: CORS errors](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS/Errors)
 - [Vite: server.proxy](https://vite.dev/config/server-options.html#server-proxy)

@@ -138,7 +138,7 @@ This is the right tool when a hook's logic is worth testing independently of any
 that happens to use it — which is usually a good sign the extraction was worth doing in the
 first place.
 
-## Further reading
+## Further reading (optional)
 
 - [`useMemo`](https://react.dev/reference/react/useMemo) and [`useCallback`](https://react.dev/reference/react/useCallback) — react.dev
 - [`useEffectEvent`](https://react.dev/reference/react/useEffectEvent) — react.dev

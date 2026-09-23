@@ -81,7 +81,7 @@ Consistent `tags` (`autodocs`, `stable`, `deprecated`, `experimental`) let you f
 and drive a status badge, which matters once a library has enough components that "is this one
 safe to use" stops being obvious from the name alone.
 
-## Further reading
+## Further reading (optional)
 
 - [Storybook: Autodocs](https://storybook.js.org/docs/writing-docs/autodocs) — storybook.js.org
 - [Storybook: Parameters](https://storybook.js.org/docs/writing-stories/parameters) — storybook.js.org

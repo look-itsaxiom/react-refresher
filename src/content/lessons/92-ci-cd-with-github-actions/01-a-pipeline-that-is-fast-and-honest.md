@@ -124,7 +124,7 @@ turned into inline PR annotations (either via `--format` flags that some ESLint
 GitHub-Actions reporters consume, or a dedicated annotation action) so a lint error shows
 up on the diff line, not just in a log tab.
 
-## Further reading
+## Further reading (optional)
 
 - [GitHub Docs — Workflow syntax for GitHub Actions](https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions)
 - [GitHub Docs — Using concurrency](https://docs.github.com/actions/using-jobs/using-concurrency)

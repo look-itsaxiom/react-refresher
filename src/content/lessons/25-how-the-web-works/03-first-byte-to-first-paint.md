@@ -78,7 +78,7 @@ browsers render" is exactly the line between this step and that one: this lesson
 first byte of the response body has arrived; the render pipeline starts the moment the HTML parser
 sees it.
 
-## Further reading
+## Further reading (optional)
 
 - [MDN: HTTP response status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status)
 - [web.dev: HTTP caching](https://web.dev/articles/http-cache)

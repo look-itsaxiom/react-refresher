@@ -104,7 +104,7 @@ session is live, and the integrity of the code you ship — if an attacker can g
 JavaScript to run as yours, they inherit everything above. Every defense in this track
 exists to protect one of those four things.
 
-### Further reading
+### Further reading (optional)
 
 - [MDN: Same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)
 - [web.dev: Why you need cross-origin isolation](https://web.dev/articles/why-coop-coep)

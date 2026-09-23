@@ -126,7 +126,7 @@ cross-origin`) is the response header a server sets to opt a resource *out* of b
 cross-origin at all, independent of CORS — it protects the resource from being embedded, where
 CORS controls whether the embedding page's script can read it.
 
-### Further reading
+### Further reading (optional)
 
 - [MDN: Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS)
 - [MDN: CORS-safelisted request header](https://developer.mozilla.org/en-US/docs/Glossary/CORS-safelisted_request_header)

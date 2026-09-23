@@ -143,7 +143,7 @@ turning a single manual audit into something closer to continuous coverage. That
 inherits axe's ceiling — it finds more structural violations, faster, not more behavioral
 ones.
 
-### Further reading
+### Further reading (optional)
 
 - [Stryker Mutator: introduction to mutation testing](https://stryker-mutator.io/docs/mutation-testing-elements/mutation-testing/)
 - [Stryker: equivalent mutants](https://stryker-mutator.io/docs/mutation-testing-elements/equivalent-mutants/)

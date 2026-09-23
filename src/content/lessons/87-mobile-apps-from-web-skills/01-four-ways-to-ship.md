@@ -109,7 +109,7 @@ Multiplatform are doing something similar in spirit to Flutter — share
 logic or UI across Android/iOS/desktop from a JVM-family language — worth
 knowing exists, not worth a deep detour in a course about web skills.
 
-## Further reading
+## Further reading (optional)
 
 - [React Native architecture overview](https://reactnative.dev/architecture/overview)
 - [React Native 0.76: The New Architecture is here](https://reactnative.dev/blog/2024/10/23/the-new-architecture-is-here)

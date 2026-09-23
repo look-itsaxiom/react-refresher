@@ -61,7 +61,7 @@ A native `<button>` gets Enter and Space "for free" — the browser fires `click
 
 You can catch most of this chapter's failures with just a keyboard: Tab and Shift+Tab through the whole page and confirm the order matches what you see, that focus is always visible, that nothing is skipped that should be reachable, and that nothing swallows focus permanently (a "keyboard trap," 2.1.2 — classic offenders are third-party date pickers and embedded iframes that capture Tab and never give it back). Then, inside any custom composite widget, confirm arrow keys move focus the way the APG pattern says they should. A full pass also needs a screen reader (lesson 60 covers this in depth), because screen readers have two different keyboard modes — **browse mode**, where letters and arrows navigate the *virtual* accessibility tree without touching real DOM focus, and **focus mode** (or "forms mode"), where the widget you've focused gets real keys again. A custom widget that only works in one of those modes is still broken for that population, and it's a different bug class than anything a sighted keyboard-only test will surface.
 
-## Further reading
+## Further reading (optional)
 
 - [WCAG 2.2 Understanding Focus Order (2.4.3)](https://www.w3.org/WAI/WCAG22/Understanding/focus-order.html)
 - [WCAG 2.2 Understanding Focus Appearance (2.4.13)](https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html)

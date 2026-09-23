@@ -108,7 +108,7 @@ first rule of ARIA: don't use ARIA if a native element already does the job), an
 always** (lesson 60 — because "I think this works" and "a screen reader user can actually
 complete this task" are different claims, and only one of them is verifiable).
 
-## Further reading
+## Further reading (optional)
 
 - [MDN — Accessibility tree](https://developer.mozilla.org/en-US/docs/Glossary/Accessibility_tree)
 - [MDN — ARIA: `aria-hidden`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-hidden)

@@ -113,7 +113,7 @@ attention: the long tail of exotic ARIA misuse is real, but the bulk of the web'
 is a small number of boring, cheap-to-fix mistakes repeated everywhere. The exercises in this
 track start with exactly those.
 
-## Further reading
+## Further reading (optional)
 
 - [W3C — What's New in WCAG 2.2](https://www.w3.org/WAI/standards-guidelines/wcag/new-in-22/)
 - [W3C — WCAG 2.2 Recommendation](https://www.w3.org/TR/WCAG22/)

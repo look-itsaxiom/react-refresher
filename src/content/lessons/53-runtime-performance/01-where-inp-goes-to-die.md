@@ -112,7 +112,7 @@ A few practices reduce all three phases without any scheduling code:
   the animation and off after) can make scrolling *worse* by fragmenting the page into more
   layers than the GPU budget wants.
 
-## Further reading
+## Further reading (optional)
 
 - [web.dev — Optimize long tasks](https://web.dev/articles/optimize-long-tasks)
 - [Chrome for Developers — Long Animation Frames API](https://developer.chrome.com/docs/web-platform/long-animation-frames)

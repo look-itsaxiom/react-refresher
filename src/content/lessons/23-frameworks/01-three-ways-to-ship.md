@@ -88,7 +88,7 @@ working-group members, closer to "just React's server primitives plus a router,"
 as a reference for what RSC looks like without a large framework's opinions layered on
 top.
 
-## Further reading
+## Further reading (optional)
 
 - [Next.js 16 release notes](https://nextjs.org/blog/next-16)
 - [Next.js: Upgrading to version 16](https://nextjs.org/docs/app/guides/upgrading/version-16)

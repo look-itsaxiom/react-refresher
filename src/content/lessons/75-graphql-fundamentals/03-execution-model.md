@@ -96,7 +96,7 @@ each post's `author` with its own database call turns "get 20 posts" into 21 rou
 trips — the **N+1 problem**. The fix (batching per-request loads, most commonly with
 DataLoader) and the fuller REST/GraphQL/tRPC tradeoff live in lesson 79.
 
-## Further reading
+## Further reading (optional)
 
 - [GraphQL spec, September 2025 edition — §6 Execution](https://spec.graphql.org/September2025/#sec-Execution)
 - [graphql.org: Execution](https://graphql.org/learn/execution/)

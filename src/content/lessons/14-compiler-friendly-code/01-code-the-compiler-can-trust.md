@@ -95,7 +95,7 @@ Compiler's diagnostics into the existing hooks plugin): rules named `react-hooks
 that broke the compiler's assumptions. Treat a red squiggle from one of these rules as the
 Compiler telling you "I can't safely help here" — not a style nitpick.
 
-## Further reading
+## Further reading (optional)
 
 - [React Compiler 1.0](https://react.dev/blog/2025/10/07/react-compiler-1)
 - [Rules of React](https://react.dev/reference/rules)

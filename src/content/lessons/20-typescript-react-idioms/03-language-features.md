@@ -154,7 +154,7 @@ time but has no type information to work with. The common setup in a fast repo i
 `typescript-eslint`'s type-aware rules run less often — a pre-merge check or a scheduled
 job — specifically because they're the ones worth waiting for.
 
-## Further reading
+## Further reading (optional)
 
 - [TypeScript Handbook — `satisfies`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator)
 - [TypeScript Handbook — Template Literal Types](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html)

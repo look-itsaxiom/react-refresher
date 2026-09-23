@@ -110,7 +110,7 @@ All three of the library options (RHF, TanStack Form, Conform) can validate with
 Standard Schema-compliant schema — the next concept step covers what that schema layer actually
 looks like in 2026.
 
-## Further reading
+## Further reading (optional)
 
 - [react.dev — `<form>` reference](https://react.dev/reference/react-dom/components/form)
 - [TanStack — Announcing TanStack Form v1](https://tanstack.com/blog/announcing-tanstack-form-v1)

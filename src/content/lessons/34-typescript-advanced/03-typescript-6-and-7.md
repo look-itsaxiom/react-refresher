@@ -101,7 +101,7 @@ about React typing changes. What changes is entirely in `tsconfig.json` defaults
 feedback arrives, and which long-deprecated options finally stopped being merely
 discouraged and started being errors.
 
-## Further reading
+## Further reading (optional)
 
 - [Announcing TypeScript 6.0](https://devblogs.microsoft.com/typescript/announcing-typescript-6-0/)
 - [Announcing TypeScript 7.0](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/)

@@ -134,7 +134,7 @@ Playwright and assert on `page.on('console')` for CSP violation messages
 (Chromium logs them as console errors), or point a Report-Only header at a
 local collector during the E2E run and fail the build on any report.
 
-## Further reading
+## Further reading (optional)
 
 - [web.dev: Mitigate cross-site scripting (XSS) with a strict Content Security Policy](https://web.dev/articles/strict-csp)
 - [MDN: Content-Security-Policy-Report-Only](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy-Report-Only)

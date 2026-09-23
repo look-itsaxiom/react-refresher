@@ -38,7 +38,7 @@ This is a "known limitation" React's team has said they intend to fix; today, tr
 
 The React Compiler (stable since React 19) auto-memoizes components and values by statically proving they're safe to skip re-computing — but that proof only holds if your code follows the Rules of React, the same purity rules concurrent rendering needs: no mutating props/state/module-level variables during render, no calling hooks conditionally. The Compiler doesn't add new constraints; it makes existing purity violations matter more, because a component the Compiler wrongly assumes is pure can now return a stale memoized result instead of just double-invoking harmlessly under StrictMode. Practically: code that passes StrictMode's double-invocation cleanly is a good sign the Compiler will memoize it correctly.
 
-## Further reading
+## Further reading (optional)
 
 - [React docs — `<StrictMode>`](https://react.dev/reference/react/StrictMode)
 - [React docs — `useTransition`](https://react.dev/reference/react/useTransition)

@@ -148,7 +148,7 @@ so reset it (usually to a captured initial snapshot) in an `afterEach`, the same
   solve, and it means every unrelated feature team touches the same file. Multiple small
   stores, or slices inside one store, keep concerns separable.
 
-## Further reading
+## Further reading (optional)
 
 - [Zustand: comparison with other libraries](https://zustand.docs.pmnd.rs/getting-started/comparison) — zustand.docs.pmnd.rs
 - [Zustand: `useShallow`](https://zustand.docs.pmnd.rs/hooks/use-shallow) — zustand.docs.pmnd.rs

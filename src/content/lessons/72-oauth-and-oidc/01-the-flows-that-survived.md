@@ -156,7 +156,7 @@ can be graded as pure functions. Knowing how it works is what lets you
 recognize when a library or a backend is doing it for you, and what
 "correctly" looks like when you have to review one.
 
-### Further reading
+### Further reading (optional)
 
 - [draft-ietf-oauth-v2-1](https://datatracker.ietf.org/doc/draft-ietf-oauth-v2-1/) — the consolidation draft itself
 - [RFC 7636 — PKCE](https://datatracker.ietf.org/doc/html/rfc7636)

@@ -103,7 +103,7 @@ directional for your own RUM, not as what Google is scoring you on. Until that l
 broadly, the practical move for an SPA is to instrument route changes yourself (the next
 concept covers how) rather than wait for the platform to do it.
 
-## Further reading
+## Further reading (optional)
 
 - [web.dev — Largest Contentful Paint (LCP)](https://web.dev/articles/lcp)
 - [web.dev — Interaction to Next Paint (INP)](https://web.dev/articles/inp)

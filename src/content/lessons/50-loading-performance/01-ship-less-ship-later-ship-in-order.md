@@ -116,7 +116,7 @@ into a web worker. A common middle ground is a **facade** — a lightweight plac
 third-party script on user interaction, which is exactly the lazy-component pattern above
 applied to someone else's code.
 
-## Further reading
+## Further reading (optional)
 
 - [web.dev: Reduce JavaScript payloads with code splitting](https://web.dev/articles/reduce-javascript-payloads-with-code-splitting)
 - [react.dev: lazy](https://react.dev/reference/react/lazy)

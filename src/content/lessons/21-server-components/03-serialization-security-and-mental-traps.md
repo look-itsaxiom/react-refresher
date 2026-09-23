@@ -121,7 +121,7 @@ uses both: Server Components for the initial data-bearing render, streamed
 as HTML via SSR mechanics, with Client Components hydrating the interactive
 leaves.
 
-### Further reading
+### Further reading (optional)
 
 - [react.dev — 'use client' (serializable prop types)](https://react.dev/reference/rsc/use-client)
 - [React blog — Critical Security Vulnerability in React Server Components (CVE-2025-55182)](https://react.dev/blog/2025/12/03/critical-security-vulnerability-in-react-server-components)

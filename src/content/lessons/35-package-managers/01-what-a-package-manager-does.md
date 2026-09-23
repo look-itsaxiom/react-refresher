@@ -108,7 +108,7 @@ and the right install command is always the frozen variant — `npm ci`,
 `pnpm install --frozen-lockfile`, `yarn install --immutable` — so a cache miss can't
 quietly turn into a fresh, unreviewed resolution.
 
-## Further reading
+## Further reading (optional)
 
 - [npm docs: package-lock.json](https://docs.npmjs.com/cli/v12/configuring-npm/package-lock-json)
 - [pnpm: how peers are met](https://pnpm.io/how-peers-are-met)

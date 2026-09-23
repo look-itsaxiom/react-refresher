@@ -131,7 +131,7 @@ once the client knows better:
   client for the same tree shape. It is not a random value generator — don't
   reach for it for keys or anything you want to actually vary.
 
-## Further reading
+## Further reading (optional)
 
 - [react.dev — Hydrating Server-Rendered HTML](https://react.dev/reference/react-dom/client/hydrateRoot)
 - [react.dev — `useSyncExternalStore`](https://react.dev/reference/react/useSyncExternalStore)

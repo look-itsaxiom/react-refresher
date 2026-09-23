@@ -47,7 +47,7 @@ Bindings read their target from the syntax: `attr="${v}"` sets a plain attribute
 
 `static styles = css\`...\`` compiles to a `CSSStyleSheet` shared across every instance of the element via `adoptedStyleSheets` (falling back to injected `<style>` tags where that's unavailable) — one parsed stylesheet object reused by every instance, not one `<style>` block duplicated into every shadow root. A **reactive controller** is Lit's answer to "how do I share stateful behavior across elements without inheritance": an object with an `hostConnected`/`hostDisconnected`/`hostUpdate` lifecycle that a host element registers via `addController()`, structurally the custom-element equivalent of a custom hook. `@lit/task` builds a controller around an async operation (pending/complete/error render branches, automatic re-run when its dependencies change) — the controller-based answer to what `use()` and Suspense do in React. `@lit/context` provides a `provide`/`consume` pair that crosses shadow boundaries, since `React.createContext` obviously can't. `@lit-labs/ssr` renders Lit templates to a string on the server and emits **declarative Shadow DOM** (`<template shadowrootmode="open">`), so a shadow root exists in the initial HTML payload before any JavaScript runs — the web-components analog of avoiding a hydration flash.
 
-## Further reading
+## Further reading (optional)
 
 - [Lit docs: Components](https://lit.dev/docs/components/overview/)
 - [Lit docs: Reactive properties](https://lit.dev/docs/components/properties/)

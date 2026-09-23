@@ -116,7 +116,7 @@ plain-object verification a relying party does on `clientDataJSON` and
 verification, which is exactly the boundary real teams draw between "we
 understand this" and "a vetted library does this."
 
-## Further reading
+## Further reading (optional)
 
 - [WebAuthn Level 3 — W3C Working Draft](https://www.w3.org/TR/webauthn-3/)
 - [webauthn.io — interactive registration/authentication demo](https://webauthn.io/)

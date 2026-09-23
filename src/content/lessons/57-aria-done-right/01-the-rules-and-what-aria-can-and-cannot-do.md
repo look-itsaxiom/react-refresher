@@ -48,7 +48,7 @@ ARIA attributes split into two kinds, and the distinction shows up in the spec n
 
 The [APG's pattern page](https://www.w3.org/WAI/ARIA/apg/patterns/) is the closest thing to an ARIA cookbook, but every pattern assumes you couldn't use a native element — check that assumption first. Some patterns exist mostly to be replaced: the APG's dialog pattern manually implements focus trapping and `aria-modal` that the native `<dialog>` element (with `.showModal()`) now gives you natively, including light-dismiss behavior the popover API adds on top. If a pattern's opening paragraph doesn't say "no native equivalent exists," assume rule 1 applies before you copy the markup.
 
-## Further reading
+## Further reading (optional)
 
 - [Using ARIA — W3C](https://www.w3.org/TR/using-aria/)
 - [WAI-ARIA 1.3 specification](https://www.w3.org/TR/wai-aria-1.3/)

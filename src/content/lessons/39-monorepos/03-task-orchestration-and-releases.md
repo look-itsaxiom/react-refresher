@@ -153,7 +153,7 @@ touching shared code — mostly don't exist yet. Adding Nx to a three-package re
 contributor is pure overhead; the tooling earns its complexity once the package count,
 contributor count, or CI bill actually hurts.
 
-## Further reading
+## Further reading (optional)
 
 - [Turborepo: configuring tasks](https://turborepo.dev/docs/crafting-your-repository/configuring-tasks)
 - [Turborepo: caching](https://turborepo.dev/docs/crafting-your-repository/caching)

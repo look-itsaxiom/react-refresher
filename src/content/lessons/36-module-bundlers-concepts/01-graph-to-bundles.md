@@ -90,7 +90,7 @@ Narrowing the target is one of the highest-leverage bundle-size levers available
 feature that's already Baseline-supported for your actual audience is code the bundler
 never needs to emit a fallback for.
 
-## Further reading
+## Further reading (optional)
 
 - [web.dev — Baseline](https://web.dev/baseline)
 - [Rollup — Tree-shaking](https://rollupjs.org/introduction/#tree-shaking)

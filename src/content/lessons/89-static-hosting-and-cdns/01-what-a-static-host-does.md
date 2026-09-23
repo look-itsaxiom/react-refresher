@@ -88,7 +88,7 @@ work and is still widely deployed. If you're choosing a Cloudflare product
 today, check developers.cloudflare.com for the current recommendation
 before assuming either product is the "default."
 
-### Further reading
+### Further reading (optional)
 
 - [GitHub Pages documentation](https://docs.github.com/en/pages)
 - [Netlify docs: overview](https://docs.netlify.com/)

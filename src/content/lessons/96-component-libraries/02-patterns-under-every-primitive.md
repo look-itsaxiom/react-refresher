@@ -129,7 +129,7 @@ not perfect inference. Any primitive that touches the DOM directly (portals, `us
 Components ship that boundary inside the library so consumers don't have to think about
 it, which is one of the concrete advantages of adopting one over hand-rolling.
 
-## Further reading
+## Further reading (optional)
 
 - [React 19: ref as a prop](https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop)
 - [Radix UI: Composition (`asChild`)](https://www.radix-ui.com/primitives/docs/guides/composition)

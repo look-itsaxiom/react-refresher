@@ -129,7 +129,7 @@ streaming SSR and ISR's caching story fused into one per-route mechanism,
 so a marketing page's static header and footer never re-render while its
 personalized "recommended for you" strip does.
 
-## Further reading
+## Further reading (optional)
 
 - [Next.js: Partial Prerendering](https://nextjs.org/docs/app/getting-started/partial-prerendering)
 - [Next.js: `cacheComponents` config](https://nextjs.org/docs/app/api-reference/config/next-config-js/cacheComponents)

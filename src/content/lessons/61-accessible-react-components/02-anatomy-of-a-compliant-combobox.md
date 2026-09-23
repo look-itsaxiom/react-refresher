@@ -90,7 +90,7 @@ it, instead of hardcoding strings or generating ids in render.
   to a screen reader without `aria-selected` on that same element — sighted and non-sighted
   users end up with different information about which option is active.
 
-## Further reading
+## Further reading (optional)
 
 - [WAI-ARIA APG: Combobox Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/)
 - [MDN: `aria-activedescendant`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-activedescendant)

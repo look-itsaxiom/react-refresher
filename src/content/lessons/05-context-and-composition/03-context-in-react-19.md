@@ -87,7 +87,7 @@ Without the `useMemo`, every consumer anywhere in the tree re-renders on every r
 
 Context re-renders every consumer of a context on every value change; it has no concept of "only re-render if the part I read changed," and it isn't built for reading state outside of React (a WebSocket handler, a browser tab syncing state via `storage` events). High-frequency updates, deeply nested selective subscriptions, or state that needs to be read outside a component tree are where people reach for an external store — `useSyncExternalStore` under the hood, which is what libraries like Zustand build on. That's the next lesson.
 
-## Further reading
+## Further reading (optional)
 
 - [Passing Data Deeply with Context](https://react.dev/learn/passing-data-deeply-with-context) — react.dev
 - [createContext reference](https://react.dev/reference/react/createContext) — react.dev, "Rendering a context as a provider"

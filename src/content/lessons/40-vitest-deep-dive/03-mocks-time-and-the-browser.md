@@ -115,7 +115,7 @@ time when a suite is too large for one runner; `--changed` (comparing against a 
 `--changed origin/main`) runs only the tests whose files — or files they import — changed, which is
 the difference between a 30-second and a 10-minute pre-commit hook on a large repo.
 
-### Further reading
+### Further reading (optional)
 
 - [Vitest — Mocking](https://vitest.dev/guide/mocking.html)
 - [Vitest — API: vi](https://vitest.dev/api/vi.html)

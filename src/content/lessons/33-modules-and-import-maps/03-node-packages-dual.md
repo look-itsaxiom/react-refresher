@@ -117,7 +117,7 @@ file that doesn't exist, an `exports` map missing a `require` condition a packag
 catching, for instance, a `.d.ts` file that describes the CJS shape while `exports` hands
 ESM consumers the ESM build.
 
-## Further reading
+## Further reading (optional)
 
 - [Node.js — Modules: Packages (`exports`, `imports`, conditions)](https://nodejs.org/api/packages.html)
 - [Node.js — Modules: CommonJS (`require(esm)`)](https://nodejs.org/api/modules.html)

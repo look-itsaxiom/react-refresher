@@ -97,7 +97,7 @@ current docs.
   mostly live in one place on screen and you don't want to operate a normalized cache at
   all.
 
-## Further reading
+## Further reading (optional)
 
 - [Apollo Client — Mutations and cache updates](https://www.apollographql.com/docs/react/data/mutations/)
 - [Apollo Client — Optimistic mutation results](https://www.apollographql.com/docs/react/performance/optimistic-mutation-results/)

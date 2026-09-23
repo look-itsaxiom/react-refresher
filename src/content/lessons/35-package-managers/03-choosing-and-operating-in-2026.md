@@ -106,7 +106,7 @@ statement of which CI run and commit produced the published tarball — visible 
 consumers as a checkmark on the npm registry page, though neither Yarn nor Bun verify it
 on install yet, so it's a producer-side guarantee more than an enforced one.
 
-## Further reading
+## Further reading (optional)
 
 - [pnpm workspaces](https://pnpm.io/workspaces)
 - [pnpm 12.0 release notes](https://pnpm.io/blog/releases/12.0)

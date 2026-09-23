@@ -65,7 +65,7 @@ fail. Review a generated test by breaking the code on purpose and confirming the
 the same mutation-testing instinct you'd apply to a human's PR, applied more often because the
 volume of generated tests is higher.
 
-## Further reading
+## Further reading (optional)
 
 - [Vitest 5.0 announcement](https://vitest.dev/blog/vitest-5.html) — vitest.dev
 - [Vitest Browser Mode guide](https://vitest.dev/guide/browser/) — vitest.dev

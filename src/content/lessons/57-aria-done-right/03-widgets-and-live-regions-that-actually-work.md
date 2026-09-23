@@ -66,7 +66,7 @@ A traditional page load announces the new page's `<title>` automatically. A clie
 
 Two checks catch most of this without a screen reader: open Chrome DevTools' **Elements → Accessibility** pane and confirm the node you expect actually carries the role, name, and state you intended — a name of "" or a missing `expanded` state shows up immediately. Then turn on a real screen reader (VoiceOver on macOS with Cmd+F5, NVDA on Windows) and drive the exact widget with only the keyboard; if you can't tell what changed by sound alone, a screen reader user can't either. Lesson 60 covers automating both checks.
 
-## Further reading
+## Further reading (optional)
 
 - [APG: Disclosure (Show/Hide) Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/)
 - [APG: Switch Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/switch/)

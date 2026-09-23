@@ -126,7 +126,7 @@ client-only increasingly reach for gql.tada. Both are legitimate default choices
 know which one a codebase uses before you go looking for a `generated/graphql.ts` file
 that a gql.tada project doesn't have.
 
-## Further reading
+## Further reading (optional)
 
 - [GraphQL Code Generator docs](https://the-guild.dev/graphql/codegen)
 - [`client-preset` guide](https://the-guild.dev/graphql/codegen/docs/guides/react-vue)

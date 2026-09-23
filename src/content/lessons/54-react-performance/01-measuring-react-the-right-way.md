@@ -54,7 +54,7 @@ import { Profiler } from 'react';
 
 `onRender` fires once per commit for the wrapped subtree — this is real production instrumentation, not a dev-only tool, so teams use it to feed a dashboard of real-user render costs. It's also how this lesson's own exercise checks grade your fix: they wrap your component in a `<Profiler>` and count commits and phases. One caveat for testing specifically: `actualDuration` and `baseDuration` in jsdom are not meaningful — jsdom doesn't do real layout, so treat them as noise there and grade on **commit count** and **phase** instead, which are stable regardless of environment.
 
-## Further reading
+## Further reading (optional)
 
 - [Profiler API reference](https://react.dev/reference/react/Profiler)
 - [React DevTools Profiler introduction](https://legacy.reactjs.org/blog/2018/09/10/introducing-the-react-profiler.html)

@@ -107,7 +107,7 @@ The server starts the slow work, sends the rest of the page immediately, and str
 
 Suspending a component doesn't always resolve synchronously in a test environment. If a check `render()`s a component that suspends and then immediately asserts on the resolved content, the assertion can run before React has finished the retry-and-commit cycle. Wrapping the interaction in `await act(async () => { ... })` (or using `findBy*` queries, which already poll) gives React's microtask queue a chance to flush before you assert — you'll see this in the exercise checks for this lesson.
 
-## Further reading
+## Further reading (optional)
 
 - [`use` reference](https://react.dev/reference/react/use) — react.dev
 - [Streaming with Suspense](https://react.dev/reference/react/Suspense#streaming-content-as-it-loads) — react.dev

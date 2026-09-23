@@ -105,7 +105,7 @@ stored in repo settings, and scope any token to the minimum it needs.
 4. **Run `npm audit signatures`** and check provenance on anything suspicious.
 5. **Review CI logs** for the affected window for unexpected network calls or publishes.
 
-## Further reading
+## Further reading (optional)
 
 - [pnpm settings — `minimumReleaseAge`](https://pnpm.io/settings/dependency-resolution)
 - [npm docs — provenance and `audit signatures`](https://docs.npmjs.com/generating-provenance-statements)

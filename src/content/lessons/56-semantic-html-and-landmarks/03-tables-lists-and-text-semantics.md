@@ -173,7 +173,7 @@ removed. Two things to check before trusting a component:
    whoever owns the design system, not something to route around with `aria-label` band-aids on
    every table on the site.
 
-## Further reading
+## Further reading (optional)
 
 - [`<table>` — MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table)
 - [`aria-sort` — MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-sort)

@@ -147,7 +147,7 @@ take another, compare) is the standard way to confirm a leak: if a count of a sp
 constructor (detached nodes, a component class) keeps climbing across snapshots after the
 action that created them should have released them, that's a leak, not noise.
 
-## Further reading
+## Further reading (optional)
 
 - [web.dev — Virtualize large lists](https://web.dev/articles/virtualize-long-lists-react-window)
 - [TanStack Virtual docs](https://tanstack.com/virtual/latest)

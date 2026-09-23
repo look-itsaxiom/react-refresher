@@ -98,7 +98,7 @@ loader/action — and never let a provider token cross into a client bundle. Cli
 code calls your own same-origin routes, which hold the real credential, instead of ever
 holding one itself.
 
-## Further reading
+## Further reading (optional)
 
 - [OWASP: HTML5 Security Cheat Sheet — local storage](https://cheatsheetseries.owasp.org/cheatsheets/HTML5_Security_Cheat_Sheet.html)
 - [OWASP: Session Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html)

@@ -62,7 +62,7 @@ None of this means effects are wrong for network I/O in general — it means "fe
 
 Effects are still the right tool for the problems this step opened with — subscriptions, DOM measurements, imperative APIs you don't control. They're the wrong tool for "get data and put it in state," and that distinction is worth internalizing before the next step, which is about the even more common mistake: reaching for an effect when you don't need one at all.
 
-## Further reading
+## Further reading (optional)
 
 - [Synchronizing with Effects](https://react.dev/learn/synchronizing-with-effects)
 - [Lifecycle of Reactive Effects](https://react.dev/learn/lifecycle-of-reactive-effects)

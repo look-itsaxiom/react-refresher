@@ -145,7 +145,7 @@ only iOS path remains the manual Safari "Add to Home Screen" flow from concept 1
 store listing. Treat any specific claim about iOS store distribution changing as unverified
 without checking Apple's current developer documentation directly.
 
-## Further reading
+## Further reading (optional)
 
 - [web.dev — Patterns for promoting installation](https://web.dev/learn/pwa/installation-prompt)
 - [MDN — `beforeinstallprompt` event](https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeinstallprompt_event)

@@ -97,7 +97,7 @@ Electron or Tauri when the requirement is specifically native: filesystem access
 picker dialog, a persistent background process, a system tray icon, or bundling a native
 dependency (a local database engine, a hardware SDK) the browser sandbox can't reach.
 
-## Further reading
+## Further reading (optional)
 
 - [Electron Security Checklist](https://www.electronjs.org/docs/latest/tutorial/security)
 - [Tauri 2: Updater plugin](https://v2.tauri.app/plugin/updater/)

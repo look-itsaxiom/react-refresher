@@ -104,7 +104,7 @@ None of this is specific to cookies. A refresh token, a database-backed API key,
 long-lived bearer token all need the same entropy, timeout, and rotation discipline — the
 architecture changes where the check happens, not whether you need it.
 
-### Further reading
+### Further reading (optional)
 
 - [OWASP Session Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html)
 - [MDN: HTTP cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies)

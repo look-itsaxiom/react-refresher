@@ -130,7 +130,7 @@ Three real patterns, not one "correct" answer:
   worker activate naturally the next time the user closes every tab and
   comes back. Least surprising, slowest rollout.
 
-## Further reading
+## Further reading (optional)
 
 - [MDN: Service worker lifecycle](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Service_worker_lifecycle)
 - [web.dev: The service worker lifecycle](https://web.dev/articles/service-worker-lifecycle)

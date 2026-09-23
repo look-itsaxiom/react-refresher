@@ -161,7 +161,7 @@ you *contract* (drop the old column, make the new one required) in a later, sepa
 deploy. Never ship a migration that makes the previous release's code crash — that's what
 turns "just roll back" into "we can't roll back."
 
-## Further reading
+## Further reading (optional)
 
 - [Vite: Env Variables and Modes](https://vite.dev/guide/env-and-mode)
 - [OpenFeature: What is OpenFeature?](https://openfeature.dev/docs/reference/intro)

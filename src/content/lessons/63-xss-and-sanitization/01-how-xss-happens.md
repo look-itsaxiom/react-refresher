@@ -114,7 +114,7 @@ dropped into a `<script>` tag or a CSS `url()`); skipping validation on a
 URL attribute lets a scheme-based attack through no matter how well the
 rest of the string is encoded.
 
-## Further reading
+## Further reading (optional)
 
 - [OWASP XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
 - [OWASP DOM-based XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html)

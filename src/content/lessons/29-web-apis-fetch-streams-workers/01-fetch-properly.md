@@ -120,7 +120,7 @@ types) triggers a preflight `OPTIONS` first — the browser asking permission be
 request goes out. That's the mechanic; a later track goes deeper into what a secure CORS
 configuration actually looks like.
 
-## Further reading
+## Further reading (optional)
 
 - [MDN: Using the Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
 - [MDN: Streams API concepts](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Concepts)

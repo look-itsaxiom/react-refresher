@@ -116,7 +116,7 @@ lesson 44 already covers this per route; this lesson's addition is that
 "stay CSR, ship as a plain Vite SPA" is itself a valid answer to "which
 framework," not a failure to pick one.
 
-## Further reading
+## Further reading (optional)
 
 - [React Router: Picking a Mode](https://reactrouter.com/start/modes)
 - [OpenNext](https://opennext.js.org/)

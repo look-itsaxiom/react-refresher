@@ -100,7 +100,7 @@ couldn't solve without becoming three different hooks. That's a pattern worth re
 across the whole hooks API: when you see a hook with one very specific job, look for the
 one very specific problem it was carved out to fix.
 
-## Further reading
+## Further reading (optional)
 
 - [`useId`](https://react.dev/reference/react/useId) — react.dev
 - [`useInsertionEffect`](https://react.dev/reference/react/useInsertionEffect) — react.dev

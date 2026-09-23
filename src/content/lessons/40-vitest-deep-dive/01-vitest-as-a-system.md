@@ -117,7 +117,7 @@ Three changes are worth knowing by name, because code and blog posts written bef
   itself declare sub-projects, and inline projects now inherit the root config (plugins, aliases)
   instead of starting from a blank slate — see the projects section below.
 
-### Further reading
+### Further reading (optional)
 
 - [Vitest — Guide: Test Context and Environments](https://vitest.dev/guide/environment.html)
 - [Vitest 5.0 announcement](https://vitest.dev/blog/vitest-5.html)

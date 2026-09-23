@@ -120,7 +120,7 @@ form and the object form `useRef` returns. Typing `use(promise)` for data and
 generic hook: supply the state type as the first parameter and let the return tuple's
 types follow from it.
 
-## Further reading
+## Further reading (optional)
 
 - [React TypeScript cheatsheet — Basic prop types](https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/basic_type_example)
 - [react.dev — TypeScript with React](https://react.dev/learn/typescript)

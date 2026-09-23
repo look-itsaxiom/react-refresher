@@ -133,7 +133,7 @@ getting the data somewhere durable without hurting the page:
   bad" — CWV tells you something is slow for users, the Profiler tells you which
   component to fix. Lesson 54 covers it in depth.
 
-## Further reading
+## Further reading (optional)
 
 - [web.dev — `web-vitals` library on GitHub](https://github.com/GoogleChrome/web-vitals)
 - [Chrome for Developers — Long Animation Frames API](https://developer.chrome.com/docs/web-platform/long-animation-frames)

@@ -133,7 +133,7 @@ there's no re-render to receive a `setState` update. This is the practical
 test for where the boundary goes: not "is this component simple" but "does
 anything here need to run again, in the browser, after the initial render."
 
-### Further reading
+### Further reading (optional)
 
 - [react.dev — Server Components](https://react.dev/reference/rsc/server-components)
 - [react.dev — 'use client'](https://react.dev/reference/rsc/use-client)

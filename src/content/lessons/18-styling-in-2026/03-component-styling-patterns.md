@@ -88,7 +88,7 @@ fully supported and is not deprecated; `shadcn init -b radix` keeps the old defa
 styling layer — Tailwind classes baked into the copied source — is unaffected by that
 underlying primitives swap; only the accessibility/behavior layer underneath changed.
 
-## Further reading
+## Further reading (optional)
 
 - [class-variance-authority](https://cva.style/docs)
 - [tailwind-merge](https://github.com/dcastil/tailwind-merge)

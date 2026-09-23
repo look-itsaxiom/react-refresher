@@ -94,7 +94,7 @@ belong server-side when there's a server to put them on:
 None of them hand a raw OAuth access token to browser JavaScript by default. That's the
 industry-wide version of the same move RFC 10017 formalizes.
 
-### Further reading
+### Further reading (optional)
 
 - [IETF RFC 10017: OAuth 2.0 for Browser-Based Applications](https://datatracker.ietf.org/doc/draft-ietf-oauth-browser-based-apps/)
 - [Next.js: `cookies()` API reference](https://nextjs.org/docs/app/api-reference/functions/cookies)

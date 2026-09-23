@@ -87,7 +87,7 @@ static CSS files *at build time* — nothing runs in the browser, so they work f
 Server Components. They trade styled-components' fully dynamic runtime interpolation for
 a build step, which is exactly the trade the ecosystem decided was worth making.
 
-## Further reading
+## Further reading (optional)
 
 - [Tailwind CSS v4.0](https://tailwindcss.com/blog/tailwindcss-v4)
 - [Functions and directives — Tailwind CSS docs](https://tailwindcss.com/docs/functions-and-directives)

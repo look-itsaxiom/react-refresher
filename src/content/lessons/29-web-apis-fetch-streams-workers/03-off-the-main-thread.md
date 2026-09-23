@@ -102,7 +102,7 @@ independent streams (so one lost packet doesn't head-of-line-block the others, u
 over TCP) plus unreliable datagrams when occasional loss is fine — suited to things like
 low-latency game state sync, at the cost of being the least universally supported of the three.
 
-## Further reading
+## Further reading (optional)
 
 - [MDN: Web Workers API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)
 - [MDN: Transferable objects](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects)

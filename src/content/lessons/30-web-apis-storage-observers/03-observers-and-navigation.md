@@ -93,7 +93,7 @@ your "save before the user leaves" work — flushing an analytics beacon
 `pagehide`, not `beforeunload`, which is unreliable on mobile and increasingly restricted
 because it blocks back/forward cache eligibility.
 
-## Further reading
+## Further reading (optional)
 
 - [MDN: Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
 - [MDN: Resize Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Resize_Observer_API)

@@ -74,7 +74,7 @@ The two places refs are supposed to be touched are event handlers and effects �
 
 Nothing about `useImperativeHandle` itself changed in React 19 beyond no longer needing `forwardRef` around it. It's still the tool for exposing a narrow, deliberate imperative API — `focus()`, `scrollIntoView()`, `reset()` — instead of the raw node, and it's still meant to be the exception: most parent/child communication should be props down, callbacks up. Reach for it when the *entire* contract you want to expose to a caller is "do this one imperative thing," not as a general escape from designing a props API.
 
-## Further reading
+## Further reading (optional)
 
 - [React 19: ref as a prop](https://react.dev/blog/2024/04/25/react-19#ref-as-a-prop) — react.dev
 - [`forwardRef` reference — deprecation note](https://react.dev/reference/react/forwardRef) — react.dev

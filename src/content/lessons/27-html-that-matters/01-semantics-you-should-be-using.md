@@ -163,7 +163,7 @@ None of this is available in the sandbox's jsdom-based grader yet (no `showPopov
 `<dialog>`; treat the Popover API and invoker commands as "know it, reach for it in real
 projects, expect quiz questions on it."
 
-## Further reading
+## Further reading (optional)
 
 - [MDN: Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)
 - [web.dev: The Popover API is now Baseline Newly available](https://web.dev/blog/popover-baseline)

@@ -136,7 +136,7 @@ edge/serverless idiom for "log this without blocking the response."
 | Webhook receiver that must ack fast, then do work | Function or edge handler that acks immediately and uses `waitUntil` for the real work | Caller times out fast; deferred work shouldn't hold the response open |
 | Long video transcode / batch job | Long-running server or a queue-backed worker, not a function | Exceeds serverless execution-time limits; needs sustained CPU, not per-request billing |
 
-## Further reading
+## Further reading (optional)
 
 - [AWS Lambda: cold starts and provisioned concurrency](https://docs.aws.amazon.com/lambda/latest/dg/provisioned-concurrency.html)
 - [Cloudflare: Smart Placement](https://developers.cloudflare.com/workers/configuration/smart-placement/)

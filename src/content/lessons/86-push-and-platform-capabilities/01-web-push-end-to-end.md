@@ -110,7 +110,7 @@ with real users:
 - **Don't re-engage by nagging.** If the user dismissed your priming UI, don't show it again
   every session; a "maybe later" is a signal to back off, not a retry loop.
 
-## Further reading
+## Further reading (optional)
 
 - [MDN: Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)
 - [MDN: Notifications API](https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API)

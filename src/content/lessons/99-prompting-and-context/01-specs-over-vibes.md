@@ -100,7 +100,7 @@ Notice what's *not* in any of these: no tutorial on how JSX works, nothing a fre
 the code would tell you, no secrets. That's the filter for what belongs in a context file,
 and it's the subject of the next step.
 
-## Further reading
+## Further reading (optional)
 
 - [Prompt engineering overview — Anthropic docs](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview)
 - [Andrej Karpathy on "vibe coding," X, Feb 2025](https://x.com/karpathy/status/1886192184808149383)

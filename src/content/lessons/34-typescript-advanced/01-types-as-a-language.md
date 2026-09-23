@@ -202,7 +202,7 @@ type _test = Expect<Equal<ExtractParams<'/x/:id'>, { id: string }>>;
 line is a type-level test in its own right: it fails to compile if the line *doesn't*
 error, so it catches a type getting accidentally more permissive over time.
 
-## Further reading
+## Further reading (optional)
 
 - [TypeScript Handbook: Conditional Types](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html)
 - [TypeScript Handbook: Template Literal Types](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html)

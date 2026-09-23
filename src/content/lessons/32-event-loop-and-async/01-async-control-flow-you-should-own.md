@@ -113,7 +113,7 @@ useful addition for wrapping event-based or callback APIs in a promise without t
 [Lesson 31](/); it shows up here only as a building block you may reach for while writing an
 event queue's producer side.
 
-## Further reading
+## Further reading (optional)
 
 - [MDN — `Promise.any()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/any)
 - [MDN — `AbortSignal.any()`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/any_static)

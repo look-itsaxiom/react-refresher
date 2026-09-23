@@ -81,7 +81,7 @@ like a noun (something you get), while `useSubscribe` or `useLogEvent` should fe
 (something that happens as a side effect). The name is the first thing a reader uses to guess
 what's safe to ignore about the return value.
 
-## Further reading
+## Further reading (optional)
 
 - [Reusing Logic with Custom Hooks](https://react.dev/learn/reusing-logic-with-custom-hooks) — react.dev
 - [Rules of Hooks](https://react.dev/reference/rules/rules-of-hooks) — react.dev

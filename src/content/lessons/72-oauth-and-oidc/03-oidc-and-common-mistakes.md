@@ -149,7 +149,7 @@ Auth0 and Okta both support custom claims namespaced under a URL (like
 colliding with future registered ones. None of this changes the validation
 rules above — it changes what you can rely on being *present*.
 
-### Further reading
+### Further reading (optional)
 
 - [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html)
 - [RFC 9207 — OAuth 2.0 Authorization Server Issuer Identification](https://datatracker.ietf.org/doc/html/rfc9207)

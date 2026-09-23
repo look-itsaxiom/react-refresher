@@ -98,7 +98,7 @@ blocked *at all* during that work, not just less blocked. Chunking-with-yields i
 right tool when the work needs the DOM or must interleave tightly with UI state; workers
 are the right tool when it doesn't.
 
-## Further reading
+## Further reading (optional)
 
 - [MDN — In depth: Microtasks and the JavaScript runtime environment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Asynchronous/Concepts)
 - [web.dev — Optimize long tasks](https://web.dev/articles/optimize-long-tasks)

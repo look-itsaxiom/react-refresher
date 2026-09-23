@@ -90,7 +90,7 @@ deleting something, charging a card — needs an explicit confirmation step in t
 runs; never auto-execute a side-effectful tool call from model output alone (more in the next
 concept, and OWASP's LLM Top 10 "excessive agency" item).
 
-## Further reading
+## Further reading (optional)
 
 - Anthropic, Messages API streaming — https://docs.anthropic.com/en/docs/build-with-claude/streaming
 - Anthropic, tool use — https://docs.anthropic.com/en/docs/agents-and-tools/tool-use

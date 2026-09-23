@@ -99,7 +99,7 @@ is smaller, browser-adjacent hooks: `navigator.onLine`, `window.matchMedia`,
 connection, or a plain module-level store you built yourself for something that
 genuinely lives outside a component tree.
 
-## Further reading
+## Further reading (optional)
 
 - [`useSyncExternalStore`](https://react.dev/reference/react/useSyncExternalStore) — react.dev
 - [Extracting State Logic into a Reducer](https://react.dev/learn/extracting-state-logic-into-a-reducer) — react.dev (state-outside-React motivation)

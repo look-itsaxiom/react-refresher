@@ -91,7 +91,7 @@ grade component behavior without teaching HTTP interception first. MSW is the ve
 built for the real network: the thing your component actually calls is `fetch`, not a fake import,
 so the interception has to happen at the layer `fetch` talks to.
 
-## Further reading
+## Further reading (optional)
 
 - [Mock Service Worker docs](https://mswjs.io/docs/) — mswjs.io
 - [MSW: `http` request handlers](https://mswjs.io/docs/basics/request-handler) — mswjs.io

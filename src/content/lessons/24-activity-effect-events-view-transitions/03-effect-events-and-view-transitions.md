@@ -80,7 +80,7 @@ Each of those also has an `onEnter` / `onExit` / `onUpdate` / `onShare` callback
 
 `<ViewTransition>`'s entire value is a browser animation, and jsdom — the DOM implementation the exercises in this course run checks against — has no View Transitions API at all. There's nothing to assert about a cross-fade in a headless test. The exercise for this half of the lesson is `useEffectEvent`, which is fully synchronous, DOM-visible behavior; treat `<ViewTransition>` as something to recognize, reach for, and configure by reading a component's rendered output, not something a unit test can currently verify. Two things worth knowing anyway: browsers without View Transitions support silently skip the animation and just show the new state (progressive enhancement, not a crash), and a user with `prefers-reduced-motion: reduce` set should generally get little-to-no cross-fade — that's a CSS media query around the transition classes you supply, the same as any other CSS animation, not something React does for you automatically.
 
-## Further reading
+## Further reading (optional)
 
 - [`useEffectEvent` reference](https://react.dev/reference/react/useEffectEvent)
 - [`<ViewTransition>` reference](https://react.dev/reference/react/ViewTransition)

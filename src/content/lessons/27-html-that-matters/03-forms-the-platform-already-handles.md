@@ -106,7 +106,7 @@ The two approaches compose: use `required`/`type`/`pattern` for the baseline the
 for free, and layer `useState`-driven UI on top for anything the constraint validation API can't
 express.
 
-## Further reading
+## Further reading (optional)
 
 - [MDN: Constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation)
 - [MDN: `ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)

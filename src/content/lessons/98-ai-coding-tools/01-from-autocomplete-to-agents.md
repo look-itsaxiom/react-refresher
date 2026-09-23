@@ -115,7 +115,7 @@ will be out of date by the time you read a later lesson in this course;
 the durable thing to learn is the loop, the tool set, and the permission
 model, not any one product's current menu.
 
-## Further reading
+## Further reading (optional)
 
 - [Claude Code documentation](https://code.claude.com/docs)
 - [Claude Agent SDK overview](https://docs.anthropic.com/en/api/agent-sdk/overview)

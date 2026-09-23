@@ -156,7 +156,7 @@ jsdom (Vitest's default DOM) won't parse `shadowrootmode` from a string — if a
 via `innerHTML` or `render()` and expects a shadow root to already exist, it needs the manual
 hydration step described above, not the parser shortcut a real browser gets for free.
 
-## Further reading
+## Further reading (optional)
 
 - [MDN: `HTMLTemplateElement.shadowRootMode`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLTemplateElement/shadowRootMode)
 - [MDN: `CSSStyleSheet` (constructable stylesheets)](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet)

@@ -144,7 +144,7 @@ Treat "is this still true" as a standing question, not a one-time audit — exac
 habit the rest of this lesson has been describing for AI-generated code, pointed back at
 your own knowledge.
 
-### Further reading
+### Further reading (optional)
 
 - [GitHub: about Copilot code review](https://docs.github.com/en/copilot/using-github-copilot/code-review/using-copilot-code-review)
 - [GitHub: Copilot Autofix for CodeQL](https://github.blog/2024-09-16-secure-code-faster-generally-available-github-copilot-autofix/)

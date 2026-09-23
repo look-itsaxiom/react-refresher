@@ -114,7 +114,7 @@ table above, then measure, because a per-visitor guess ("SSR will feel
 faster") is exactly the kind of claim Core Web Vitals data overturns often
 enough to be worth checking.
 
-## Further reading
+## Further reading (optional)
 
 - [web.dev: Rendering on the Web](https://web.dev/articles/rendering-on-the-web)
 - [Next.js: Partial Prerendering](https://nextjs.org/docs/app/getting-started/partial-prerendering)

@@ -144,7 +144,7 @@ is behind a flag, and kill the flag first**. That buys time to debug calmly with
 already reverted to known-good behavior, which is the entire reason the previous concept
 step's flag-and-rollback machinery exists.
 
-## Further reading
+## Further reading (optional)
 
 - [React: `createRoot`](https://react.dev/reference/react-dom/client/createRoot)
 - [React: `<ErrorBoundary>` and catching render errors](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary)

@@ -49,7 +49,7 @@ That combination — DOM and state preserved, effects torn down, updates deferre
 
 The `name` prop is optional and purely for DevTools/instrumentation — it doesn't change behavior. There's no third mode: `mode` is exactly `"visible" | "hidden"`.
 
-## Further reading
+## Further reading (optional)
 
 - [`<Activity>` reference](https://react.dev/reference/react/Activity)
 - [react.dev blog (release notes index)](https://react.dev/blog)

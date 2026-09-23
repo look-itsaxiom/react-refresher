@@ -81,7 +81,7 @@ changing a line of their own code. Subresource Integrity, covered in
 you reviewed, so a compromised or hijacked origin can serve whatever it wants and the
 browser will simply refuse to run it.
 
-## Further reading
+## Further reading (optional)
 
 - [Socket: npm author Qix compromised](https://socket.dev/blog/npm-author-qix-compromised-in-major-supply-chain-attack)
 - [StepSecurity / Socket coverage of the Shai-Hulud worm](https://socket.dev/blog/ongoing-supply-chain-attack-targets-crowdstrike-npm-packages)

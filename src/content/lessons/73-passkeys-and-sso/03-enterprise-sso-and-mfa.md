@@ -131,7 +131,7 @@ and "SCIM" as a checkbox without owning SAML XML parsing. Most teams past
 seed stage buy this layer and spend their engineering time on the product,
 not the identity plumbing.
 
-## Further reading
+## Further reading (optional)
 
 - [SAML 2.0 Technical Overview — OASIS](https://www.oasis-open.org/committees/download.php/56776/sstc-saml-tech-overview-2.0-cd-02.pdf)
 - [WorkOS: SP-initiated vs IdP-initiated SSO](https://workos.com/blog/sp-initiated-vs-idp-initiated-sso)

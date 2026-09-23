@@ -109,7 +109,7 @@ rather than in every call site. The common policy: on a 401, attempt exactly one
 refresh; if the retry also fails, log the user out and redirect. On a 403, don't retry —
 the user is authenticated but not allowed, and no refresh changes that.
 
-## Further reading
+## Further reading (optional)
 
 - [Auth.js — Protecting resources](https://authjs.dev/getting-started/session-management/protecting)
 - [React Router — `redirect`](https://reactrouter.com/api/utils/redirect)

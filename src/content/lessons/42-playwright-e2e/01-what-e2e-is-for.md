@@ -84,7 +84,7 @@ write and re-run tests, with a picker to click an element and get its locator. B
 "it failed in CI and I can't reproduce it locally" is the single most expensive failure mode this
 lesson's sibling on flakiness calls out — the trace *is* the reproduction.
 
-## Further reading
+## Further reading (optional)
 
 - [Playwright: Locators](https://playwright.dev/docs/locators) — playwright.dev
 - [Playwright: Actionability](https://playwright.dev/docs/actionability) — playwright.dev

@@ -95,7 +95,7 @@ computing the actual response body, so the browser can start fetching render-blo
 the origin is still, say, querying a database. It requires no client-side code, only server/CDN
 support, and several major CDNs now emit it automatically for HTML responses.
 
-## Further reading
+## Further reading (optional)
 
 - [MDN: What happens when you type a URL](https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work)
 - [web.dev: HTTP/3 for web developers](https://web.dev/articles/http3-for-web-developers)

@@ -95,7 +95,7 @@ a plain text input with a few suggested completions, no custom option content, n
 4. **What's the maintenance signal** — release cadence, open issue triage, whether the roles/
    states get updated when the APG itself changes?
 
-## Further reading
+## Further reading (optional)
 
 - [WAI-ARIA Authoring Practices Guide: Patterns](https://www.w3.org/WAI/ARIA/apg/patterns/)
 - [Base UI](https://base-ui.com/)

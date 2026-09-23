@@ -103,7 +103,7 @@ component (not a hidden button), and never a global "is this a supported browser
 tries to predict every API at once. Detect per-capability, at the point of use, and always
 render *something* on the unsupported path.
 
-## Further reading
+## Further reading (optional)
 
 - [MDN: Badging API](https://developer.mozilla.org/en-US/docs/Web/API/Badging_API)
 - [MDN: Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Share_API)

@@ -90,7 +90,7 @@ there's only one "Delete" button on the page.
   put exactly one assertion in it and no mutations. Anything that changes state inside the
   callback multiplies as the callback retries.
 
-### Further reading
+### Further reading (optional)
 
 - [Testing Library — About queries and priority](https://testing-library.com/docs/queries/about/)
 - [Testing Library — `byRole`](https://testing-library.com/docs/queries/byrole)

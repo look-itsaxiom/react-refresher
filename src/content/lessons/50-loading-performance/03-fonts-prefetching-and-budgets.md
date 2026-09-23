@@ -141,7 +141,7 @@ budget is a threshold checked automatically:
   any dependency change that feels heavier than it should, not just when a budget check
   already failed.
 
-## Further reading
+## Further reading (optional)
 
 - [web.dev: Best practices for fonts](https://web.dev/articles/font-best-practices)
 - [MDN: Speculation Rules API](https://developer.mozilla.org/en-US/docs/Web/API/Speculation_Rules_API)

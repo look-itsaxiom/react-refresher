@@ -104,7 +104,7 @@ does not make your code slower, it makes it **produce the wrong UI**, silently, 
 has no way to know your index-based key was a mistake rather than an intentional statement that
 position *is* the identity. Treat `key` as a correctness requirement, not a performance knob.
 
-## Further reading
+## Further reading (optional)
 
 - [react.dev — Rendering Lists](https://react.dev/learn/rendering-lists)
 - [react.dev — Preserving and Resetting State](https://react.dev/learn/preserving-and-resetting-state)

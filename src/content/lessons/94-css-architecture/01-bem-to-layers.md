@@ -120,7 +120,7 @@ None of these replace `@layer`; they compose with it. A component library shippe
 Modules or vanilla-extract still benefits from being loaded into a named layer so your
 app's overrides have a predictable place to sit above it.
 
-## Further reading
+## Further reading (optional)
 
 - MDN, [`@layer`](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer)
 - MDN, [`@scope`](https://developer.mozilla.org/en-US/docs/Web/CSS/@scope)

@@ -106,7 +106,7 @@ self-host or pin web fonts so a CDN hiccup doesn't repaint every story slightly 
 visual regression suite that isn't pinned this way trains a team to click "approve" without
 looking, which defeats the entire point.
 
-## Further reading
+## Further reading (optional)
 
 - [Storybook 10](https://storybook.js.org/blog/storybook-10/) — storybook.js.org
 - [Writing stories: Decorators](https://storybook.js.org/docs/writing-stories/decorators) — storybook.js.org

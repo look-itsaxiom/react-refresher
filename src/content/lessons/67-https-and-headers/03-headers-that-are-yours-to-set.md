@@ -72,7 +72,7 @@ One gap worth knowing before it surprises you: Vite's dev server and `vite previ
 
 Tools like [securityheaders.com](https://securityheaders.com) and the HTTP Observability community successor to Mozilla's Observatory grade a live URL's response headers against roughly the same checklist this lesson's exercise builds by hand. Either can run against a staging URL in CI, which turns "we added the header" from a one-time manual check into a regression test that fails the build if a CDN config change silently drops it later.
 
-## Further reading
+## Further reading (optional)
 
 - [MDN: X-Content-Type-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options)
 - [MDN: Referrer-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy)

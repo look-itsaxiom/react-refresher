@@ -143,7 +143,7 @@ change owns it — an agent is not a teammate you can escalate to.
   reviewing as a finished PR rather than watching unfold — the boilerplate
   and migration end of the matrix above, not the novel-architecture end.
 
-## Further reading
+## Further reading (optional)
 
 - [METR: Measuring the impact of AI on experienced developer productivity](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/)
 - [OWASP Top 10 for LLM Applications — Prompt Injection](https://owasp.org/www-project-top-10-for-large-language-model-applications/)

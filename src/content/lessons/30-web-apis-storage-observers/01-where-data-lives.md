@@ -90,7 +90,7 @@ another tab without polling. That's the mechanism behind "log out in one tab, ev
 tab logs out," and it's what you'll use in the next exercise to keep a persisted store in
 sync across tabs.
 
-## Further reading
+## Further reading (optional)
 
 - [MDN: Client-side storage overview](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Client-side_APIs/Client-side_storage)
 - [web.dev: The origin private file system](https://web.dev/articles/origin-private-file-system)

@@ -88,7 +88,7 @@ to manage. For a single component that needs to own its own title and descriptio
 most product pages, most modals — rendering `<title>`/`<meta>` directly is simpler and
 is what those frameworks do internally anyway.
 
-## Further reading
+## Further reading (optional)
 
 - [react.dev — `<title>`](https://react.dev/reference/react-dom/components/title)
 - [react.dev — `<meta>`](https://react.dev/reference/react-dom/components/meta)

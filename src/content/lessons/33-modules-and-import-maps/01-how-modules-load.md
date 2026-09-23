@@ -123,7 +123,7 @@ preventing a subpath from resolving at all rather than silently falling through.
 maps also support an `integrity` sibling key for subresource integrity hashes per mapped
 URL, checked the same way a `<script integrity>` attribute would be.
 
-## Further reading
+## Further reading (optional)
 
 - [WHATWG HTML — Resolve a module specifier](https://html.spec.whatwg.org/multipage/webappapis.html#resolve-a-module-specifier)
 - [MDN — Import maps](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type/importmap)

@@ -100,7 +100,7 @@ logic, a container is solving a problem a static host and CDN already solve for 
 operational cost — reach for one when SSR, monorepo reproducibility, or a
 container-shaped deployment target actually requires it.
 
-## Further reading
+## Further reading (optional)
 
 - [nginx: Module ngx_http_core_module (try_files)](https://nginx.org/en/docs/http/ngx_http_core_module.html#try_files)
 - [Next.js: Configuring output file tracing / standalone](https://nextjs.org/docs/app/api-reference/config/next-config-js/output)

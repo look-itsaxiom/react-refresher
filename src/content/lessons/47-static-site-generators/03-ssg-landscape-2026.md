@@ -113,7 +113,7 @@ back:
 - **Genuinely per-request, personalized, or write-heavy?** You're not building a static
   site; go back to the SSR and streaming lessons.
 
-## Further reading
+## Further reading (optional)
 
 - [Astro: Server islands](https://docs.astro.build/en/guides/server-islands/)
 - [Astro: On-demand rendering (`output` modes)](https://docs.astro.build/en/guides/on-demand-rendering/)

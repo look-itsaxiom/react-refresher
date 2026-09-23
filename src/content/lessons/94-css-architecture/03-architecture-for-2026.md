@@ -119,7 +119,7 @@ override legacy styles without touching a single legacy selector's specificity. 
 component-by-component by deleting the legacy rule for a component once its React
 replacement ships, not by trying to convert the whole file at once.
 
-## Further reading
+## Further reading (optional)
 
 - Tailwind Labs, [Tailwind CSS v4 upgrade guide](https://tailwindcss.com/docs/upgrade-guide)
 - Tailwind Labs, [Adding custom utilities (`@utility`)](https://tailwindcss.com/docs/adding-custom-styles)

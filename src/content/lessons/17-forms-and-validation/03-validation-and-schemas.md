@@ -98,7 +98,7 @@ elsewhere. Get the association right and a sighted user and a screen-reader user
 information; skip it and a visually-obvious red border under the input is invisible to anyone not
 looking at the screen.
 
-## Further reading
+## Further reading (optional)
 
 - [Zod — v4 release notes](https://zod.dev/v4)
 - [Standard Schema — specification and adopters](https://standardschema.dev/)

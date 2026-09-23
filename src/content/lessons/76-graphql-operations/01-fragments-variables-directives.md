@@ -161,7 +161,7 @@ component renders, so a query built by composing fragments upward can't over-fet
 without some component itself asking for more than it uses — a code-review-visible
 problem, not an invisible one.
 
-## Further reading
+## Further reading (optional)
 
 - [GraphQL spec, September 2025 edition — §2.8 Fragments](https://spec.graphql.org/September2025/#sec-Language.Fragments)
 - [GraphQL spec — §2.10 Variables](https://spec.graphql.org/September2025/#sec-Language.Variables)

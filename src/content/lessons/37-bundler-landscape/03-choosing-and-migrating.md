@@ -108,7 +108,7 @@ migration decision:
   that let a build fit in a cheaper CI tier at all, which a wall-clock number alone
   won't surface.
 
-## Further reading
+## Further reading (optional)
 
 - [Vite — Migration from v5](https://vite.dev/guide/migration)
 - [Vite — Backend Integration / env variables](https://vite.dev/guide/env-and-mode)

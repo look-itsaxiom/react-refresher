@@ -148,7 +148,7 @@ packages that changed and their dependents, incrementally, using `.tsbuildinfo` 
 a cache — the same "only redo what changed" idea the next concept applies to whole
 package builds, just scoped to the type checker.
 
-## Further reading
+## Further reading (optional)
 
 - [pnpm workspaces](https://pnpm.io/workspaces)
 - [pnpm: the workspace protocol](https://pnpm.io/workspaces#workspace-protocol-workspace)

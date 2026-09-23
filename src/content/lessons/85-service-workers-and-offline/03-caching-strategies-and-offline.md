@@ -132,7 +132,7 @@ served from a stale cache" is worse than "no answer while offline" — a
 health record or trading UI should probably fail loud rather than serve
 last week's cached numbers.
 
-## Further reading
+## Further reading (optional)
 
 - [web.dev: The service worker's fetch event and offline strategies](https://web.dev/learn/pwa/offline-data)
 - [developer.chrome.com: Workbox strategies](https://developer.chrome.com/docs/workbox/modules/workbox-strategies)

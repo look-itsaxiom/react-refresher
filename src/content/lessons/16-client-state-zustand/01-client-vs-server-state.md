@@ -85,7 +85,7 @@ warranted, Jotai as the atomic alternative worth knowing, Redux Toolkit for the 
 still call for its structure, and XState when the shape of the problem is a state machine,
 not a bag of values.
 
-## Further reading
+## Further reading (optional)
 
 - [Passing Data Deeply with Context](https://react.dev/learn/passing-data-deeply-with-context) — react.dev
 - [State of React 2025: State Management](https://2025.stateofreact.com/en-US/libraries/state-management/) — 2025.stateofreact.com

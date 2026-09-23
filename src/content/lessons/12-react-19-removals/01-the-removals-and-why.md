@@ -88,7 +88,7 @@ manual testing. That's exactly what the exercises in this lesson are built to ca
 `defaultProps` value that never applies, and a context value that never arrives — because
 "it still compiles" is not the bar for a React 19 upgrade being safe.
 
-## Further reading
+## Further reading (optional)
 
 - [React 19 Upgrade Guide](https://react.dev/blog/2024/04/25/react-19-upgrade-guide) — react.dev
 - [React v19](https://react.dev/blog/2024/12/05/react-19) — react.dev

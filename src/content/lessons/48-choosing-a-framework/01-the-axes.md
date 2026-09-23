@@ -150,7 +150,7 @@ knowing conceptually even if you never ship it: it's proof that "the client
 must re-run everything the server ran" isn't a law of nature, just how most
 frameworks currently do it.
 
-## Further reading
+## Further reading (optional)
 
 - [Next.js 16 release notes](https://nextjs.org/blog/next-16)
 - [TanStack Start v1 Release Candidate](https://tanstack.com/blog/announcing-tanstack-start-v1)

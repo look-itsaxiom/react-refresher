@@ -87,7 +87,7 @@ discovered by application logic: a route you're about to navigate to, a card the
 hovering, an image whose URL depends on data you just fetched. Use both together rather
 than picking one.
 
-## Further reading
+## Further reading (optional)
 
 - [react.dev — `<link>`](https://react.dev/reference/react-dom/components/link)
 - [react.dev — `preload`](https://react.dev/reference/react-dom/preload)

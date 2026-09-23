@@ -80,7 +80,7 @@ The compiler's static analysis produces both a more complete dependency list (in
 
 The concept step after next covers the Rules of React the compiler leans on to make all of this sound, and how to adopt the compiler incrementally in a codebase that isn't rule-clean everywhere yet.
 
-## Further reading
+## Further reading (optional)
 
 - [React Compiler — react.dev/learn/react-compiler](https://react.dev/learn/react-compiler)
 - [React Compiler v1.0 announcement, Oct 7, 2025](https://react.dev/blog/2025/10/07/react-compiler-1)

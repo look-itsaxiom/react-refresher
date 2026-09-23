@@ -95,7 +95,7 @@ baseline, a Code Connect link (or equivalent) to the Figma source, and a docs de
 component missing any of those is documented but not actually *done*, which is the checklist the
 second exercise implements directly.
 
-## Further reading
+## Further reading (optional)
 
 - [Figma Code Connect](https://developers.figma.com/docs/code-connect/) — developers.figma.com
 - [@storybook/addon-designs](https://storybook.js.org/addons/@storybook/addon-designs) — storybook.js.org

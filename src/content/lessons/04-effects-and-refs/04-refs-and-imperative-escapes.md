@@ -71,7 +71,7 @@ function FancyInput({ ref }: { ref?: React.Ref<{ focus(): void }> }) {
 
 The parent gets `focus()` and nothing else — not the raw `<input>`, not the ability to read its value directly. This is a genuine escape hatch, not a default: most parent/child communication should still flow through props and callbacks. Reach for it when a small set of imperative operations is the *entire* contract you want to expose, and no more.
 
-## Further reading
+## Further reading (optional)
 
 - [Manipulating the DOM with Refs](https://react.dev/learn/manipulating-the-dom-with-refs)
 - [`useRef`](https://react.dev/reference/react/useRef)

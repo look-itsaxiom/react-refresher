@@ -137,7 +137,7 @@ further, at the cost of a little more setup. All three exist to fill the reserve
 `width`/`height` box with *something* plausible while the real bytes are in flight — they
 don't replace correct sizing, they decorate it.
 
-## Further reading
+## Further reading (optional)
 
 - [web.dev: Priority Hints — fetchpriority](https://web.dev/articles/fetch-priority)
 - [MDN: Responsive images](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Responsive_images)

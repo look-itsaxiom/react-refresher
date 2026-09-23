@@ -117,7 +117,7 @@ independently addressable snapshot, a rollback is just re-pointing
 production traffic at a previous snapshot's id — no revert commit, no
 rebuild, no race with the next merge landing mid-rollback.
 
-### Further reading
+### Further reading (optional)
 
 - [MDN: HTTP caching](https://developer.mdn.io/en-US/docs/Web/HTTP/Caching)
 - [Netlify docs: redirects and rewrites](https://docs.netlify.com/manage/routing/redirects/)

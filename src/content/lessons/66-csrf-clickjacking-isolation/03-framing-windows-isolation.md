@@ -110,7 +110,7 @@ window happens to be showing at delivery time, which can change between when you
 checking on receive, naming a specific origin on send — are required; either one alone
 leaves a gap.
 
-### Further reading
+### Further reading (optional)
 
 - [MDN: CSP frame-ancestors](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors)
 - [web.dev: Why you need cross-origin isolation](https://web.dev/articles/why-coop-coep)

@@ -83,7 +83,7 @@ without either — reach for Electron or Tauri only once you need real OS integr
 system tray icon that survives the browser closing, file-system access without a picker,
 or a native installer.
 
-## Further reading
+## Further reading (optional)
 
 - [Electron: Process Model](https://www.electronjs.org/docs/latest/tutorial/process-model)
 - [Electron: Context Isolation](https://www.electronjs.org/docs/latest/tutorial/context-isolation)

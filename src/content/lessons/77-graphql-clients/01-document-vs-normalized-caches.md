@@ -108,7 +108,7 @@ staleness, background refetch, request dedup) without ever normalizing. Lesson 7
 pairing that with typed documents via codegen. Plenty of production apps use exactly
 this combination and never touch Apollo, urql, or Relay.
 
-## Further reading
+## Further reading (optional)
 
 - [Apollo Client — Type policies and normalization](https://www.apollographql.com/docs/react/caching/cache-configuration/)
 - [Apollo Client — Cache field behavior (`keyArgs`, `merge`)](https://www.apollographql.com/docs/react/pagination/core-api/)

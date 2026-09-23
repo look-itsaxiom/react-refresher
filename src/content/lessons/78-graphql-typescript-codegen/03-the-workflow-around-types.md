@@ -103,7 +103,7 @@ operation change can each drift out of sync with what's actually generated, and 
 value of this pipeline depends on the generated types being trustworthy at every commit,
 not just on the day you set it up.
 
-## Further reading
+## Further reading (optional)
 
 - [GraphQL Hive](https://the-guild.dev/graphql/hive)
 - [`client-preset` persisted documents](https://the-guild.dev/graphql/codegen/plugins/presets/preset-client)

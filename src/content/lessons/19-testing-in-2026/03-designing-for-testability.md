@@ -91,7 +91,7 @@ Before deciding what a change needs, ask:
 5. Is this purely visual (spacing, color, a new icon)? A visual regression tool, not a fragile
    snapshot of markup, is the right layer.
 
-## Further reading
+## Further reading (optional)
 
 - [Testing Library: Guiding Principles](https://testing-library.com/docs/guiding-principles/) — testing-library.com
 - [`@testing-library/user-event` docs](https://testing-library.com/docs/user-event/intro/) — testing-library.com

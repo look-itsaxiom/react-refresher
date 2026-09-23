@@ -83,7 +83,7 @@ When picking a component source for a real project, check:
 - **Ownership**: dependency you upgrade, or code you copied and now maintain?
 - **i18n/RTL**: does it handle bidi text, date/number formatting, and locale-aware keyboard maps, or is that on you?
 
-## Further reading
+## Further reading (optional)
 
 - [shadcn/ui: Base UI becomes the default](https://ui.shadcn.com/docs/changelog/2026-07-base-ui-default)
 - [Base UI](https://base-ui.com/react/overview/quick-start)

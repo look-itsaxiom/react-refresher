@@ -102,7 +102,7 @@ Two tools cover almost everything:
   state instead of repeating the login flow. This is the difference between a test suite
   that takes seconds and one that re-authenticates hundreds of times.
 
-## Further reading
+## Further reading (optional)
 
 - [Auth.js v5 documentation](https://authjs.dev)
 - [Better Auth documentation](https://www.better-auth.com/docs/introduction)

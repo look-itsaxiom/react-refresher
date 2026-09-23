@@ -117,7 +117,7 @@ colors; macOS System Settings → Accessibility → Display → Reduce Motion), 
 is what you reach for while iterating, and it's exactly what this lesson's exercise checks
 simulate by injecting a `matchMedia` stub instead of touching real OS state.
 
-### Further reading
+### Further reading (optional)
 
 - [MDN: `prefers-reduced-motion`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion)
 - [MDN: `forced-colors`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors)

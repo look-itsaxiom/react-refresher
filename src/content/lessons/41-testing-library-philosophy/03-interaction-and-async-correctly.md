@@ -116,7 +116,7 @@ component-test setups are heading for anything jsdom approximates poorly — lay
 `IntersectionObserver` — while `@testing-library/react` in jsdom remains the faster default for
 everything else.
 
-### Further reading
+### Further reading (optional)
 
 - [Testing Library — `user-event` introduction](https://testing-library.com/docs/user-event/intro)
 - [Testing Library — `user-event` options (`pointerEventsCheck`, `delay`, `advanceTimers`)](https://testing-library.com/docs/user-event/options/)

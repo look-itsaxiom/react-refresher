@@ -127,7 +127,7 @@ strictly more correct — the right one is whichever matches how much of
 the app's value is in shared logic versus shared pixels versus native
 API depth, weighed against what the team already knows.
 
-## Further reading
+## Further reading (optional)
 
 - [Expo Router documentation](https://docs.expo.dev/router/introduction/)
 - [Expo Application Services (EAS) overview](https://docs.expo.dev/eas/)

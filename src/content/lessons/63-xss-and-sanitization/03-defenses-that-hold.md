@@ -137,7 +137,7 @@ uses `new Function` to compile learner code -- deliberately, inside a
 sandboxed iframe with no access to real user data or credentials, which
 is the only context where that pattern is defensible.)
 
-## Further reading
+## Further reading (optional)
 
 - [DOMPurify README and configuration options](https://github.com/cure53/DOMPurify)
 - [MDN: HTML Sanitizer API](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Sanitizer_API)

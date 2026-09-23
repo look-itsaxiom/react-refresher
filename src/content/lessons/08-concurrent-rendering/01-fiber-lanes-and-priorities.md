@@ -30,7 +30,7 @@ React 18's `createRoot(container).render(<App />)` replaced the legacy `ReactDOM
 
 The same change brought **automatic batching**: every `setState` call within a single browser task — inside promises, `setTimeout`, native event listeners, not just React's own synthetic event handlers — is now batched into one re-render. Before React 18, only updates inside React event handlers batched; a `setTimeout` callback with three `setState` calls used to trigger three renders. `ReactDOM.flushSync(fn)` is the escape hatch when you need a synchronous, un-batched commit (rare — mostly measuring layout right after a specific update).
 
-## Further reading
+## Further reading (optional)
 
 - [React docs — Rendering Logic Must Be Pure](https://react.dev/reference/rules/components-and-hooks-must-be-pure)
 - [React docs — `createRoot`](https://react.dev/reference/react-dom/client/createRoot)

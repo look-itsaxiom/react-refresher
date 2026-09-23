@@ -40,7 +40,7 @@ This project's `vite.config.ts` enables the compiler through `@vitejs/plugin-rea
 
 Turn on the compiler and then *use the Profiler tab in React DevTools* to compare render counts and commit durations before and after, on the interactions you actually care about (typing in a filter box, scrolling a long list). The compiler's win is fewer wasted re-renders, not faster individual renders — a component that only ever rendered once anyway won't get faster. If a component doesn't show the "Memo ✨" badge after enabling the compiler, that's your signal to go find which Rule of React it's violating, usually with the healthcheck or lint rule that would have caught it first.
 
-## Further reading
+## Further reading (optional)
 
 - [Rules of React — react.dev](https://react.dev/reference/rules)
 - [React Compiler installation — react.dev](https://react.dev/learn/react-compiler/installation)

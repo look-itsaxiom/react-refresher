@@ -91,7 +91,7 @@ semi-public), not a general replacement for REST, and tRPC/Server Functions have
 over the "just let me call my backend with types" job GraphQL was frequently drafted
 into doing.
 
-## Further reading
+## Further reading (optional)
 
 - [trpc.io — What is tRPC?](https://trpc.io/docs)
 - [graphql.org — Introduction to GraphQL](https://graphql.org/learn/)

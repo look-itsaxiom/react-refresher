@@ -102,7 +102,7 @@ clicking through it for tests that are actually about the form's behavior
 (loading states, focus, accessibility) — the function's own logic doesn't
 need a DOM to verify.
 
-### Further reading
+### Further reading (optional)
 
 - [Next.js docs: revalidateTag](https://nextjs.org/docs/app/api-reference/functions/revalidateTag)
 - [Next.js docs: updateTag](https://nextjs.org/docs/app/api-reference/functions/updateTag)

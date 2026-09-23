@@ -54,7 +54,7 @@ React 18 and who wants the whole 2026 frontend map, taught concept then exercise
   Tailwind 4.3, Vitest 5, React Router 8, Next.js 16). Verify with WebSearch/WebFetch
   against primary sources (MDN, web.dev, react.dev, official docs, roadmap.sh topic pages
   under https://roadmap.sh/frontend). If you cannot verify a claim, say so in the text or
-  leave it out. End each concept step with a short "Further reading" list of 2 to 4 links.
+  leave it out. End each concept step with a short "## Further reading (optional)" list of 2 to 4 links; the heading must say "(optional)" so learners know nothing tracks it.
 - **Voice:** direct, concrete, no filler, no marketing. Code blocks over prose where code
   is clearer. Use `tsx`, `ts`, `bash`, `json`, `html`, or `css` fences (the highlighter
   knows only these).

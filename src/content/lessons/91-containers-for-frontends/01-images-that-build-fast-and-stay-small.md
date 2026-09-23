@@ -111,7 +111,7 @@ useful when the `runner` stage needs a minimal, non-workspace-shaped `node_modul
   Trivy or Docker Scout catch known-vulnerable packages before they ship — worth wiring
   into CI once a project is past its first working Dockerfile.
 
-## Further reading
+## Further reading (optional)
 
 - [Docker: Multi-stage builds](https://docs.docker.com/build/building/multi-stage/)
 - [Node.js Docker best practices](https://github.com/nodejs/docker-node/blob/main/docs/BestPractices.md)

@@ -31,7 +31,7 @@ Accessibility maturity varies more by library age and team investment than by "w
 
 Skip them for a heavy React-only application with no plan to ever ship the same UI outside React: you'd be paying Shadow DOM's styling isolation cost and losing React's synthetic event system and context propagation into the component, for zero portability benefit. Skip them, or at least delay them, for an SSR-first product on a framework whose declarative-Shadow-DOM support is still catching up — check your framework's current status rather than assuming; hydration ordering with real Shadow DOM content is a solved but still-maturing corner of several meta-frameworks. And skip a whole new *dependency* (Lit, Stencil) if the actual goal is just "isolate this one third-party embed" — lesson 80's plain `customElements.define` is enough for that, and adding Lit only pays off once you're maintaining enough elements that the reactive-property boilerplate it removes outweighs its bundle cost. The case *for* web components is almost always portability: a design system consumed by more than one framework, or a single component embedded in pages you don't control the framework of at all.
 
-## Further reading
+## Further reading (optional)
 
 - [Custom Elements Everywhere](https://custom-elements-everywhere.com/)
 - [Stencil docs: Introduction](https://stenciljs.com/docs/introduction)

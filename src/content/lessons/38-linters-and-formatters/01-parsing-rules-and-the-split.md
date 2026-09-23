@@ -79,7 +79,7 @@ This repo currently has no linter configured at all — type safety comes from
 `tsc --noEmit` and behavior from Vitest, which catches real bugs but nothing about hook
 rules, accessibility, or unused code. The next step walks through what to add and why.
 
-### Further reading
+### Further reading (optional)
 - [ESLint configuration migration guide](https://eslint.org/docs/latest/use/configure/migration-guide)
 - [Biome v2 — codename Biotype](https://biomejs.dev/blog/biome-v2/)
 - [Biome partners with Vercel to improve type inference](https://biomejs.dev/blog/vercel-partners-biome-type-inference/)

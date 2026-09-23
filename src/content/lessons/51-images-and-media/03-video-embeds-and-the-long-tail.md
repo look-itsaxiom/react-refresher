@@ -118,7 +118,7 @@ nobody's looking at, without you doing any manual virtualization.
   blunt but catch the common case: images sent noticeably larger than their rendered size,
   or still shipped as JPEG/PNG when AVIF/WebP would be smaller.
 
-## Further reading
+## Further reading (optional)
 
 - [web.dev: Lazy-loading video](https://web.dev/articles/lazy-loading-video)
 - [MDN: `content-visibility`](https://developer.mozilla.org/en-US/docs/Web/CSS/content-visibility)

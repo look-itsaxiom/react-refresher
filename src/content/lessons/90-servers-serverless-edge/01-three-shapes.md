@@ -122,7 +122,7 @@ Practically: if you write your route logic against `Request` in, `Response` out,
 choose *later* where it runs. If you reach for `req.socket`, raw Node streams, or
 platform-specific globals, you've picked a runtime, whether or not you meant to.
 
-## Further reading
+## Further reading (optional)
 
 - [WinterTC / Minimum Common API](https://min-common-api.proposal.wintercg.org/)
 - [Cloudflare Workers: how Workers works](https://developers.cloudflare.com/workers/reference/how-workers-works/)

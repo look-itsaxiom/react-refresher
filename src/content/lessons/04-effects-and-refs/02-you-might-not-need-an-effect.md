@@ -89,7 +89,7 @@ Before `useEffectEvent`, you had two bad options: list `theme` as a dependency (
 
 The theme running through all of this: effects are for keeping a component in sync with something *outside* React's own render output. State, derived values, keys, and event handlers cover everything *inside* it.
 
-## Further reading
+## Further reading (optional)
 
 - [You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
 - [`useEffectEvent`](https://react.dev/reference/react/useEffectEvent)

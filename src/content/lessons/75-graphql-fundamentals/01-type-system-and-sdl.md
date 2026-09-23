@@ -138,7 +138,7 @@ fields, to anyone who asks. Locking it down (allow-list a persisted set of known
 operations, or gate introspection behind auth) is a standard hardening step, covered
 alongside depth/complexity limiting in lesson 79.
 
-## Further reading
+## Further reading (optional)
 
 - [GraphQL spec, September 2025 edition](https://spec.graphql.org/September2025/) — §3
   (Type System) has the authoritative grammar for everything above.

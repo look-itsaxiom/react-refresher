@@ -122,7 +122,7 @@ which reopens exactly the algorithm-confusion risk from the previous concept.
 If you're maintaining code that uses it, always pass an explicit `algorithms`
 array to `verify()`; for new code, reach for `jose` instead.
 
-## Further reading
+## Further reading (optional)
 
 - [RFC 9700 — Best Practices for OAuth 2.0 Security](https://www.rfc-editor.org/rfc/rfc9700)
 - [RFC 9449 — OAuth 2.0 Demonstrating Proof of Possession (DPoP)](https://www.rfc-editor.org/rfc/rfc9449)

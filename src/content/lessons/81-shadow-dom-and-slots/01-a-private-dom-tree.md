@@ -124,7 +124,7 @@ behavior in any browser. Today, the practical workaround is to keep the labellin
 inside one tree (put the label in the shadow root next to what it labels) or fall back to
 `aria-label` with a plain string instead of a reference.
 
-## Further reading
+## Further reading (optional)
 
 - [MDN: Using shadow DOM](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM)
 - [MDN: Using templates and slots](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_templates_and_slots)

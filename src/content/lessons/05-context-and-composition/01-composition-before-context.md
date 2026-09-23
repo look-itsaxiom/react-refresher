@@ -69,7 +69,7 @@ The caller never threads `activeValue` or `setActiveValue` through `Tabs.List` t
 
 Reach for context when the value needs to reach components at *unknown, varying depth* — not a fixed three levels you could flatten with `children` — and especially when unrelated components (not nested inside each other, just co-located in the same subtree) need to agree on the same piece of state without a shared parent explicitly wiring them together. Theming, the current authenticated user, and a compound component's shared selection are the recurring examples. A prop that only ever travels two or three levels to a component whose slot you control is a composition problem; solve it with `children` first.
 
-## Further reading
+## Further reading (optional)
 
 - [Passing Props to a Component](https://react.dev/learn/passing-props-to-a-component) — react.dev
 - [Passing Data Deeply with Context](https://react.dev/learn/passing-data-deeply-with-context) — react.dev, see the "Before you use context" section

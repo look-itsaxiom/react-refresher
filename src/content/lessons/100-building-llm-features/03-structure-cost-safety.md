@@ -93,7 +93,7 @@ frontend layer specifically, none of this requires a real model: record a real t
 replay it as a fake stream fixture, and your component tests are deterministic — which is
 exactly what this lesson's exercises do.
 
-## Further reading
+## Further reading (optional)
 
 - OWASP Top 10 for LLM Applications — https://owasp.org/www-project-top-10-for-large-language-model-applications/
 - Anthropic, prompt caching — https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching

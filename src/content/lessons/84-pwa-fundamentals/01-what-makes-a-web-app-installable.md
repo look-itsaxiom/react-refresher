@@ -132,7 +132,7 @@ manifest in sync. What it will not do is choose your `scope`, pick safe-zone-cor
 icon art, or decide whether `window-controls-overlay` makes sense for your app's layout.
 Generation is plumbing; the field-by-field decisions above are still yours.
 
-## Further reading
+## Further reading (optional)
 
 - [MDN — Web app manifest](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest)
 - [web.dev — Installability criteria](https://web.dev/articles/install-criteria)

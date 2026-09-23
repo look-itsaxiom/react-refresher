@@ -57,7 +57,7 @@ Browsers special-case `localhost` (and `127.0.0.1`) as a "potentially trustworth
 
 You still need real HTTPS locally when you're testing something that specifically depends on it: HSTS behavior, `Secure` cookies, or a custom hostname instead of `localhost`. Vite's `server.https` option combined with `mkcert` (which installs a local CA into your OS/browser trust store and issues certificates signed by it) gets you a browser-trusted local certificate without fighting a corporate proxy or a self-signed-cert warning.
 
-## Further reading
+## Further reading (optional)
 
 - [MDN: Strict-Transport-Security](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security)
 - [HSTS Preload List submission and FAQ](https://hstspreload.org/)

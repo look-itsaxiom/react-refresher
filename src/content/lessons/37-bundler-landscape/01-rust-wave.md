@@ -102,7 +102,7 @@ loader chains resolved per-file) is the thing every tool in this lesson was buil
 replace. Existing webpack apps aren't broken and don't need to migrate on any particular
 timeline; new apps essentially never choose it as a starting point anymore.
 
-## Further reading
+## Further reading (optional)
 
 - [Vite 8.0 is out!](https://vite.dev/blog/announcing-vite8)
 - [VoidZero — Announcing Rolldown 1.0](https://voidzero.dev/posts/announcing-rolldown-1-0)

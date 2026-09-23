@@ -91,7 +91,7 @@ readable by the client at all. Either way, keep the signing secret rotatable: ro
 what lets you invalidate every outstanding session cookie at once during an incident,
 independent of each cookie's own expiry.
 
-## Further reading
+## Further reading (optional)
 
 - [MDN: Using HTTP cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
 - [MDN: Set-Cookie header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie)

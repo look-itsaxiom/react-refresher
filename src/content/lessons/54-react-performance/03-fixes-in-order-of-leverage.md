@@ -118,7 +118,7 @@ check the treemap, don't assume), and `lodash` imported wholesale instead of per
 not just once at project start — a minor version bump can silently un-tree-shake something
 that used to be fine.
 
-## Further reading
+## Further reading (optional)
 
 - [react.dev: Performance](https://react.dev/learn/render-and-commit)
 - [web.dev: Optimize React apps](https://web.dev/articles/react)

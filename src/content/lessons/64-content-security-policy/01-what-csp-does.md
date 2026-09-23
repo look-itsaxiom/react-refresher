@@ -123,7 +123,7 @@ almost every violation: `inline` means "needs a nonce or hash," `eval`
 means "needs a refactor or `'wasm-unsafe-eval'`," and a URL means "decide
 whether to allowlist it or remove it."
 
-## Further reading
+## Further reading (optional)
 
 - [web.dev: Mitigate cross-site scripting (XSS) with a strict Content Security Policy](https://web.dev/articles/strict-csp)
 - [MDN: Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy)

@@ -93,7 +93,7 @@ Lessons 44 through 48 come back to this decision with the tradeoffs that matter
 independent of which framework you pick — CSR vs. SSR vs. SSG, and when server rendering
 is worth its cost at all.
 
-## Further reading
+## Further reading (optional)
 
 - [React Router: Actions](https://reactrouter.com/start/framework/actions)
 - [React Router: Framework vs. Data vs. Declarative mode](https://reactrouter.com/start/modes)

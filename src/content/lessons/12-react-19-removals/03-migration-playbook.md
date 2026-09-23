@@ -94,7 +94,7 @@ module-factory conversions, reviewed by whoever owns that code; (4) the version 
 which by this point should be nearly a no-op. Each PR is independently revertible, and a
 regression bisects to one of four causes instead of one enormous diff.
 
-## Further reading
+## Further reading (optional)
 
 - [React 19 Upgrade Guide](https://react.dev/blog/2024/04/25/react-19-upgrade-guide) — react.dev
 - [`types-react-codemod`](https://github.com/eps1lon/types-react-codemod) — GitHub

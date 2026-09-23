@@ -105,7 +105,7 @@ step, or permanently, if the value is the unified client-facing graph and not a
 GraphQL-native backend. The reverse also happens: exposing a REST-shaped subset of a
 GraphQL backend for a partner who can't or won't adopt GraphQL.
 
-## Further reading
+## Further reading (optional)
 
 - [graphql.org — DataLoader pattern](https://github.com/graphql/dataloader)
 - [GraphQL WG — Cost Directives RFC (`@cost`/`@listSize`)](https://github.com/graphql/graphql-wg/blob/main/rfcs/Cost-Directives.md)

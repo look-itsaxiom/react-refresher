@@ -134,7 +134,7 @@ it actually asserts; a pile of rules that fight each other because nobody pruned
 ones when new ones were added; and secrets committed to a context file because it felt
 like just another doc.
 
-## Further reading
+## Further reading (optional)
 
 - [Claude Code: CLAUDE.md, memory, and skills — Claude Docs](https://code.claude.com/docs/en/memory)
 - [Model Context Protocol — official docs](https://modelcontextprotocol.io/)

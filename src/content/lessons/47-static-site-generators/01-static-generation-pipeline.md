@@ -101,7 +101,7 @@ off disk (or edge cache) and send it." That's the ceiling every other rendering 
 in this track is measured against, and the next concept step covers where that ceiling
 stops being high enough.
 
-## Further reading
+## Further reading (optional)
 
 - [Astro: Content collections](https://docs.astro.build/en/guides/content-collections/)
 - [Astro: Content Loader API reference](https://docs.astro.build/en/reference/content-loader-reference/)

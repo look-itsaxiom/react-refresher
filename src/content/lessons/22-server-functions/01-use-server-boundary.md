@@ -110,7 +110,7 @@ None of this is exotic — it's the same discipline you'd apply to an HTTP
 handler. The difference is that a Server Function doesn't *look* like one at
 the call site, which is exactly why it's easy to forget.
 
-### Further reading
+### Further reading (optional)
 
 - [React docs: 'use server' directive](https://react.dev/reference/rsc/use-server)
 - [React docs: useActionState](https://react.dev/reference/react/useActionState)

@@ -119,7 +119,7 @@ stop people reaching for `.sort()`/`.reverse()`/index assignment — all of whic
 place and silently break memoization and keys. They've shipped in every browser React 19
 targets since 2023; there's no polyfill tax to reach for them by default now.
 
-## Further reading
+## Further reading (optional)
 
 - [react.dev — Sharing State Between Components](https://react.dev/learn/sharing-state-between-components)
 - [react.dev — `<input>` reference, controlled vs. uncontrolled](https://react.dev/reference/react-dom/components/input#controlling-an-input-with-a-state-variable)

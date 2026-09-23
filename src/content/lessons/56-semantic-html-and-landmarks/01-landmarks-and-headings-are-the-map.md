@@ -170,7 +170,7 @@ to violate anyway:
   masquerading as structure right next to the real thing, and it's easy to lose track of which
   one is actually in the accessibility tree.
 
-## Further reading
+## Further reading (optional)
 
 - [Landmark Regions — WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/)
 - [HTML-AAM: header and footer scoping](https://github.com/w3c/html-aam/issues/222)

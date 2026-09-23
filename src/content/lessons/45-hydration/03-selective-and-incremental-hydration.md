@@ -114,7 +114,7 @@ hydration to bring those in progressively, PPR to serve a static shell
 instantly around whatever's still dynamic." None of the three is a
 replacement for the others; they're independent knobs on the same cost.
 
-## Further reading
+## Further reading (optional)
 
 - [react.dev — root APIs, `hydrateRoot`](https://react.dev/reference/react-dom/client/hydrateRoot)
 - [Astro docs — client directives](https://docs.astro.build/en/reference/directives-reference/#client-directives)

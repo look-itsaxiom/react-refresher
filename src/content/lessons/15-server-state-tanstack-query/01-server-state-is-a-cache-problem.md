@@ -88,7 +88,7 @@ often (a live order queue) means every remount revalidates. Both are deliberate 
 single "right" default — the default of `0` favors correctness over request volume, which is the
 safer failure mode for data you don't own.
 
-## Further reading
+## Further reading (optional)
 
 - [Important Defaults](https://tanstack.com/query/v5/docs/framework/react/guides/important-defaults) — tanstack.com
 - [Query Keys](https://tanstack.com/query/v5/docs/framework/react/guides/query-keys) — tanstack.com

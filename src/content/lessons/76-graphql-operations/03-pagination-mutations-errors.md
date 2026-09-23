@@ -176,7 +176,7 @@ default because query strings have length limits and because most GraphQL traffi
 mutations or queries not worth CDN-caching, but for a genuinely cacheable read, GET is
 the only shape ordinary HTTP infrastructure understands.
 
-## Further reading
+## Further reading (optional)
 
 - [Relay: Cursor Connections Specification](https://relay.dev/graphql/connections.htm)
 - [GraphQL spec, September 2025 edition — §7 Response](https://spec.graphql.org/September2025/#sec-Response)

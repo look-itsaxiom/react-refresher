@@ -94,7 +94,7 @@ stack trace pointing at the exact line that read a layout property. The **Render
 overlay that highlights, live, which regions just repainted or shifted — useful for
 spotting unnecessary paint work that has nothing to do with what you just changed.
 
-## Further reading
+## Further reading (optional)
 
 - [web.dev — Populating the page: how browsers work](https://web.dev/articles/howbrowserswork)
 - [web.dev — Avoid large, complex layouts and layout thrashing](https://web.dev/articles/avoid-large-complex-layouts-and-layout-thrashing)

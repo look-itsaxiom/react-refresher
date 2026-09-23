@@ -100,7 +100,7 @@ that matter: is this module in the entry chunk when it should be behind an `impo
 and is it duplicated across chunks because it's *just* under the two-importer threshold
 for promotion, or because two different versions of the same package got resolved.
 
-## Further reading
+## Further reading (optional)
 
 - [Vite — Dependency Pre-Bundling](https://vite.dev/guide/dep-pre-bundling)
 - [Vite — HMR API](https://vite.dev/guide/api-hmr)
