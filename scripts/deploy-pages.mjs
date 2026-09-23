@@ -8,7 +8,7 @@
 // Local-only features (the file-backed progress store and the `go test` runner) are not available
 // on Pages; the app falls back to localStorage and manual completion for those.
 import { execSync } from 'node:child_process';
-import { cpSync, existsSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 
@@ -24,6 +24,10 @@ function run(cmd, cwd) {
 
 run('pnpm vite build', root);
 if (!existsSync(join(dist, 'index.html'))) throw new Error('build produced no dist/index.html');
+// Production React lacks `act`, which the sandbox's checks depend on; refuse to publish a build
+// that somehow ended up with it (a dev-only warning string is the cheapest fingerprint).
+const hasDevReact = readdirSync(join(dist, 'assets')).some((f) => f.endsWith('.js') && readFileSync(join(dist, 'assets', f), 'utf8').includes('Each child in a list should have a unique'));
+if (!hasDevReact) throw new Error('dist does not contain the development build of React; see the define in vite.config.ts');
 cpSync(join(dist, 'index.html'), join(dist, '404.html'));
 writeFileSync(join(dist, '.nojekyll'), '');
 

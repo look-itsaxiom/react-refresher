@@ -10,6 +10,11 @@ const base = process.env.GITHUB_PAGES === '1' ? '/react-refresher/' : '/';
 
 export default defineConfig({
   base,
+  // The sandbox grades exercises with Testing Library, whose render/act need React's development
+  // build: production React omits `act` entirely, which surfaced on GitHub Pages as
+  // "t.act is not a function". This is a teaching tool, so ship dev React everywhere and keep
+  // the readable warnings; import.meta.env.DEV/PROD still follow the Vite mode.
+  define: { 'process.env.NODE_ENV': JSON.stringify('development') },
   plugins: [react({ compiler: true }), tailwindcss(), progressPlugin(), localCheckPlugin()],
   server: {
     port: 5180,

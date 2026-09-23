@@ -1,4 +1,11 @@
-import { act, type ComponentType } from 'react';
+import * as React from 'react';
+import type { ComponentType } from 'react';
+
+// Production React has no `act`; the build defines NODE_ENV=development so this always resolves.
+// Fail loudly if a future build change drops it, instead of every check dying on `t.act`.
+const act: typeof React.act = (React as { act?: typeof React.act }).act ?? (() => {
+  throw new Error('The sandbox needs the development build of React (React.act is missing). Check the `define` in vite.config.ts.');
+});
 import { cleanup, render } from '@testing-library/react';
 import { screen, within } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
