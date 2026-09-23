@@ -1,0 +1,24 @@
+-- tasks has 20,000 rows and no indexes yet. Every query below runs as a
+-- sequential scan. Add indexes (and one uniqueness constraint) so all four
+-- queries use an index scan instead.
+--
+-- Q1: select * from tasks
+--     where project_id = 7 and status = 'todo' and deleted_at is null
+--     order by due_on limit 20;
+--
+-- Q2: select id, title, status, due_on from tasks
+--     where assignee_id = 42 and deleted_at is null;
+--
+-- Q3: select count(*) from tasks
+--     where created_at >= date '2026-09-01' and created_at < date '2026-10-01';
+--
+-- Q4 (keyset pagination): select id, due_on from tasks
+--     where (due_on, id) > (date '2026-09-15', 100)
+--     order by due_on, id limit 50;
+--
+-- Also: exactly one open (not soft-deleted) task per (project_id, title).
+-- A new task with the same title in the same project should be rejected
+-- while an earlier task with that title is still open, but allowed once
+-- the earlier one is soft-deleted.
+
+-- TODO: add indexes here
