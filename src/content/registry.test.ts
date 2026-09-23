@@ -46,17 +46,21 @@ describe('content registry', () => {
     for (const l of all) expect(curriculum.some((p) => p.id === l.planned.id)).toBe(true);
   });
 
-  it('planned lessons without a module appear as locked entries in their track', () => {
+  it('every track lists its planned lessons in curriculum order, and unauthored ones have no module', () => {
     const view = getCurriculumView();
-    const go = view.find((v) => v.track.id === 'go');
-    expect(go).toBeDefined();
-    expect(go!.lessons.map((l) => l.planned.id)).toEqual([
-      '102-go-for-typescript-developers',
-      '103-http-services-in-go',
-      '104-go-service-patterns',
-      '105-integrations-in-go',
-    ]);
-    for (const l of go!.lessons) expect(l.lesson).toBeUndefined();
+    for (const { track, lessons } of view) {
+      const plannedIds = curriculum.filter((p) => p.track === track.id).map((p) => p.id);
+      expect(lessons.map((l) => l.planned.id), track.id).toEqual(plannedIds);
+      for (const l of lessons) {
+        if (l.lesson) expect(l.lesson.id).toBe(l.planned.id);
+        else expect(getLesson(l.planned.id)).toBeUndefined();
+      }
+    }
+    // Content lands over time; whatever is unauthored right now must be exactly the set the
+    // dashboard shows as "coming soon", so the view never invents or hides a lesson.
+    const unauthored = curriculum.filter((p) => getLesson(p.id) === undefined).map((p) => p.id);
+    const locked = view.flatMap((v) => v.lessons).filter((l) => l.lesson === undefined).map((l) => l.planned.id);
+    expect(locked).toEqual(unauthored);
   });
 
   it('every step id inside a lesson is unique', () => {
