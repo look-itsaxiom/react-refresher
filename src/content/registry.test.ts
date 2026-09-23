@@ -60,7 +60,7 @@ describe('content registry', () => {
     // dashboard shows as "coming soon", so the view never invents or hides a lesson.
     const unauthored = curriculum.filter((p) => getLesson(p.id) === undefined).map((p) => p.id);
     const locked = view.flatMap((v) => v.lessons).filter((l) => l.lesson === undefined).map((l) => l.planned.id);
-    expect(locked).toEqual(unauthored);
+    expect([...locked].sort()).toEqual([...unauthored].sort());
   });
 
   it('every step id inside a lesson is unique', () => {
