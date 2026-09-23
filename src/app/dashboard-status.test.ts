@@ -47,7 +47,8 @@ describe('pathCompletion', () => {
     const empty = pathCompletion(view, emptyProgress());
     expect(empty.done).toBe(0);
     expect(empty.total).toBeGreaterThan(0);
-    expect(empty.authoredStops).toBeLessThan(view.stops.length);
+    expect(empty.authoredStops).toBeLessThanOrEqual(view.stops.length);
+    expect(empty.authoredStops).toBeGreaterThan(0);
     expect(empty.nextLessonId).toBe(view.stops.find((s) => s.lesson)!.planned.id);
   });
 });

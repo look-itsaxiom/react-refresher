@@ -18,7 +18,7 @@ describe('paths', () => {
     expect(view.stops.length).toBe(getPath('integrate-fullstack')!.stops.length);
     const first = view.stops[0]!;
     expect(first.planned.id).toBe(first.stop.lessonId);
-    expect(view.stops.some((s) => s.lesson === undefined)).toBe(true); // 102+ not authored yet
+    for (const s of view.stops) expect(s.lesson === undefined || s.lesson.id === s.stop.lessonId, s.stop.lessonId).toBe(true); // authored stops resolve to their own lesson; unauthored ones stay undefined
     expect(view.stops.some((s) => s.lesson !== undefined)).toBe(true);
   });
 
