@@ -175,3 +175,10 @@ directly (not through the dev server). It checks that the folder and `go.mod` ex
 `expectedTests` is non-empty, that the starter fails `go test ./...`, and that the solution
 passes both `go test -tags solution ./...` and `go vet -tags solution ./...`. It skips with a
 console warning when `go` isn't installed on the machine running the suite.
+
+## Order of steps
+
+Every API an exercise requires must be introduced by a concept step earlier in the same lesson.
+`node scripts/audit-lesson-order.mjs` lists exercises that use a hook or React API that no
+earlier concept in that lesson mentions; entries for the React path (lessons 01 to 24) are
+defects. Later tracks assume the React path, so their hits are informational.
