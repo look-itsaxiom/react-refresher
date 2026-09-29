@@ -21,6 +21,7 @@ const lesson: Lesson = {
   summary: 'Lifting state, children as data, context without prop drilling pain.',
   steps: [
     { kind: 'concept', id: 'composition-before-context', title: 'Composition before context', markdown: concept1 },
+    { kind: 'concept', id: 'context-in-react-19', title: 'Context in React 19', markdown: concept2 },
     {
       kind: 'exercise',
       id: 'fix-the-prop-drilling',
@@ -31,7 +32,6 @@ const lesson: Lesson = {
       hints: splitHints(hints1),
       checks: checks1,
     },
-    { kind: 'concept', id: 'context-in-react-19', title: 'Context in React 19', markdown: concept2 },
     {
       kind: 'exercise',
       id: 'compound-tabs',

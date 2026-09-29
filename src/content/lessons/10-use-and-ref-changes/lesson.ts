@@ -21,8 +21,8 @@ const lesson: Lesson = {
   summary: 'Reading promises and context with use(); forwardRef is over.',
   steps: [
     { kind: 'concept', id: 'use-in-depth', title: 'use(): the rest of the story', markdown: concept1 },
-    { kind: 'exercise', id: 'ref-as-a-prop', title: 'Ref as a prop', prompt: promptA, files: { 'App.tsx': starterA }, solution: { 'App.tsx': solutionA }, hints: splitHints(hintsA), checks: checksA },
     { kind: 'concept', id: 'refs-in-react-19', title: "Refs in React 19: forwardRef's retirement and cleanup callbacks", markdown: concept2 },
+    { kind: 'exercise', id: 'ref-as-a-prop', title: 'Ref as a prop', prompt: promptA, files: { 'App.tsx': starterA }, solution: { 'App.tsx': solutionA }, hints: splitHints(hintsA), checks: checksA },
     { kind: 'exercise', id: 'fix-the-leaking-observer', title: 'Fix the leaking observer', prompt: promptB, files: { 'App.tsx': starterB }, solution: { 'App.tsx': solutionB }, hints: splitHints(hintsB), checks: checksB },
     quiz,
   ],
