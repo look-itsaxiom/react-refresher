@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>Ballard Debugging Hour</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400;1,8..60,500&display=swap">
+<style>
+  :root {
+    --paper: #f7f5f0;
+    --paper-2: #efece5;
+    --ink: #1c2330;
+    --ink-2: #4a5261;
+    --ink-3: #7a8190;
+    --rule: #d9d4c9;
+    --accent: #2f6f8f;
+    --accent-soft: #e3edf2;
+    --say: #2e7d5b;
+    --say-soft: #e4f0ea;
+    --warn: #a4552a;
+    --warn-soft: #f6e8df;
+    --sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #151920; --paper-2: #1d222b; --ink: #ece9e1; --ink-2: #b7bcc6; --ink-3: #848b98;
+      --rule: #2d333e; --accent: #7fb3cf; --accent-soft: #1d2d38; --say: #7cc4a1; --say-soft: #1b2f26;
+      --warn: #e0946a; --warn-soft: #3a2519;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #151920; --paper-2: #1d222b; --ink: #ece9e1; --ink-2: #b7bcc6; --ink-3: #848b98;
+    --rule: #2d333e; --accent: #7fb3cf; --accent-soft: #1d2d38; --say: #7cc4a1; --say-soft: #1b2f26;
+    --warn: #e0946a; --warn-soft: #3a2519;
+  }
+  * { box-sizing: border-box; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.5; margin: 0; }
+  .wrap { max-width: 720px; margin: 0 auto; padding-inline: 16px; padding-block: 0 48px; }
+  header.top { padding-block: 28px 12px; border-bottom: 1px solid var(--rule); }
+  .eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; }
+  h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 6vw, 40px); line-height: 1.1; margin: 6px 0 10px; text-wrap: balance; }
+  .lede { color: var(--ink-2); margin: 0; max-width: 62ch; }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px 18px; margin-top: 16px; }
+  .fact { border-top: 2px solid var(--rule); padding-top: 6px; }
+  .fact b { display: block; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; }
+  .fact span { font-variant-numeric: tabular-nums; }
+  nav.chips { position: sticky; top: env(safe-area-inset-top, 0px); background: var(--paper); z-index: 2; padding-block: 10px; border-bottom: 1px solid var(--rule); display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin-bottom: 8px; }
+  nav.chips::-webkit-scrollbar { display: none; }
+  nav.chips a { flex: none; font-size: 13px; font-weight: 500; color: var(--ink-2); background: var(--paper-2); border: 1px solid var(--rule); border-radius: 999px; padding: 5px 12px; text-decoration: none; white-space: nowrap; }
+  nav.chips a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  section { padding-block: 26px 6px; border-bottom: 1px solid var(--rule); scroll-margin-top: 64px; }
+  section:last-of-type { border-bottom: 0; }
+  h2 { font-family: var(--serif); font-weight: 400; font-size: 26px; line-height: 1.15; margin: 0 0 4px; text-wrap: balance; }
+  .why { color: var(--ink-3); font-size: 14px; margin: 0 0 16px; }
+  p { margin: 0 0 12px; max-width: 65ch; }
+  .say { font-family: var(--serif); font-style: italic; font-size: 18px; line-height: 1.4; color: var(--say); background: var(--say-soft); border-left: 3px solid var(--say); padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 0 0 14px; }
+  ol.steps { list-style: none; padding: 0; margin: 0; counter-reset: step; display: grid; gap: 10px; }
+  ol.steps li { display: grid; grid-template-columns: 30px 1fr; gap: 10px; counter-increment: step; }
+  ol.steps li::before { content: counter(step); font-family: var(--mono); font-size: 13px; color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; width: 26px; height: 26px; display: grid; place-items: center; margin-top: 1px; }
+  .loop { display: grid; gap: 4px; }
+  .loop .stage { display: grid; grid-template-columns: 112px 1fr; gap: 12px; padding-block: 12px; border-top: 1px solid var(--rule); }
+  .loop .stage:first-child { border-top: 0; }
+  .loop .name { font-weight: 600; color: var(--accent); }
+  .loop .name small { display: block; font-weight: 400; color: var(--ink-3); font-size: 13px; }
+  .loop q { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--ink); quotes: "\201C" "\201D"; display: block; margin-bottom: 4px; }
+  .loop .how { color: var(--ink-2); font-size: 14px; }
+  .bugs { display: grid; gap: 2px; }
+  .bug { display: grid; grid-template-columns: 1fr; gap: 2px; padding-block: 10px; border-top: 1px solid var(--rule); }
+  .bug:first-child { border-top: 0; }
+  .bug b { font-weight: 600; }
+  .bug .sym { color: var(--ink-2); }
+  .bug .tool { color: var(--accent); font-size: 14px; }
+  .bug .tool::before { content: "confirm with "; color: var(--ink-3); }
+  ol.q { padding-left: 22px; margin: 0; display: grid; gap: 8px; }
+  ul.plain { padding-left: 20px; margin: 0; display: grid; gap: 8px; }
+  code { font-family: var(--mono); font-size: 14px; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+  .pairs { display: grid; gap: 10px; }
+  .pair { display: grid; grid-template-columns: 1fr; gap: 4px; padding: 10px 12px; background: var(--paper-2); border-radius: 6px; }
+  .pair .not { color: var(--warn); text-decoration: line-through; text-decoration-thickness: 1px; }
+  .pair .yes { color: var(--say); font-family: var(--serif); font-style: italic; font-size: 17px; }
+  .note { background: var(--accent-soft); border-radius: 6px; padding: 10px 14px; color: var(--ink); font-size: 15px; margin-top: 14px; }
+  .logi { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+  .logi div { background: var(--paper-2); border-radius: 6px; padding: 12px 14px; }
+  .logi b { display: block; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; margin-bottom: 4px; }
+  footer { color: var(--ink-3); font-size: 13px; padding-top: 20px; }
+  @media (min-width: 560px) {
+    .bug { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 4px 16px; }
+    .bug b { grid-column: 1 / -1; }
+    .pair { grid-template-columns: 1fr 1fr; gap: 12px; }
+  }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Integrate · on-site technical round · Tuesday</div>
+    <h1>One hour, four tickets, out loud</h1>
+    <p class="lede">A small codebase you have never seen, four tickets each hiding one bug, two engineers who will play PM, teammate, or search engine. No AI. They grade how you debug, what you reach for, what you ask, and how you work with people.</p>
+    <div class="facts">
+      <div class="fact"><b>Where</b><span>5325 Ballard Ave NW, Suite 300</span></div>
+      <div class="fact"><b>Length</b><span>60 minutes, first 5 for setup</span></div>
+      <div class="fact"><b>Track</b><span>Front end: TypeScript and React</span></div>
+      <div class="fact"><b>Bring</b><span>Laptop, charger, VS Code ready</span></div>
+    </div>
+  </header>
+
+  <nav class="chips" aria-label="Sections">
+    <a href="#track">Track</a><a href="#orient">First 10 min</a><a href="#loop">The loop</a><a href="#react">React bugs</a><a href="#stack">Full-stack bugs</a><a href="#ask">Ask the room</a><a href="#say">Say this</a><a href="#tonight">Tonight</a>
+  </nav>
+
+  <section id="track">
+    <h2>Take the front-end track</h2>
+    <p class="why">Years of React beats three weeks of Go in a round that rewards reading speed.</p>
+    <p>A debugging hour rewards fluency in the language you read fastest, not the one you most want to prove. Nothing to install also removes a whole class of morning risk. Tickets can reach into data and the API either way; on this track your code changes stay in TypeScript and React.</p>
+    <p>The one exception: if the front-end codebase turns out to be a framework you have never touched, such as Angular or Vue, Go with Docker Compose is the fairer fight. Ask which framework it is the moment you sit down.</p>
+  </section>
+
+  <section id="orient">
+    <h2>The first ten minutes</h2>
+    <p class="why">Orient before you fix. Their words, not mine.</p>
+    <p class="say">"I'm going to spend a few minutes orienting before I touch anything."</p>
+    <ol class="steps">
+      <li>Read the README and the <code>package.json</code> scripts. Note dev, test, and build.</li>
+      <li>Start the app and the test suite. Both running beats either one perfect.</li>
+      <li>Say the folder shape out loud: where routes live, where components live, where data fetching lives.</li>
+      <li>Open one representative component top to bottom so you know the house style.</li>
+      <li>Note the state library, the data layer, and how strict the TypeScript is. These decide where bugs hide.</li>
+      <li>Read all four tickets before fixing one. Say which you will start with and why.</li>
+      <li>Name what you are deprioritizing.</li>
+    </ol>
+    <p class="say" style="margin-top:14px">"I'm starting with ticket 2 because it blocks the others. I'll come back to the styling one last."</p>
+  </section>
+
+  <section id="loop">
+    <h2>A loop you can narrate</h2>
+    <p class="why">One line to say at each step. Long silences are hard to read.</p>
+    <div class="loop">
+      <div class="stage"><div class="name">Reproduce</div><div><q>Let me make it fail in front of me first, so I know when it's fixed.</q></div></div>
+      <div class="stage"><div class="name">Localize<small>bisect</small></div><div><q>The value is wrong on screen, so I'll check whether it's wrong in the render, in state, or in the response.</q><div class="how">Network tab, then component state, then the render.</div></div></div>
+      <div class="stage"><div class="name">Hypothesize</div><div><q>My guess is the effect reruns and overwrites the edit. Here's how I'd disprove that.</q></div></div>
+      <div class="stage"><div class="name">Confirm<small>cause, not symptom</small></div><div><q>I want to see the cause, not just make the symptom go away.</q><div class="how">A log, a breakpoint, or a failing test that proves it.</div></div></div>
+      <div class="stage"><div class="name">Fix</div><div><div class="how">Smallest change that addresses the cause. Say what you chose not to refactor.</div></div></div>
+      <div class="stage"><div class="name">Verify</div><div><q>It passes, and here's the case I checked that isn't in the ticket.</q><div class="how">Rerun the repro and the tests.</div></div></div>
+      <div class="stage"><div class="name">Trade-off</div><div><q>The proper fix is moving this state up, which touches three files. I did the narrow fix and I'd file the refactor.</q></div></div>
+      <div class="stage"><div class="name">Stuck</div><div><q>I've ruled out the response shape and the reducer. Next I'd put a breakpoint on the setter and check what calls it twice. Is there context here I'm missing?</q></div></div>
+    </div>
+  </section>
+
+  <section id="react">
+    <h2>Where React bugs hide</h2>
+    <p class="why">Symptom first, then the tool that confirms it.</p>
+    <div class="bugs">
+      <div class="bug"><b>Stale closure in an effect or callback</b><span class="sym">An old prop value is captured.</span><span class="tool">React DevTools, then log the value at the top of the callback.</span></div>
+      <div class="bug"><b>Missing effect dependency</b><span class="sym">Fires once, never updates.</span><span class="tool">the lint warning, then log the dependency array.</span></div>
+      <div class="bug"><b>Keys by array index</b><span class="sym">State sticks to the wrong row after reorder or delete.</span><span class="tool">DevTools highlights; reorder the list by hand.</span></div>
+      <div class="bug"><b>Derived state duplicated in state</b><span class="sym">Two sources of truth drift apart.</span><span class="tool">search for a <code>useState</code> initialized from a prop.</span></div>
+      <div class="bug"><b>Async race on selection or unmount</b><span class="sym">A resolved fetch sets state after you moved on; the previous item shows.</span><span class="tool">a labeled log in the <code>.then</code> with the id it resolved for.</span></div>
+      <div class="bug"><b>Wrong branch in a reducer</b><span class="sym">The action falls through to the default.</span><span class="tool">log the action type and the next state on every dispatch.</span></div>
+      <div class="bug"><b>Off-by-one in pagination</b><span class="sym">Page 2 starts a row late, or the last page is empty.</span><span class="tool">network tab query params against the row count.</span></div>
+      <div class="bug"><b>Date parsed as UTC</b><span class="sym">A <code>YYYY-MM-DD</code> string slips a day.</span><span class="tool">log the raw string next to the formatted one.</span></div>
+      <div class="bug"><b>Strict equality against a JSON id</b><span class="sym">The API sends <code>"12"</code>, the code compares to <code>12</code>.</span><span class="tool">log both values with <code>typeof</code>.</span></div>
+      <div class="bug"><b>Optional chaining hiding a null</b><span class="sym">The screen renders blank instead of erroring.</span><span class="tool">remove the <code>?.</code> for a moment and see what throws.</span></div>
+      <div class="bug"><b>Fetch without an error branch</b><span class="sym">A 500 becomes an empty list.</span><span class="tool">network tab first, then look for a missing <code>res.ok</code> check.</span></div>
+      <div class="bug"><b>Memoized value with wrong deps</b><span class="sym">A memo or callback never recomputes.</span><span class="tool">React DevTools Profiler, "why did this render".</span></div>
+      <div class="bug"><b>Controlled versus uncontrolled input</b><span class="sym">Typing does nothing, or a warning about switching.</span><span class="tool">check whether <code>value</code> is ever <code>undefined</code>.</span></div>
+    </div>
+    <div class="note">A labeled <code>console.log</code> beats staring at code, and reaching for one without apology reads well. A failing test that reproduces the bug is the strongest confirmation you can show.</div>
+  </section>
+
+  <section id="stack">
+    <h2>Where full-stack bugs hide</h2>
+    <p class="why">A UI ticket may need a look at the data to explain it.</p>
+    <div class="bugs">
+      <div class="bug"><b>Response shape versus what the UI expects</b><span class="sym">A renamed or nested field.</span><span class="tool">compare the network payload to the TypeScript type.</span></div>
+      <div class="bug"><b>Status code mismatch</b><span class="sym">A 200 carrying an error body, so the happy path runs on garbage.</span><span class="tool">the response body in the network tab.</span></div>
+      <div class="bug"><b>The data is simply wrong</b><span class="sym">Not every ticket is a code bug.</span><span class="tool">the JSON file or one <code>SELECT</code>.</span></div>
+      <div class="bug"><b>Missing filter or reversed relation</b><span class="sym">Another user's rows, or predecessor and successor swapped.</span><span class="tool">count requests and read the query params.</span></div>
+      <div class="bug"><b>Timezone at the boundary</b><span class="sym">Stored UTC, rendered local, or the reverse.</span><span class="tool">the raw value on each side of the boundary.</span></div>
+      <div class="bug"><b>Stale cache</b><span class="sym">The list lags one action behind after a mutation.</span><span class="tool">watch for the missing refetch in the network tab.</span></div>
+      <div class="bug"><b>Missing auth header</b><span class="sym">Works on one screen, 401s on another.</span><span class="tool">request headers side by side.</span></div>
+      <div class="bug"><b>Environment config</b><span class="sym">A base URL or flag differs between dev and the running app.</span><span class="tool">print the config at startup.</span></div>
+    </div>
+    <div class="note">To look at data fast without leaving the track: copy the failing request from the network tab as cURL and replay it with one parameter changed, or write a one-line test that calls the data function and asserts the shape. If Postgres is in Compose, <code>docker compose exec db psql</code> and one <code>SELECT</code> beats guessing.</div>
+  </section>
+
+  <section id="ask">
+    <h2>Questions to ask the room</h2>
+    <p class="why">They are teammates, not examiners. Asking early is a signal, not a cost.</p>
+    <ol class="q">
+      <li>What is the intended behavior here? The ticket says what is wrong, not what right looks like.</li>
+      <li>What are the exact repro steps, and does it happen every time?</li>
+      <li>Which environment did this come from, and is there a user it happens for?</li>
+      <li>Is there a recent change that touched this area?</li>
+      <li>Do you want the root-cause fix now, or the safe fix now and the refactor filed?</li>
+      <li>Which of these four matters most to you today?</li>
+      <li>What is your definition of done: passing tests, a manual check, or both?</li>
+      <li>Is there anything about this codebase that surprises people in their first week?</li>
+    </ol>
+  </section>
+
+  <section id="say">
+    <h2>Say this, not that</h2>
+    <p class="why">Same thought, read as judgment instead of avoidance.</p>
+    <div class="pairs">
+      <div class="pair"><span class="not">Silence while reading</span><span class="yes">"I'm reading the reducer to see where this action lands."</span></div>
+      <div class="pair"><span class="not">"I'd google that."</span><span class="yes">"I'd normally look this up. Can you tell me how this library handles X?"</span></div>
+      <div class="pair"><span class="not">"It works now."</span><span class="yes">"Root cause was X. I verified by Y. The trade-off is Z."</span></div>
+      <div class="pair"><span class="not">"I'll just try changing this."</span><span class="yes">"My hypothesis is X. If I'm right, this log shows Y."</span></div>
+      <div class="pair"><span class="not">"I'm not sure."</span><span class="yes">"I have two hypotheses. I'm testing the cheaper one first, with a breakpoint here."</span></div>
+      <div class="pair"><span class="not">Skipping a ticket quietly</span><span class="yes">"I'm parking ticket 4. It's cosmetic and the other three affect data."</span></div>
+      <div class="pair"><span class="not">"I don't know."</span><span class="yes">"I don't know yet. Here's what I'd check next, and here's what I'd ask you."</span></div>
+    </div>
+  </section>
+
+  <section id="tonight">
+    <h2>Tonight</h2>
+    <p class="why">Test the setup the day before, not the morning of.</p>
+    <ul class="plain">
+      <li>VS Code with a JavaScript debug terminal, plus launch configs for Node and Chrome. Set one breakpoint tonight to prove it attaches.</li>
+      <li>React DevTools in the browser you will use. Open the Components and Profiler tabs once.</li>
+      <li>Know the one-test command cold: <code>npx vitest run path/to/file</code> or <code>npx jest path/to/file</code>.</li>
+      <li>A branch or <code>git stash</code> per ticket, so an abandoned attempt never contaminates the next one.</li>
+      <li>Close Copilot and every agent extension so nothing autocompletes in front of them.</li>
+      <li>Run the drill once with a 60-minute timer: <code>Projects/ticket-drill</code>.</li>
+    </ul>
+    <div class="logi" style="margin-top:16px">
+      <div><b>Address</b>5325 Ballard Ave NW, Suite 300, Seattle. Two doors from Other Coast Cafe.</div>
+      <div><b>Pack</b>Laptop, charger, adapter, battery for an hour without an outlet.</div>
+      <div><b>Arrive</b>Early enough to be unhurried, editor open, ready when the hour starts.</div>
+      <div><b>If something breaks</b>Tell them. They would rather adjust than watch you lose the hour.</div>
+    </div>
+  </section>
+
+  <footer>Course references for tonight: lesson 113 (live-coding drills), 41 (testing philosophy), 53 (runtime performance), 31 (dates and modern JS).</footer>
+</div>
+
+</body>
+</html>
