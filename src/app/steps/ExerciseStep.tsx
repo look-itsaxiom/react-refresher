@@ -31,12 +31,17 @@ function BrowserOrSqlExerciseStep({ step, lessonId }: { step: ExerciseStepData; 
   const [showSolution, setShowSolution] = useState(false);
   const { state, iframeRef, runPreview, runChecks, clearLogs } = useSandbox();
 
+  // What the preview and the checks run: the revealed solution while it is on screen, otherwise
+  // your edits. Grading saved edits while the solution was visible made a correct, visible
+  // solution appear to fail, which is the most confusing thing this screen can do.
+  const graded = showSolution ? step.solution : files;
+
   // Live preview: debounce after edits; also run once when the iframe becomes ready.
   useEffect(() => {
     if (!state.ready) return;
-    const t = setTimeout(() => runPreview(files, entry, key, runtime === 'sql' ? 'sql' : 'browser'), PREVIEW_DEBOUNCE_MS);
+    const t = setTimeout(() => runPreview(graded, entry, key, runtime === 'sql' ? 'sql' : 'browser'), PREVIEW_DEBOUNCE_MS);
     return () => clearTimeout(t);
-  }, [files, entry, key, state.ready, runPreview, runtime]);
+  }, [graded, entry, key, state.ready, runPreview, runtime]);
 
   // Completion is derived from the sandbox result.
   useEffect(() => {
@@ -48,7 +53,14 @@ function BrowserOrSqlExerciseStep({ step, lessonId }: { step: ExerciseStepData; 
   }
 
   function handleRunChecks() {
-    runChecks(files, entry, key, runtime === 'sql' ? 'sql' : 'browser');
+    runChecks(graded, entry, key, runtime === 'sql' ? 'sql' : 'browser');
+  }
+
+  // Copy the solution into your editor so you can run and tweak it as your own code.
+  function handleUseSolution() {
+    if (!window.confirm('Replace your code with the solution? Your edits will be lost.')) return;
+    progressStore.saveCode(key, { ...step.solution });
+    setShowSolution(false);
   }
 
   function handleReset() {
@@ -80,6 +92,9 @@ function BrowserOrSqlExerciseStep({ step, lessonId }: { step: ExerciseStepData; 
           <Button size="sm" variant={showSolution ? 'primary' : 'ghost'} onClick={handleShowSolution}>
             {showSolution ? 'Hide solution' : 'Show solution'}
           </Button>
+          {showSolution && (
+            <Button size="sm" variant="ghost" onClick={handleUseSolution}>Use solution as my code</Button>
+          )}
         </div>
       </aside>
 
@@ -101,7 +116,7 @@ function BrowserOrSqlExerciseStep({ step, lessonId }: { step: ExerciseStepData; 
             ))}
           </div>
           <div className="flex items-center gap-2">
-            {showSolution && <span className="text-xs text-warning">Viewing solution (read-only)</span>}
+            {showSolution && <span className="text-xs text-warning">Viewing solution (read-only). Run checks grades the solution.</span>}
             <Button size="sm" onClick={handleRunChecks} disabled={!state.ready || state.phase === 'checking'}>
               {state.phase === 'checking' ? 'Running…' : 'Run checks'}
             </Button>

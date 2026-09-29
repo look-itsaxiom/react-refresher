@@ -81,6 +81,21 @@ describe('ExerciseStep', () => {
     expect(screen.getByText('solution code')).toBeTruthy();
   });
 
+  it('grades the revealed solution, and "Use solution" copies it into the editor', async () => {
+    const user = userEvent.setup();
+    sandbox.runChecks.mockClear();
+    vi.spyOn(window, 'confirm').mockReturnValue(true);
+    render(<ExerciseStep step={step} lessonId="l" />);
+    await user.click(screen.getByRole('button', { name: /run checks/i }));
+    expect(sandbox.runChecks).toHaveBeenLastCalledWith(step.files, 'App.tsx', 'l/ex', 'browser');
+    await user.click(screen.getByRole('button', { name: /show solution/i }));
+    await user.click(screen.getByRole('button', { name: /run checks/i }));
+    expect(sandbox.runChecks).toHaveBeenLastCalledWith(step.solution, 'App.tsx', 'l/ex', 'browser');
+    await user.click(screen.getByRole('button', { name: /use solution as my code/i }));
+    expect(progressStore.getSnapshot().code['l/ex']).toEqual(step.solution);
+    expect(screen.queryByText(/viewing solution/i)).toBeNull();
+  });
+
   it('marks the step complete when all checks pass', () => {
     sandbox.state = { ...initialSandboxState, ready: true, phase: 'ok', results: [{ name: 'c1', status: 'pass', durationMs: 1 }], allPassed: true };
     render(<ExerciseStep step={step} lessonId="l" />);
